@@ -1,0 +1,241 @@
+{
+  "title": "Záchrana vesnice Oakhaven",
+  "description": "Krátké úvodní dobrodružství pro začínající postavy.",
+  "author": "AI Cline",
+  "version": "0.1",
+  "settings": {
+    "world": "Zapomenuté říše (základní)",
+    "era": "Neurčená",
+    "theme": "Klasická fantasy, záchrana"
+  },
+  "initialSetup": {
+    "introduction": "Nacházíte se v malé, klidné vesnici Oakhaven, která leží na okraji hlubokého lesa. Poslední dobou se však z lesa ozývají podivné zvuky a několik vesničanů zmizelo. Starosta vás požádal o pomoc.",
+    "startingLocation": "oakhaven_village_square",
+    "availableRaces": ["Člověk", "Elf", "Trpaslík", "Půlčík"],
+    "availableClasses": ["Bojovník", "Hraničář", "Klerik", "Zloděj"],
+    "recommendedLevel": 1
+  },
+  "locations": [
+    {
+      "id": "oakhaven_village_square",
+      "name": "Náměstí ve vesnici Oakhaven",
+      "description": "Malé náměstí s kašnou uprostřed. Okolo stojí několik domů, krčma 'U Spícího draka' a radnice.",
+      "connectedLocations": ["oakhaven_tavern", "oakhaven_town_hall", "forest_edge"],
+      "npcs": ["mayor_gregor", "villager_1"],
+      "events": ["notice_poster_event"], 
+      "items": []
+    },
+    {
+      "id": "oakhaven_tavern",
+      "name": "Krčma 'U Spícího draka'",
+      "description": "Útulná krčma s několika stoly a výčepem. Vzduchem se line vůně pečeného masa a piva.",
+      "connectedLocations": ["oakhaven_village_square"],
+      "npcs": ["barkeep_borin"],
+      "events": [],
+      "items": []
+    },
+    {
+      "id": "oakhaven_town_hall",
+      "name": "Radnice",
+      "description": "Skromná budova radnice, kde úřaduje starosta.",
+      "connectedLocations": ["oakhaven_village_square"],
+      "npcs": ["mayor_gregor"],
+      "events": [],
+      "items": []
+    },
+    {
+      "id": "forest_edge",
+      "name": "Okraj lesa",
+      "description": "Hustý les začíná hned za vesnicí. Cesta vede hlouběji do temných hvozdů.",
+      "connectedLocations": ["oakhaven_village_square", "goblin_cave_entrance"],
+      "npcs": [], 
+      "events": ["goblin_ambush_event"],
+      "items": []
+    },
+    {
+      "id": "goblin_cave_entrance",
+      "name": "Vchod do gobliní jeskyně",
+      "description": "Nenápadný vchod do jeskyně ukrytý mezi skalami a kořeny stromů. Jsou zde vidět stopy malých humanoidů.",
+      "connectedLocations": ["forest_edge"], 
+      "npcs": ["goblin_guard_1", "goblin_guard_2"], 
+      "events": [],
+      "items": []
+    }
+  ],
+  "npcs": [
+    {
+      "id": "mayor_gregor",
+      "name": "Starosta Gregor",
+      "description": "Starší muž s ustaraným výrazem ve tváři.",
+      "personality": "Ustaraný, ale odhodlaný ochránit vesnici. Mírně nedůvěřivý k cizincům, ale vděčný za pomoc.",
+      "stats": { "level": 2, "health": 20 },
+      "dialogue": {
+        "greeting": "Vítejte v Oakhavenu, cizinče. Doufám, že nepřinášíte potíže... i když, víc potíží už snad ani mít nemůžeme.",
+        "topics": {
+          "missing_villagers": "Ano, několik našich lidí zmizelo. Šli do lesa pro dřevo a už se nevrátili. Máme strach, že za tím stojí ti... tvorové z lesa.",
+          "forest_sounds": "V noci slýcháme podivné skřeky a bubnování. Nikdo se neodvažuje jít do lesa po setmění.",
+          "reward": "Pokud zjistíte, co se děje, a zachráníte naše lidi, vesnice se vám štědře odmění!"
+        }
+      }
+    },
+    {
+      "id": "barkeep_borin",
+      "name": "Výčepní Borin",
+      "description": "Statný trpaslík s dlouhým vousem, otírá pult hadrem.",
+      "personality": "Trochu mrzutý, ale má dobré srdce. Ví hodně drbů z vesnice.",
+      "stats": { "level": 3, "health": 40 },
+      "dialogue": {
+        "greeting": "Co si dáš? Pivo, nebo něco ostřejšího?",
+        "topics": {
+          "rumors": "Lidi si povídaj ledacos. Prej v lese viděli zelený mužíky s velkejma ušima. Gobliny, nejspíš.",
+          "missing_villagers": "Jo, zmizel starej Tomáš a mladá Elvíra. Šli směrem k lesu a od tý doby je nikdo neviděl."
+        }
+      }
+    },
+    {
+      "id": "villager_1",
+      "name": "Vystrašený vesničan",
+      "description": "Mladý muž, který se neustále ohlíží.",
+      "personality": "Vyděšený, koktavý.",
+      "stats": { "level": 1, "health": 10 },
+      "dialogue": {
+        "greeting": "P-p-pozor! V lese číhá nebezpečí!",
+        "topics": {
+          "forest": "Viděl jsem je! Malé zelené potvory s ostrými zuby! Utíkal jsem, co mi nohy stačily!"
+        }
+      }
+    },
+    {
+      "id": "goblin_guard_1",
+      "name": "Gobliní stráž",
+      "description": "Malá, zelená, odporná bytost s rezavou šavlí.",
+      "personality": "Agresivní, hloupý, útočí na potkání.",
+      "stats": { 
+          "level": 1, 
+          "health": 15,
+          "ac": 13,
+          "strength": 12, 
+          "attackBonus": 2, 
+          "damageDice": "1d6" 
+      },
+      "loot": ["Rezavá šavle", "5 zlatých"], 
+      "dialogue": {
+        "greeting": "*Skřek! Vetřelec!*",
+        "topics": {}
+      }
+    },
+     {
+      "id": "goblin_guard_2",
+      "name": "Gobliní stráž",
+      "description": "Další malá, zelená bytost, tato s krátkým lukem.",
+      "personality": "Zbabělý, střílí z dálky, chrochtá.",
+      "stats": { 
+          "level": 1, 
+          "health": 12,
+          "ac": 12,
+          "dexterity": 14, 
+          "attackBonus": 3, 
+          "damageDice": "1d4" 
+      },
+      "loot": ["Krátký luk", "3 šípy", "2 zlaté"], 
+      "dialogue": {
+        "greeting": "*Chrocht! Střílej!*",
+        "topics": {}
+      }
+    }
+  ],
+  "quests": [
+    {
+      "id": "rescue_villagers",
+      "title": "Záchrana ztracených vesničanů",
+      "description": "Najděte ztracené vesničany a zjistěte, co se děje v lese.",
+      "giver": "mayor_gregor",
+      "startLocation": "oakhaven_village_square",
+      "objectives": [
+        {
+          "id": "find_clues",
+          "description": "Najděte stopy v lese.",
+          "location": "forest_edge",
+          "completionCondition": "Hráč najde gobliní stopy nebo jeskyni."
+        },
+        {
+          "id": "find_villagers",
+          "description": "Najděte ztracené vesničany.",
+          "location": "goblin_cave_entrance", 
+          "completionCondition": "Hráč najde vesničany."
+        },
+        {
+          "id": "defeat_goblins",
+          "description": "Zbavte se goblinů, kteří ohrožují vesnici.",
+          "location": "goblin_cave_entrance", 
+          "completionCondition": "Hráč porazí gobliny." 
+        }
+      ],
+      "rewards": {
+        "experience": 150,
+        "gold": 100,
+        "items": ["healing_potion_1"]
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "healing_potion_1",
+      "name": "Léčivý lektvar",
+      "description": "Malá lahvička s červenou tekutinou. Obnovuje ztracené zdraví.",
+      "type": "potion",
+      "effects": {
+        "heal": 20
+      }
+    },
+    { "id": "rusty_scimitar", "name": "Rezavá šavle", "description": "Obyčejná, trochu zrezivělá šavle.", "type": "weapon", "effects": { "damage": "1d6" } },
+    { "id": "shortbow", "name": "Krátký luk", "description": "Jednoduchý dřevěný luk.", "type": "weapon", "effects": { "damage": "1d4" } },
+    { "id": "arrow", "name": "Šíp", "description": "Obyčejný šíp.", "type": "ammo" },
+    { "id": "gold_coin", "name": "Zlatý", "description": "Lesklá zlatá mince.", "type": "currency" }
+  ],
+  "events": [
+     {
+      "id": "notice_poster_event",
+      "name": "Všimnutí si plakátu",
+      "description": "Na nástěnce u radnice si všimneš vybledlého plakátu.",
+      "trigger": "Hráč vstoupí do lokace 'oakhaven_village_square' poprvé.",
+      "outcomes": [
+        {
+          "condition": "true", 
+          "result": "Plakát varuje před nebezpečím v lese a nabízí odměnu za informace.",
+          "consequences": {
+            "modifyLocation": {
+              "location": "oakhaven_village_square",
+              "changes": " Na nástěnce visí vybledlý plakát." 
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "goblin_ambush_event",
+      "name": "Přepadení gobliny",
+      "description": "Když hráči vstoupí na okraj lesa, vyskočí na ně z křoví malá skupina goblinů.",
+      "trigger": "Hráč vstoupí do lokace 'forest_edge' poprvé.",
+      "outcomes": [
+        {
+          "condition": "Hráči vyhrají boj.",
+          "result": "Goblini jsou poraženi. Hráči mohou prohledat jejich těla.",
+          "consequences": {}
+        },
+        {
+          "condition": "Hráči prohrají boj nebo utečou.",
+          "result": "Goblini hráče zajmou nebo je zaženou zpět do vesnice.",
+          "consequences": {}
+        }
+      ]
+    }
+  ],
+  "aiGuidelines": {
+    "storyTheme": "Zaměř se na atmosféru strachu a nejistoty ve vesnici a kontrast s nebezpečím číhajícím v lese. Udržuj pocit naléhavosti.",
+    "characterVoices": "Starosta Gregor mluví formálně a ustaraně. Výčepní Borin je přímý a trochu hrubý. Vesničan je koktavý a vyděšený.",
+    "pacing": "Začni pomalu ve vesnici, nech hráče prozkoumat a promluvit si s NPC. Zvyš tempo při vstupu do lesa a v jeskyni.",
+    "combatStyle": "Goblini jsou zbabělí a útočí ve skupinách. Používají jednoduché taktiky.",
+    "worldRules": "Magie je vzácná, ale existuje. Základní pravidla Dračího doupěte platí."
+  }
+}

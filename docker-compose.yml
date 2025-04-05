@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  postgres_db:
+    image: postgres:15 # Používáme konkrétní verzi PostgreSQL
+    container_name: draci_doupe_postgres
+    environment:
+      POSTGRES_DB: draci_doupe_db # Název databáze z .env
+      POSTGRES_USER: postgres # Uživatel z .env
+      POSTGRES_PASSWORD: postgres # Heslo z .env
+    ports:
+      - "5432:5432" # Mapování portu z kontejneru na hostitele
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Perzistentní úložiště pro data
+    restart: unless-stopped
+
+volumes:
+  postgres_data: # Definice pojmenovaného volume
