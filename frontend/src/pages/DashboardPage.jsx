@@ -14,7 +14,7 @@ function DashboardPage() {
   const [loadingStories, setLoadingStories] = useState(true);
   const [error, setError] = useState('');
   const [selectedCharacterId, setSelectedCharacterId] = useState(null); // Stav pro vybranou postavu
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   // Načtení postav a příběhů při načtení komponenty
   useEffect(() => {
@@ -41,13 +41,13 @@ function DashboardPage() {
     };
     fetchData();
   // Závislost selectedCharacterId odstraněna, aby se nespouštělo znovu při výběru
-  // eslint-disable-next-line react-hooks/exhaustive-deps 
-  }, []); 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Funkce pro zahájení hry
   const handleStartGame = async (characterId, storyId) => {
     if (!characterId) {
-      setError('Nejprve musíte vybrat postavu.'); 
+      setError('Nejprve musíte vybrat postavu.');
       return;
     }
     setError(''); // Vyčistit předchozí chyby
@@ -66,7 +66,7 @@ function DashboardPage() {
     // Přidáme novou postavu na začátek seznamu
     setCharacters(prevChars => [newCharacter, ...prevChars]);
     // Automaticky vybereme nově vytvořenou postavu
-    setSelectedCharacterId(newCharacter.id); 
+    setSelectedCharacterId(newCharacter.id);
   };
 
   return (
@@ -82,8 +82,8 @@ function DashboardPage() {
           <ul style={styles.list}>
             {characters.map((char) => (
               // Přidán styl pro zvýraznění celé položky
-              <li 
-                key={char.id} 
+              <li
+                key={char.id}
                 style={{...styles.listItem, ...(selectedCharacterId === char.id ? styles.selectedListItem : {})}}
                 onClick={() => setSelectedCharacterId(char.id)} // Výběr kliknutím na celou položku
               >
@@ -117,7 +117,18 @@ function DashboardPage() {
                   <p>{story.description}</p>
                 </div>
                 <button
-                  onClick={() => handleStartGame(selectedCharacterId, story.id)} // Použít vybranou postavu
+                  onClick={() => {
+                    // Kontrola, zda postava již má herní sezení
+                    const hasExistingSession = characters.find(c => c.id === selectedCharacterId)?.hasSession;
+                    if (hasExistingSession) {
+                      // Potvrzení od uživatele před smazáním existujícího sezení
+                      if (window.confirm(`Postava již má rozehraný jiný příběh. Pokud budete pokračovat, předchozí postup bude ztracen. Chcete pokračovat?`)) {
+                        handleStartGame(selectedCharacterId, story.id);
+                      }
+                    } else {
+                      handleStartGame(selectedCharacterId, story.id);
+                    }
+                  }}
                   disabled={!selectedCharacterId} // Zakázat, pokud není vybrána postava
                   style={selectedCharacterId ? styles.buttonPlay : styles.buttonDisabled}
                   title={selectedCharacterId ? `Hrát s postavou ID: ${selectedCharacterId}` : 'Nejprve vyberte postavu'}
@@ -151,9 +162,9 @@ const styles = {
     marginBottom: '0.5rem', // Menší mezera
     padding: '0.8rem', // Padding pro celou položku
     borderBottom: '1px solid #eee',
-    display: 'flex', 
-    justifyContent: 'space-between', 
-    alignItems: 'center', 
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     cursor: 'pointer', // Ukazatel pro kliknutí
     borderRadius: '4px', // Zaoblení
     transition: 'background-color 0.2s ease', // Přechod pro hover
@@ -170,11 +181,11 @@ const styles = {
     marginBottom: '1rem',
     paddingBottom: '1rem',
     borderBottom: '1px solid #eee',
-    display: 'flex', 
-    justifyContent: 'space-between', 
-    alignItems: 'center', 
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  buttonPlay: { 
+  buttonPlay: {
     padding: '0.5rem 1rem',
     backgroundColor: '#282c34',
     color: 'white',
@@ -201,18 +212,18 @@ const styles = {
     border: '1px solid #ccc',
     borderRadius: '4px',
     fontSize: '0.8rem',
-    marginLeft: '1rem', 
+    marginLeft: '1rem',
     pointerEvents: 'none', // Nereaguje na kliknutí
   },
   buttonSelected: { // Indikátor vybrání
     padding: '0.3rem 0.6rem',
-    backgroundColor: '#28a745', // Zelená 
+    backgroundColor: '#28a745', // Zelená
     color: 'white',
     border: '1px solid #28a745',
     borderRadius: '4px',
     fontSize: '0.8rem',
-    marginLeft: '1rem', 
-    pointerEvents: 'none', 
+    marginLeft: '1rem',
+    pointerEvents: 'none',
   },
   selectedCharacterText: { // Styl pro text vybrané postavy
     fontWeight: 'bold',

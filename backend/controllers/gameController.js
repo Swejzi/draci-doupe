@@ -209,11 +209,21 @@ const startGame = async (req, res) => {
     let sessionResult = await db.query('SELECT * FROM game_sessions WHERE character_id = $1', [characterId]);
 
     if (sessionResult.rows.length > 0) {
-      console.log(`Pokračuje se v existujícím sezení pro postavu ${characterId}`);
-      return res.status(200).json({
-        message: 'Pokračuje se v existujícím herním sezení.',
-        session: sessionResult.rows[0]
-      });
+      // Kontrola, zda existující sezení je pro stejný příběh
+      const existingSession = sessionResult.rows[0];
+
+      if (existingSession.story_id === storyId) {
+        // Pokud je to stejný příběh, pokračujeme v existujícím sezení
+        console.log(`Pokračuje se v existujícím sezení pro postavu ${characterId} a příběh ${storyId}`);
+        return res.status(200).json({
+          message: 'Pokračuje se v existujícím herním sezení.',
+          session: existingSession
+        });
+      } else {
+        // Pokud je to jiný příběh, smažeme existující sezení a vytvoříme nové
+        console.log(`Mažu existující sezení pro postavu ${characterId} a vytvářím nové pro příběh ${storyId}`);
+        await db.query('DELETE FROM game_sessions WHERE character_id = $1', [characterId]);
+      }
     }
 
     const storyData = await storyService.loadStoryById(storyId);

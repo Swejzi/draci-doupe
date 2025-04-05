@@ -6,11 +6,32 @@ const getCharacters = async (req, res) => {
   const userId = req.user.userId;
 
   try {
-    const result = await db.query(
+    // Získání základních informací o postavách
+    const charactersResult = await db.query(
       'SELECT id, name, race, class, level FROM characters WHERE user_id = $1 ORDER BY created_at DESC',
       [userId]
     );
-    res.status(200).json(result.rows);
+
+    // Získání informací o herních sezeních
+    const sessionsResult = await db.query(
+      'SELECT character_id, story_id FROM game_sessions WHERE user_id = $1',
+      [userId]
+    );
+
+    // Vytvoření mapy character_id -> story_id
+    const characterSessions = {};
+    sessionsResult.rows.forEach(session => {
+      characterSessions[session.character_id] = session.story_id;
+    });
+
+    // Přidání informace o herním sezení ke každé postavě
+    const characters = charactersResult.rows.map(character => ({
+      ...character,
+      hasSession: !!characterSessions[character.id],
+      storyId: characterSessions[character.id] || null
+    }));
+
+    res.status(200).json(characters);
   } catch (error) {
     console.error('Chyba při získávání postav:', error);
     res.status(500).json({ message: 'Interní chyba serveru při získávání postav.' });
