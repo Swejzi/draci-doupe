@@ -126,17 +126,21 @@ const createCharacter = async (req, res) => {
     // Zajistit minimálně 1 život
     maxHealthValue = Math.max(1, maxHealthValue);
 
+    // Výchozí hodnota zlata pro novou postavu
+    const defaultGold = 50; // Základní hodnota zlata, pokud není specifikována v příběhu
+
     const result = await db.query(
       `INSERT INTO characters
-        (user_id, name, race, class, strength, dexterity, constitution, intelligence, wisdom, charisma, max_health, current_health, max_mana, current_mana)
+        (user_id, name, race, class, strength, dexterity, constitution, intelligence, wisdom, charisma, max_health, current_health, max_mana, current_mana, gold)
        VALUES
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
        RETURNING *`,
       [
         userId, name, race, characterClass,
         strValue, dexValue, conValue, intValue, wisValue, chaValue,
         maxHealthValue, maxHealthValue, // current = max na startu
-        maxManaValue, maxManaValue     // current = max na startu
+        maxManaValue, maxManaValue,     // current = max na startu
+        defaultGold                     // výchozí zlato
       ]
     );
 
