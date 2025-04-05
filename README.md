@@ -151,10 +151,12 @@ Následující herní mechaniky ještě nejsou implementovány nebo jsou impleme
 - Efekty kouzel (zranění, léčení, buffs/debuffs)
 - Systém záchranných hodů proti kouzlům
 
-### 2. Systém dovedností (skills)
+### 2. Systém dovedností (skills) - IMPLEMENTOVÁNO
 - Implementace dovedností jako je zámečnictví, plížení, přesvědčování
-- Mechanika testů dovedností
+- Mechanika testů dovedností s různými úrovněmi obtížnosti
 - Zlepšování dovedností s postupem úrovní
+- Kategorizace dovedností (fyzické, sociální, mentální, atd.)
+- Výchozí dovednosti podle povolání
 
 ### 3. Systém schopností (abilities)
 - Speciální schopnosti povolání (např. zákeřný útok zloděje)
@@ -198,10 +200,10 @@ Následující herní mechaniky ještě nejsou implementovány nebo jsou impleme
 
 ## Další kroky
 
-- Implementace systému dovedností a schopností
+- Implementace systému schopností (abilities)
 - Rozšíření soubojového systému
 - Implementace systému vybavení a zbroje
-- Integrace systému kouzel do uživatelského rozhraní
+- Integrace systému kouzel a dovedností do uživatelského rozhraní
 - Vylepšení uživatelského rozhraní
 - Přidání více příběhů a obsahu
 - Optimalizace výkonu a UX

@@ -363,8 +363,9 @@ function processAttackType(attackType, character, weapon) {
   };
 }
 
-// Import systému kouzel
+// Import systémů
 const spellSystem = require('./spellSystem');
+const skillSystem = require('./skillSystem');
 
 /**
  * Zpracování kouzelného útoku
@@ -406,6 +407,54 @@ function updateActiveSpellEffects(character) {
   return spellSystem.updateActiveEffects(character);
 }
 
+/**
+ * Provedení testu dovednosti
+ * @param {Object} character - Postava
+ * @param {string} skillId - ID dovednosti
+ * @param {number|string} difficulty - Obtížnost testu (DC nebo název obtížnosti)
+ * @param {Object} options - Další možnosti testu
+ * @returns {Object} - Výsledek testu
+ */
+function performSkillCheck(character, skillId, difficulty, options = {}) {
+  // Získání DC podle obtížnosti
+  let dc = difficulty;
+  if (typeof difficulty === 'string') {
+    dc = skillSystem.getDifficultyByName(difficulty).dc;
+  }
+
+  // Provedení testu dovednosti
+  return skillSystem.performSkillCheck(character, skillId, dc, options);
+}
+
+/**
+ * Inicializace dovedností pro novou postavu
+ * @param {Object} character - Postava
+ * @returns {Object} - Postava s inicializovanými dovednostmi
+ */
+function initializeCharacterSkills(character) {
+  return skillSystem.initializeCharacterSkills(character);
+}
+
+/**
+ * Získání výchozích dovedností pro dané povolání
+ * @param {string} characterClass - Povolání postavy
+ * @returns {Array} - Seznam výchozích dovedností
+ */
+function getDefaultSkillsForClass(characterClass) {
+  return skillSystem.getDefaultSkillsForClass(characterClass);
+}
+
+/**
+ * Zlepšení dovednosti
+ * @param {Object} character - Postava
+ * @param {string} skillId - ID dovednosti
+ * @param {number} amount - Množství bodů k přidání
+ * @returns {Object} - Výsledek zlepšení
+ */
+function improveSkill(character, skillId, amount = 1) {
+  return skillSystem.improveSkill(character, skillId, amount);
+}
+
 module.exports = {
   getAttributeBonus,
   rollDice,
@@ -420,8 +469,13 @@ module.exports = {
   applyQuestRewards,
   determineInitiative,
   processAttackType,
-  // Nové funkce pro práci s kouzly
+  // Funkce pro práci s kouzly
   processSpellAttack,
   getCharacterSpells,
-  updateActiveSpellEffects
+  updateActiveSpellEffects,
+  // Funkce pro práci s dovednostmi
+  performSkillCheck,
+  initializeCharacterSkills,
+  getDefaultSkillsForClass,
+  improveSkill
 };

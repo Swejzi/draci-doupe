@@ -407,7 +407,43 @@ Každé kouzlo má následující vlastnosti:
 }
 ```
 
-### 8. Systém počasí a času
+### 8. Systém dovedností (skills)
+
+Systém dovedností umožňuje postavám používat různé dovednosti a zlepšovat se v nich. Každá dovednost je spojena s určitým atributem a kategorií.
+
+#### Kategorie dovedností
+
+- **Fyzické dovednosti**: Atletika, Akrobacie
+- **Sociální dovednosti**: Přesvědčování, Klamání, Zastrašování
+- **Mentální dovednosti**: Arkána, Historie, Vyšetřování
+- **Dovednosti plížení a skrývání**: Plížení, Obratnost rukou
+- **Dovednosti vnímání**: Vnímání, Vhled
+- **Řemeslné dovednosti**: Zámečnictví, Alchymie, Kovářství
+- **Dovednosti přežití**: Přežití, Medicína, Zacházení se zvířaty
+- **Magické dovednosti**: Kouzlení, Rituální magie
+
+#### Obtížnosti testů dovedností
+
+- **Velmi snadný (DC 5)**: Úkol, který zvládne téměř každý.
+- **Snadný (DC 10)**: Úkol, který zvládne většina lidí.
+- **Střední (DC 15)**: Úkol, který vyžaduje určitou zkušenost.
+- **Obtížný (DC 20)**: Úkol, který zvládnou jen zkušení jedinci.
+- **Velmi obtížný (DC 25)**: Úkol, který zvládnou jen mistři.
+- **Téměř nemožný (DC 30)**: Úkol, který zvládnou jen legendární jedinci.
+
+```json
+{
+  "id": "persuasion",
+  "name": "Přesvědčování",
+  "description": "Schopnost přesvědčit ostatní pomocí logiky, charismatu nebo vyjednávání.",
+  "category": "social",
+  "attribute": "charisma",
+  "trainable": true,
+  "defaultTrained": false
+}
+```
+
+### 9. Systém počasí a času
 
 Systém počasí a času ovlivňuje herní svět:
 
