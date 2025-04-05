@@ -363,6 +363,49 @@ function processAttackType(attackType, character, weapon) {
   };
 }
 
+// Import systému kouzel
+const spellSystem = require('./spellSystem');
+
+/**
+ * Zpracování kouzelného útoku
+ * @param {Object} character - Postava
+ * @param {string} spellId - ID kouzla
+ * @param {Object} target - Cíl kouzla
+ * @returns {Object} - Výsledek kouzelného útoku
+ */
+function processSpellAttack(character, spellId, target) {
+  // Získání detailu kouzla
+  const spell = spellSystem.getSpellDetails(spellId);
+
+  if (!spell) {
+    return {
+      success: false,
+      message: `Kouzlo s ID ${spellId} neexistuje.`
+    };
+  }
+
+  // Seslání kouzla
+  return spellSystem.castSpell(character, spell, target);
+}
+
+/**
+ * Získání dostupných kouzel pro postavu
+ * @param {Object} character - Postava
+ * @returns {Array} - Seznam dostupných kouzel
+ */
+function getCharacterSpells(character) {
+  return spellSystem.getAvailableSpells(character.class, character.level);
+}
+
+/**
+ * Aktualizace aktivních efektů na konci kola
+ * @param {Object} character - Postava
+ * @returns {Object} - Výsledek aktualizace
+ */
+function updateActiveSpellEffects(character) {
+  return spellSystem.updateActiveEffects(character);
+}
+
 module.exports = {
   getAttributeBonus,
   rollDice,
@@ -376,5 +419,9 @@ module.exports = {
   addExperience,
   applyQuestRewards,
   determineInitiative,
-  processAttackType
+  processAttackType,
+  // Nové funkce pro práci s kouzly
+  processSpellAttack,
+  getCharacterSpells,
+  updateActiveSpellEffects
 };

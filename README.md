@@ -132,6 +132,10 @@ Projekt používá GitHub Actions pro automatické testování při každém pus
   - [x] Hlavní a vedlejší úkoly
   - [x] Cíle úkolů a jejich plnění
   - [x] Odměny za splnění úkolů
+- [x] Systém kouzel a magie
+  - [x] Různé typy kouzel a školy magie
+  - [x] Mechanika sesílání kouzel
+  - [x] Efekty kouzel a záchranné hody
 - [ ] Pokročilé herní mechaniky
 - [ ] Mapa světa a navigace
 - [ ] Multiplayer funkce
@@ -140,11 +144,12 @@ Projekt používá GitHub Actions pro automatické testování při každém pus
 
 Následující herní mechaniky ještě nejsou implementovány nebo jsou implementovány jen částečně:
 
-### 1. Systém kouzel a magie
+### 1. Systém kouzel a magie - IMPLEMENTOVÁNO
 - Implementace kouzlení a kouzel
-- Různé typy kouzel (útočná, obranná, podpůrná)
-- Mechanika sesílání kouzel (mana, cooldown)
+- Různé typy kouzel (útočná, obranná, léčivá, podpůrná, oslabující, kontrolní, užitková)
+- Mechanika sesílání kouzel (mana, školy magie)
 - Efekty kouzel (zranění, léčení, buffs/debuffs)
+- Systém záchranných hodů proti kouzlům
 
 ### 2. Systém dovedností (skills)
 - Implementace dovedností jako je zámečnictví, plížení, přesvědčování
@@ -193,10 +198,10 @@ Následující herní mechaniky ještě nejsou implementovány nebo jsou impleme
 
 ## Další kroky
 
-- Implementace systému kouzel a magie
 - Implementace systému dovedností a schopností
 - Rozšíření soubojového systému
 - Implementace systému vybavení a zbroje
+- Integrace systému kouzel do uživatelského rozhraní
 - Vylepšení uživatelského rozhraní
 - Přidání více příběhů a obsahu
 - Optimalizace výkonu a UX

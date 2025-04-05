@@ -318,6 +318,36 @@ Soubojový systém využívá statistiky NPC a hráčů:
 
 ### 7. Systém magie a kouzel
 
+Systém magie a kouzel umožňuje postavám sesílat kouzla různých škol magie a typů. Každé povolání má přístup k jiným kouzlům a používá jiný hlavní atribut pro kouzlení:
+
+- **Kouzelník**: Inteligence - široká škála kouzel, zaměření na útočná a užitková kouzla
+- **Čaroděj**: Inteligence - podobná kouzla jako kouzelník, ale s jiným přístupem
+- **Klerik**: Moudrost - léčivá, obranná a podpůrná kouzla
+- **Druid**: Moudrost - kouzla spojená s přírodou a proměnami
+- **Bard**: Charisma - podpůrná a očarovací kouzla
+- **Paladin**: Charisma - obranná a léčivá kouzla
+
+#### Školy magie
+
+- **Abjuration (Ochranná magie)**: Ochranná kouzla, bariéry, odstraňování magických efektů
+- **Conjuration (Vyvolávací magie)**: Přivolávání bytostí a předmětů, teleportace
+- **Divination (Věštecká magie)**: Odhalování tajemství, předvídání budoucnosti
+- **Enchantment (Očarovací magie)**: Ovlivňování mysli, emoce, chování
+- **Evocation (Zaklínací magie)**: Manipulace s energií, útočná kouzla
+- **Illusion (Iluzorní magie)**: Vytváření klamů a přeludů
+- **Necromancy (Nekromancie)**: Manipulace s životní energií, oživování mrtvých
+- **Transmutation (Přeměňovací magie)**: Změna vlastností objektů a bytostí
+
+#### Typy kouzel
+
+- **Útočná kouzla**: Způsobují zranění cílům
+- **Obranná kouzla**: Poskytují ochranu a zvyšují obranyschopnost
+- **Léčivá kouzla**: Obnovují zdraví a odstraňují negativní stavy
+- **Podpůrná kouzla (Buff)**: Posilují schopnosti a atributy
+- **Oslabující kouzla (Debuff)**: Oslabují nepřátele
+- **Kontrolní kouzla**: Omezují pohyb nebo akce cíle
+- **Užitková kouzla**: Různé efekty pro řešení problémů mimo boj
+
 Každé kouzlo má následující vlastnosti:
 
 ```json
@@ -327,6 +357,9 @@ Každé kouzlo má následující vlastnosti:
   "description": "Popis kouzla",
   "level": 3,
   "school": "evocation/abjuration/conjuration/divination/enchantment/illusion/necromancy/transmutation",
+  "type": "attack/defense/healing/buff/debuff/control/utility",
+  "targetType": "self/single/multiple/area/all",
+  "manaCost": 5,
   "castingTime": "1 action/1 bonus action/1 reaction/1 minute/10 minutes/1 hour",
   "range": "self/touch/30 feet/60 feet/120 feet",
   "duration": "instantaneous/1 round/1 minute/10 minutes/1 hour/8 hours/24 hours",
@@ -335,19 +368,28 @@ Každé kouzlo má následující vlastnosti:
     "somatic": true,
     "material": "Popis materiálních komponent"
   },
-  "effects": {
-    "damage": {
-      "amount": "3d6",
-      "type": "fire/cold/lightning/acid/poison/necrotic/radiant/force/psychic"
-    },
-    "healing": "2d8+4",
-    "buff": {
-      "stat": "strength/dexterity/constitution/intelligence/wisdom/charisma",
-      "amount": 2,
-      "duration": 3600
-    },
-    "condition": "charmed/frightened/paralyzed/poisoned/stunned",
-    "areaOfEffect": {
+  "damage": "3d6",
+  "damageType": "fire/cold/lightning/acid/poison/necrotic/radiant/force/psychic",
+  "healing": "2d8+4",
+  "requiresAttackRoll": true,
+  "savingThrow": {
+    "attribute": "strength/dexterity/constitution/intelligence/wisdom/charisma",
+    "halfDamageOnSuccess": true
+  },
+  "effects": [
+    {
+      "type": "buff/debuff/condition",
+      "name": "Název efektu",
+      "value": 2,
+      "duration": 3,
+      "savingThrow": {
+        "attribute": "wisdom"
+      }
+    }
+  ],
+  "allowedClasses": ["kouzelník", "čaroděj", "klerik", "druid", "bard", "paladin"],
+  "minLevel": 1,
+  "areaOfEffect": {
       "type": "sphere/cone/line/cube",
       "size": "10 feet/20 feet/30 feet"
     }
