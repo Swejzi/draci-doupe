@@ -150,9 +150,23 @@ function parseAIResponse(response) {
       result.npcs.push({ name: match[1].trim(), dialogue: match[2].trim() });
     }
 
+    // Detekce akcí v tagu <action>
     const actionMatches = response.matchAll(/<action>([\s\S]*?)<\/action>/g);
     for (const match of actionMatches) {
       result.actions.push(match[1].trim());
+    }
+
+    // Detekce akcí v popisu (např. přijetí úkolu)
+    if (result.description) {
+      const questAcceptInDescription = result.description.match(/přijímáš úkol ['"]?(.*?)['"]?[.!]/i) ||
+                                      result.description.match(/získáváš úkol ['"]?(.*?)['"]?[.!]/i) ||
+                                      result.description.match(/nový úkol: ['"]?(.*?)['"]?[.!]/i);
+
+      if (questAcceptInDescription && questAcceptInDescription[1]) {
+        const questAction = `přijímá úkol '${questAcceptInDescription[1].trim()}'`;
+        console.log(`Detekce přijetí úkolu v popisu: ${questAction}`);
+        result.actions.push(questAction);
+      }
     }
 
     const mechanicsMatch = response.match(/<mechanics>([\s\S]*?)<\/mechanics>/);
@@ -515,7 +529,9 @@ const handlePlayerAction = async (req, res) => {
       const aiResponseText = aiResult.response.text();
 
       // 4. Zpracovat odpověď AI
+      console.log('Odpověď AI před parsováním:', aiResponseText);
       parsedAIResponse = parseAIResponse(aiResponseText);
+      console.log('Parsovaná odpověď AI:', JSON.stringify(parsedAIResponse));
 
       // 5. Aktualizovat gameState na základě odpovědi AI
       gameState.lastPlayerAction = action;
@@ -542,19 +558,55 @@ const handlePlayerAction = async (req, res) => {
             await addItemToInventory(currentSession.character_id, itemName);
           }
 
-          const questAcceptMatch = aiActionText.match(/přijímá úkol '(.*?)'/i);
+          const questAcceptMatch = aiActionText.match(/přijímá úkol ['"]?(.*?)['"]?/i) || aiActionText.match(/získává úkol ['"]?(.*?)['"]?/i) || aiActionText.match(/nový úkol: ['"]?(.*?)['"]?/i);
           if (questAcceptMatch && questAcceptMatch[1]) {
             const questTitle = questAcceptMatch[1].trim();
             if (!gameState.activeQuests) gameState.activeQuests = [];
             if (!gameState.activeQuests.some(q => q.title === questTitle)) {
               console.log(`AI indikovalo přijetí úkolu: ${questTitle}`);
+              console.log(`Aktuální aktivní úkoly před přidáním:`, JSON.stringify(gameState.activeQuests));
+
+              // Detailní logování dat příběhu
+              console.log(`Počet úkolů v datech příběhu:`, storyDataForActions?.quests?.length || 0);
+              if (storyDataForActions?.quests) {
+                console.log(`Názvy všech úkolů v příběhu:`, storyDataForActions.quests.map(q => q.title));
+              }
+
               const questDefinition = storyDataForActions?.quests?.find(q => q.title === questTitle);
               if (questDefinition) {
-                gameState.activeQuests.push({ id: questDefinition.id, title: questTitle, completedObjectives: {} });
+                console.log(`Nalezena definice úkolu:`, JSON.stringify(questDefinition));
+                gameState.activeQuests.push({
+                  id: questDefinition.id,
+                  title: questTitle,
+                  type: questDefinition.type || 'main', // Přidání typu úkolu
+                  completedObjectives: {}
+                });
               } else {
                 console.warn(`Nenalezena definice pro přijímaný úkol '${questTitle}'. Ukládám jen název.`);
-                gameState.activeQuests.push({ title: questTitle, completedObjectives: {} });
+                // Pokus o nalezení úkolu podle částečné shody
+                const similarQuest = storyDataForActions?.quests?.find(q =>
+                  q.title.toLowerCase().includes(questTitle.toLowerCase()) ||
+                  questTitle.toLowerCase().includes(q.title.toLowerCase())
+                );
+
+                if (similarQuest) {
+                  console.log(`Nalezen podobný úkol:`, JSON.stringify(similarQuest));
+                  gameState.activeQuests.push({
+                    id: similarQuest.id,
+                    title: similarQuest.title,
+                    type: similarQuest.type || 'main',
+                    completedObjectives: {}
+                  });
+                } else {
+                  gameState.activeQuests.push({
+                    title: questTitle,
+                    type: 'side', // Výchozí typ pro úkoly bez definice
+                    completedObjectives: {}
+                  });
+                }
               }
+
+              console.log(`Aktuální aktivní úkoly po přidání:`, JSON.stringify(gameState.activeQuests));
             }
           }
 
