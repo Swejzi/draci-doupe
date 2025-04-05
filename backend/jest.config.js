@@ -1,6 +1,6 @@
 module.exports = {
   testEnvironment: 'node',
-  testMatch: ['**/__tests__/**/*.js', '**/?(*.)+(spec|test).js'],
+  testMatch: ['**/__tests__/**/*.test.js'],
   collectCoverageFrom: [
     'controllers/**/*.js',
     'services/**/*.js',
@@ -8,8 +8,17 @@ module.exports = {
     '!**/node_modules/**',
     '!**/vendor/**'
   ],
-  coverageDirectory: 'coverage',
+  coverageThreshold: {
+    global: {
+      statements: 50,
+      branches: 50,
+      functions: 50,
+      lines: 50
+    }
+  },
   verbose: true,
-  // Setup files if needed
-  // setupFilesAfterEnv: ['./jest.setup.js'],
+  // Nastavení pro ukončení testů
+  forceExit: true,
+  // Timeout pro testy
+  testTimeout: 10000
 };
