@@ -201,7 +201,7 @@ const startGame = async (req, res) => {
   }
 
   try {
-    const charCheck = await db.query('SELECT id FROM characters WHERE id = $1 AND user_id = $2', [characterId, userId]);
+    const charCheck = await db.query('SELECT * FROM characters WHERE id = $1 AND user_id = $2', [characterId, userId]);
     if (charCheck.rows.length === 0) {
       return res.status(403).json({ message: 'Tato postava nepatří přihlášenému uživateli.' });
     }
@@ -229,6 +229,15 @@ const startGame = async (req, res) => {
     const storyData = await storyService.loadStoryById(storyId);
     if (!storyData) {
       return res.status(404).json({ message: `Příběh s ID '${storyId}' nebyl nalezen.` });
+    }
+
+    // Aktualizace zlata postavy podle startingGold v příběhu
+    if (storyData.initialSetup && storyData.initialSetup.startingGold) {
+      const character = charCheck.rows[0];
+      // Aktualizujeme zlato pouze pokud je to nové sezení nebo jiný příběh
+      await db.query('UPDATE characters SET gold = $1 WHERE id = $2',
+        [storyData.initialSetup.startingGold, characterId]);
+      console.log(`Zlato postavy ${characterId} nastaveno na ${storyData.initialSetup.startingGold} podle příběhu ${storyId}`);
     }
 
     const initialGameState = {
