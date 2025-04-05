@@ -235,7 +235,7 @@ function GamePage() {
           </div>
         )}
         {/* Komponenta pro zobrazení úkolů */}
-        <QuestLog sessionId={sessionId} storyData={storyData} />
+        <QuestLog sessionId={sessionId} storyData={storyData} gameState={session?.game_state} />
         {npcsInLocation && npcsInLocation.length > 0 && (
           <div style={styles.presentNpcs}>
             <strong>Přítomné postavy:</strong>

@@ -71,6 +71,18 @@ const updateObjectiveStatus = async (sessionId, questId, objectiveId, completed)
  */
 const getQuestDetails = async (sessionId, questId) => {
   try {
+    // Pokud úkol nemá ID (např. byl přidán bez definice), vrátíme základní informace
+    if (!questId) {
+      console.warn('Pokus o získání detailů úkolu bez ID');
+      return {
+        id: null,
+        title: 'Neznámý úkol',
+        description: 'Tento úkol nemá definici v příběhu.',
+        status: 'in_progress',
+        objectives: []
+      };
+    }
+
     const response = await axios.get(`${API_URL}/quests/session/${sessionId}/${questId}`, {
       headers: getAuthHeader()
     });

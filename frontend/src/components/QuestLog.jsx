@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import questService from '../services/questService';
 
-const QuestLog = ({ sessionId, storyData }) => {
+const QuestLog = ({ sessionId, storyData, gameState }) => {
   const [activeQuests, setActiveQuests] = useState([]);
   const [selectedQuest, setSelectedQuest] = useState(null);
   const [questDetails, setQuestDetails] = useState(null);
@@ -17,6 +17,7 @@ const QuestLog = ({ sessionId, storyData }) => {
       try {
         setLoading(true);
         const quests = await questService.getActiveQuests(sessionId);
+        console.log('Načteny aktivní úkoly:', quests);
         setActiveQuests(quests);
         setLoading(false);
       } catch (error) {
@@ -27,7 +28,7 @@ const QuestLog = ({ sessionId, storyData }) => {
     };
 
     fetchActiveQuests();
-  }, [sessionId]);
+  }, [sessionId, gameState]); // Přidán gameState jako závislost
 
   // Načtení detailů úkolu při výběru
   useEffect(() => {
@@ -91,6 +92,7 @@ const QuestLog = ({ sessionId, storyData }) => {
 
   // Výběr úkolu
   const handleQuestSelect = (quest) => {
+    console.log('Vybrán úkol:', quest);
     setSelectedQuest(quest);
   };
 
@@ -164,7 +166,7 @@ const QuestLog = ({ sessionId, storyData }) => {
 
             return (
               <div
-                key={quest.id}
+                key={quest.id || `quest-${quest.title}`}
                 style={{
                   ...styles.questItem,
                   ...(quest.type === 'main' ? styles.mainQuestItem : {}),
@@ -178,7 +180,7 @@ const QuestLog = ({ sessionId, storyData }) => {
                   {quest.title}
                 </div>
                 <div style={styles.questProgress}>
-                  {completedCount}/{totalObjectives} cílů splněno
+                  {quest.id ? `${completedCount}/${totalObjectives} cílů splněno` : 'Bez definovaných cílů'}
                 </div>
               </div>
             );
