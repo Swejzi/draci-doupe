@@ -8,6 +8,7 @@ const gameRoutes = require('./game'); // Načtení routeru pro hru
 const questRoutes = require('./quests'); // Načtení routeru pro úkoly
 const spellRoutes = require('./spellRoutes'); // Načtení routeru pro kouzla
 const skillRoutes = require('./skillRoutes'); // Načtení routeru pro dovednosti
+const reputationRoutes = require('./reputationRoutes'); // Načtení routeru pro reputaci
 
 // Základní API endpoint (přesunuto sem z index.js)
 router.get('/', (req, res) => {
@@ -22,5 +23,6 @@ router.use('/game', gameRoutes); // Připojení routeru pro hru pod /api/game
 router.use('/quests', questRoutes); // Připojení routeru pro úkoly pod /api/quests
 router.use('/spells', spellRoutes); // Připojení routeru pro kouzla pod /api/spells
 router.use('/skills', skillRoutes); // Připojení routeru pro dovednosti pod /api/skills
+router.use('/reputation', reputationRoutes); // Připojení routeru pro reputaci pod /api/reputation
 
 module.exports = router;

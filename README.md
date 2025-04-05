@@ -136,6 +136,10 @@ Projekt používá GitHub Actions pro automatické testování při každém pus
   - [x] Různé typy kouzel a školy magie
   - [x] Mechanika sesílání kouzel
   - [x] Efekty kouzel a záchranné hody
+- [x] Systém reputace a frakcí
+  - [x] Různé úrovně reputace s různými efekty
+  - [x] Vztahy mezi frakcemi
+  - [x] Vliv reputace na ceny, dialogy a úkoly
 - [ ] Pokročilé herní mechaniky
 - [ ] Mapa světa a navigace
 - [ ] Multiplayer funkce
@@ -174,9 +178,11 @@ Následující herní mechaniky ještě nejsou implementovány nebo jsou impleme
 - Ceny závislé na reputaci
 - Smlouvání
 
-### 6. Systém reputace
+### 6. Systém reputace - IMPLEMENTOVÁNO
 - Implementace reputace u frakcí
 - Důsledky reputace (ceny, dialogy, dostupné úkoly)
+- Vztahy mezi frakcemi (spojenci, nepřátelé)
+- Různé úrovně reputace s různými efekty
 
 ### 7. Systém craftingu
 - Výroba předmětů

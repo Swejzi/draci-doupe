@@ -366,6 +366,7 @@ function processAttackType(attackType, character, weapon) {
 // Import systémů
 const spellSystem = require('./spellSystem');
 const skillSystem = require('./skillSystem');
+const reputationSystem = require('./reputationSystem');
 
 /**
  * Zpracování kouzelného útoku
@@ -455,6 +456,60 @@ function improveSkill(character, skillId, amount = 1) {
   return skillSystem.improveSkill(character, skillId, amount);
 }
 
+/**
+ * Inicializace reputace pro novou postavu
+ * @param {Object} character - Postava
+ * @param {Object} storyData - Data příběhu
+ * @returns {Object} - Postava s inicializovanou reputací
+ */
+function initializeCharacterReputation(character, storyData) {
+  const factions = reputationSystem.getFactionsFromStory(storyData);
+  return reputationSystem.initializeCharacterReputation(character, factions);
+}
+
+/**
+ * Změna reputace u frakce
+ * @param {Object} character - Postava
+ * @param {Object} storyData - Data příběhu
+ * @param {string} factionId - ID frakce
+ * @param {number} amount - Množství bodů k přidání (může být záporné)
+ * @returns {Object} - Výsledek změny reputace
+ */
+function changeReputation(character, storyData, factionId, amount) {
+  return reputationSystem.changeReputationWithFactionRelationships(character, storyData, factionId, amount);
+}
+
+/**
+ * Získání cenového modifikátoru na základě reputace
+ * @param {Object} character - Postava
+ * @param {string} factionId - ID frakce
+ * @returns {number} - Cenový modifikátor (1.0 = standardní cena)
+ */
+function getPriceModifier(character, factionId) {
+  return reputationSystem.getPriceModifier(character, factionId);
+}
+
+/**
+ * Kontrola, zda má postava dostatečnou reputaci pro úkol
+ * @param {Object} character - Postava
+ * @param {string} factionId - ID frakce
+ * @param {number} requiredReputation - Požadovaná hodnota reputace
+ * @returns {boolean} - Má dostatečnou reputaci?
+ */
+function hasRequiredReputation(character, factionId, requiredReputation) {
+  return reputationSystem.hasRequiredReputation(character, factionId, requiredReputation);
+}
+
+/**
+ * Získání frakce NPC
+ * @param {Object} storyData - Data příběhu
+ * @param {string} npcId - ID NPC
+ * @returns {Object|null} - Frakce nebo null, pokud NPC nemá frakci
+ */
+function getNpcFaction(storyData, npcId) {
+  return reputationSystem.getNpcFaction(storyData, npcId);
+}
+
 module.exports = {
   getAttributeBonus,
   rollDice,
@@ -477,5 +532,11 @@ module.exports = {
   performSkillCheck,
   initializeCharacterSkills,
   getDefaultSkillsForClass,
-  improveSkill
+  improveSkill,
+  // Funkce pro práci s reputací
+  initializeCharacterReputation,
+  changeReputation,
+  getPriceModifier,
+  hasRequiredReputation,
+  getNpcFaction
 };

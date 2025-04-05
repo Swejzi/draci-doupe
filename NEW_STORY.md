@@ -443,7 +443,44 @@ Systém dovedností umožňuje postavám používat různé dovednosti a zlepšo
 }
 ```
 
-### 9. Systém počasí a času
+### 9. Systém reputace a frakcí
+
+Systém reputace a frakcí umožňuje hráčům budovat vztahy s různými skupinami NPC, což ovlivňuje dialogy, ceny v obchodech, dostupnost úkolů a další aspekty hry.
+
+#### Úrovně reputace
+
+- **Nenáviděný (-100 a méně)**: NPC jsou nepřátelští, ceny jsou dvojnásobné, úkoly nejsou dostupné.
+- **Neoblíbený (-50 až -99)**: NPC jsou nepřátelští, ceny jsou o 50% vyšší, úkoly nejsou dostupné.
+- **Neutrální (0 až 49)**: NPC jsou neutrální, ceny jsou standardní, základní úkoly jsou dostupné.
+- **Oblíbený (50 až 99)**: NPC jsou přátelští, ceny jsou o 10% nižší, všechny úkoly jsou dostupné.
+- **Respektovaný (100 až 149)**: NPC jsou velmi přátelští, ceny jsou o 20% nižší, všechny úkoly jsou dostupné.
+- **Ctěný (150 až 199)**: NPC jsou uctiví, ceny jsou o 30% nižší, všechny úkoly jsou dostupné, speciální odměny.
+- **Vyvýšený (200 a více)**: NPC jsou oddaní, ceny jsou o 40% nižší, všechny úkoly jsou dostupné, unikátní odměny.
+
+#### Definice frakce
+
+```json
+{
+  "id": "oakhaven_village",
+  "name": "Vesnice Oakhaven",
+  "description": "Mírumilovna vesnice na okraji lesa, jejíž obyvatelé se živí převážně zemědělstvím a řemesly.",
+  "baseAttitude": "friendly",
+  "allies": ["forest_rangers"],
+  "enemies": ["goblin_tribe"],
+  "leaders": ["mayor_gregor"],
+  "territory": ["oakhaven_village_square", "oakhaven_tavern", "oakhaven_town_hall", "oakhaven_market"],
+  "specialization": "farming"
+}
+```
+
+#### Vztahy mezi frakcemi
+
+Když hráč získá nebo ztratí reputaci u jedné frakce, může to ovlivnit jeho reputaci u spojeneckých nebo nepřátelských frakcí:
+
+- **Spojenci**: Získání reputace u jedné frakce přináší 50% reputace u spojeneckých frakcí.
+- **Nepřátelé**: Získání reputace u jedné frakce způsobuje ztrátu 50% reputace u nepřátelských frakcí.
+
+### 10. Systém počasí a času
 
 Systém počasí a času ovlivňuje herní svět:
 

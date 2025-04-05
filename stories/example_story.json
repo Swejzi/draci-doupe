@@ -286,11 +286,47 @@
       ]
     }
   ],
+  "factions": [
+    {
+      "id": "oakhaven_village",
+      "name": "Vesnice Oakhaven",
+      "description": "Mírumilovna vesnice na okraji lesa, jejíž obyvatelé se živí převážně zemědělstvím a řemesly.",
+      "baseAttitude": "friendly",
+      "allies": ["forest_rangers"],
+      "enemies": ["goblin_tribe"],
+      "leaders": ["mayor_gregor"],
+      "territory": ["oakhaven_village_square", "oakhaven_tavern", "oakhaven_town_hall", "oakhaven_market"],
+      "specialization": "farming"
+    },
+    {
+      "id": "forest_rangers",
+      "name": "Lesní strážci",
+      "description": "Skupina hráničářů, kteří chrání les a pomahají vesničanům.",
+      "baseAttitude": "neutral",
+      "allies": ["oakhaven_village"],
+      "enemies": ["goblin_tribe"],
+      "leaders": [],
+      "territory": ["forest_edge"],
+      "specialization": "hunting"
+    },
+    {
+      "id": "goblin_tribe",
+      "name": "Goblíní kmen",
+      "description": "Divoký kmen goblinů, kteří se usadili v jeskyních v lese a útočí na vesničany.",
+      "baseAttitude": "hostile",
+      "allies": [],
+      "enemies": ["oakhaven_village", "forest_rangers"],
+      "leaders": [],
+      "territory": ["goblin_cave_entrance"],
+      "specialization": "raiding"
+    }
+  ],
   "aiGuidelines": {
     "storyTheme": "Zaměř se na atmosféru strachu a nejistoty ve vesnici a kontrast s nebezpečím číhajícím v lese. Udržuj pocit naléhavosti.",
     "characterVoices": "Starosta Gregor mluví formálně a ustaraně. Výčepní Borin je přímý a trochu hrubý. Vesničan je koktavý a vyděšený.",
     "pacing": "Začni pomalu ve vesnici, nech hráče prozkoumat a promluvit si s NPC. Zvyš tempo při vstupu do lesa a v jeskyni.",
     "combatStyle": "Goblini jsou zbabělí a útočí ve skupinách. Používají jednoduché taktiky.",
-    "worldRules": "Magie je vzácná, ale existuje. Základní pravidla Dračího doupěte platí."
+    "worldRules": "Magie je vzácná, ale existuje. Základní pravidla Dračího doupěte platí.",
+    "factionInteractions": "Vesničané jsou přátelští k hráčům, kteří jim pomáhají. Lesní strážci jsou neutrální, ale mohou se stát spojenci. Goblini jsou nepřátelští, ale někteří mohou být ochotni vyjednávat."
   }
 }
