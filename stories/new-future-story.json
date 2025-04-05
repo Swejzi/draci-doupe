@@ -1011,6 +1011,7 @@
       "id": "anomaly_investigation",
       "title": "Výzkum kvantové anomálie",
       "description": "Prozkoumejte podstatu kvantové anomálie, která pohlcuje hvězdné systémy, a zjistěte, zda představuje hrozbu nebo příležitost pro známý vesmír.",
+      "type": "main",
       "giver": "captain_tau_nzara",
       "startLocation": "kvark_voyager_bridge",
       "objectives": [
@@ -1057,6 +1058,7 @@
       "id": "consciousness_protection",
       "title": "Ochrana vědomí posádky",
       "description": "Vytvořte opatření pro ochranu vědomí posádky před destabilizujícími efekty anomálie.",
+      "type": "side",
       "giver": "psi_counselor_omega",
       "startLocation": "crew_consciousness_nexus",
       "objectives": [
@@ -1098,6 +1100,7 @@
       "id": "void_journey",
       "title": "Cesta prázdnoprostorem",
       "description": "Vydejte se do samotného jádra anomálie a odhalte její skutečnou podstatu.",
+      "type": "main",
       "giver": "observer_nebula",
       "startLocation": "transdimensional_observatory",
       "objectives": [
@@ -1210,7 +1213,6 @@
       "id": "anomaly_analysis",
       "name": "Analýza anomálie",
       "description": "Science Officer Helix vás zapojí do detailní analýzy dat o anomálii.",
-      "type": "main",
       "trigger": "Hráč vstoupí do quantum_analysis_chamber s úkolem anomaly_investigation aktivním.",
       "outcomes": [
         {
@@ -1244,7 +1246,6 @@
       "id": "consciousness_backup",
       "name": "Záloha vědomí",
       "description": "Psi Counselor Omega nabízí vytvoření zálohy vašeho vědomí jako ochranu před vlivy anomálie.",
-      "type": "side",
       "trigger": "Hráč vstoupí do crew_consciousness_nexus poprvé.",
       "outcomes": [
         {
@@ -1300,7 +1301,6 @@
       "id": "core_stabilization",
       "name": "Stabilizace jádra",
       "description": "Chief Engineer Neutrino potřebuje vaši pomoc při stabilizaci kvantového jádra lodi, které je ovlivňováno anomálií.",
-      "type": "main",
       "trigger": "Hráč vstoupí do entanglement_core s aktivním úkolem anomaly_investigation.",
       "outcomes": [
         {
@@ -1334,7 +1334,6 @@
       "id": "first_anomaly_sighting",
       "name": "První pohled na anomálii",
       "description": "Observer Nebula vám umožní první přímý pohled na anomálii skrz transdimenzionální průhledy.",
-      "type": "main",
       "trigger": "Hráč vstoupí do transdimensional_observatory s aktivním úkolem anomaly_investigation.",
       "outcomes": [
         {
@@ -1362,7 +1361,6 @@
       "id": "harmonic_restoration",
       "name": "Harmonická obnova",
       "description": "Botanical Psychist Flora vás uvádí do meditační zahrady pro psychickou harmonizaci.",
-      "type": "side",
       "trigger": "Hráč vstoupí do meditation_garden poprvé.",
       "outcomes": [
         {
@@ -1389,7 +1387,6 @@
       "id": "engine_malfunction",
       "name": "Porucha pohonného systému",
       "description": "Propulsion Technician Gamma řeší náhlou poruchu kvantového pohonu.",
-      "type": "main",
       "trigger": "Hráč vstoupí do engine_control po dokončení objective stabilize_ship_core v questu anomaly_investigation.",
       "outcomes": [
         {
@@ -1459,7 +1456,6 @@
       "id": "security_alert",
       "name": "Bezpečnostní poplach",
       "description": "Security Chief Pulse informuje o potenciálním bezpečnostním riziku spojeném s anomálií.",
-      "type": "main",
       "trigger": "Hráč vstoupí do emergency_systems po dokončení objective observe_anomaly v questu anomaly_investigation.",
       "outcomes": [
         {
@@ -1505,7 +1501,6 @@
       "id": "defensive_preparation",
       "name": "Obranná příprava",
       "description": "Weapons Specialist Nova vám poskytuje pokročilé obranné systémy pro misi.",
-      "type": "side",
       "trigger": "Hráč vstoupí do armory po dokončení objective analyze_findings v questu anomaly_investigation.",
       "outcomes": [
         {
@@ -1528,7 +1523,6 @@
       "id": "strategy_session",
       "name": "Strategické sezení",
       "description": "Strategic Officer Orion vás zapojí do plánování přístupu k anomálii.",
-      "type": "main",
       "trigger": "Hráč vstoupí do tactical_planning_room po dokončení objective analyze_findings v questu anomaly_investigation.",
       "outcomes": [
         {
@@ -1556,7 +1550,6 @@
       "id": "direct_contact",
       "name": "Přímý kontakt s anomálií",
       "description": "Setkání s fragmentem anomálie, který získal samostatné vědomí.",
-      "type": "main",
       "trigger": "Hráč vstoupí do anomaly_contact_point s aktivním úkolem anomaly_investigation po dokončení objective analyze_findings.",
       "outcomes": [
         {
@@ -1635,7 +1628,6 @@
       "id": "revelation_of_truth",
       "name": "Odhalení pravdy",
       "description": "Setkání s kvantovou superinteligencí v jádru anomálie.",
-      "type": "main",
       "trigger": "Hráč vstoupí do sentient_core s aktivním úkolem void_journey po dokončení objective navigate_voidspace.",
       "outcomes": [
         {
