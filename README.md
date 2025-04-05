@@ -89,6 +89,28 @@ cd frontend
 npm test
 ```
 
+## Continuous Integration
+
+Projekt používá GitHub Actions pro automatické testování při každém push nebo pull requestu.
+
+### Workflow soubory
+
+- `.github/workflows/backend.yml` - Testování backendu
+- `.github/workflows/frontend.yml` - Testování frontendu
+- `.github/workflows/ci.yml` - Kombinovaný workflow pro testování celého projektu
+
+### Co se testuje
+
+- **Backend**:
+  - Linting pomocí ESLint
+  - Unit testy pomocí Jest
+  - Testování s PostgreSQL databází
+
+- **Frontend**:
+  - Linting pomocí ESLint
+  - Unit testy pomocí Jest
+  - Build aplikace
+
 ## Aktuální stav projektu
 
 - [x] Základní autentizace uživatelů
