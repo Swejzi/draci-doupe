@@ -115,19 +115,88 @@ Projekt používá GitHub Actions pro automatické testování při každém pus
 
 - [x] Základní autentizace uživatelů
 - [x] Vytváření a správa postav
+  - [x] Ruční i náhodné generování atributů
+  - [x] Výpočet bonusů z atributů
 - [x] Integrace s Google Gemini AI
 - [x] Základní herní mechaniky
+  - [x] Systém úrovní a zkušeností
+  - [x] Odpočinek a regenerace
 - [x] Soubojový systém s iniciativou
+  - [x] Různé typy útoků (rychlý, silný, obranný)
+  - [x] Výpočet útočného bonusu podle povolání a atributů
+  - [x] Výpočet zranění s kritickými zásahy
 - [x] Systém inventáře
-- [ ] Pokročilé herní mechaniky (kouzla, schopnosti)
-- [ ] Systém úkolů a odměn
+  - [x] Přidávání a používání předmětů
+  - [x] Efekty předmětů (léčení, mana)
+- [x] Systém úkolů
+  - [x] Hlavní a vedlejší úkoly
+  - [x] Cíle úkolů a jejich plnění
+  - [x] Odměny za splnění úkolů
+- [ ] Pokročilé herní mechaniky
 - [ ] Mapa světa a navigace
 - [ ] Multiplayer funkce
 
+## Chybějící herní mechaniky
+
+Následující herní mechaniky ještě nejsou implementovány nebo jsou implementovány jen částečně:
+
+### 1. Systém kouzel a magie
+- Implementace kouzlení a kouzel
+- Různé typy kouzel (útočná, obranná, podpůrná)
+- Mechanika sesílání kouzel (mana, cooldown)
+- Efekty kouzel (zranění, léčení, buffs/debuffs)
+
+### 2. Systém dovedností (skills)
+- Implementace dovedností jako je zámečnictví, plížení, přesvědčování
+- Mechanika testů dovedností
+- Zlepšování dovedností s postupem úrovní
+
+### 3. Systém schopností (abilities)
+- Speciální schopnosti povolání (např. zákeřný útok zloděje)
+- Pasivní schopnosti
+- Aktivní schopnosti s cooldownem nebo omezeným počtem použití
+
+### 4. Pokročilý soubojový systém
+- Obrana a vyhýbání se útokům
+- Různé typy zranění (fyzické, magické, elementální)
+- Odolnosti a zranitelnosti
+- Stavy (omráčení, otrávení, atd.)
+
+### 5. Ekonomický systém
+- Pokročilý obchodní systém
+- Ceny závislé na reputaci
+- Smlouvání
+
+### 6. Systém reputace
+- Implementace reputace u frakcí
+- Důsledky reputace (ceny, dialogy, dostupné úkoly)
+
+### 7. Systém craftingu
+- Výroba předmětů
+- Recepty a suroviny
+- Vylepšování předmětů
+
+### 8. Systém počasí a času
+- Implementace denního cyklu
+- Efekty počasí na gameplay
+- Časové limity pro úkoly
+
+### 9. Systém dialogů a rozhodnutí
+- Větvení dialogů
+- Důsledky rozhodnutí
+- Podmíněné dialogy (podle atributů, reputace)
+
+### 10. Systém vybavení a zbroje
+- Výpočet obranné hodnoty (AC)
+- Sloty pro vybavení
+- Požadavky na vybavení
+
 ## Další kroky
 
-- Implementace pokročilých herních mechanik
-- Rozšíření systému úkolů a odměn
+- Implementace systému kouzel a magie
+- Implementace systému dovedností a schopností
+- Rozšíření soubojového systému
+- Implementace systému vybavení a zbroje
 - Vylepšení uživatelského rozhraní
 - Přidání více příběhů a obsahu
 - Optimalizace výkonu a UX
