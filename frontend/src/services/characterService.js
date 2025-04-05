@@ -1,12 +1,13 @@
 import axios from 'axios';
-import authHeader from './authHeader'; // Funkce pro získání hlavičky s tokenem
+import { API_URL } from '../config';
+import { getAuthHeader } from './authService';
 
-const API_URL = 'http://localhost:3001/api/characters';
+const CHARACTERS_URL = `${API_URL}/characters`;
 
 // Funkce pro získání postav přihlášeného uživatele
 const getMyCharacters = async () => {
   try {
-    const response = await axios.get(API_URL, { headers: authHeader() });
+    const response = await axios.get(CHARACTERS_URL, { headers: getAuthHeader() });
     return response.data; // Vrací pole postav
   } catch (error) {
     console.error('Chyba při načítání postav:', error.response?.data || error.message);
@@ -18,10 +19,10 @@ const getMyCharacters = async () => {
 const createCharacter = async (characterData) => {
   // Přejmenování characterClass na class pro backend
   const dataToSend = { ...characterData, class: characterData.characterClass };
-  delete dataToSend.characterClass; 
+  delete dataToSend.characterClass;
 
   try {
-    const response = await axios.post(API_URL, dataToSend, { headers: authHeader() });
+    const response = await axios.post(CHARACTERS_URL, dataToSend, { headers: getAuthHeader() });
     return response.data; // Vrací { message, character }
   } catch (error) {
     console.error('Chyba při vytváření postavy:', error.response?.data || error.message);
@@ -32,7 +33,7 @@ const createCharacter = async (characterData) => {
 // Funkce pro získání detailu postavy
 const getCharacterDetails = async (characterId) => {
   try {
-    const response = await axios.get(`${API_URL}/${characterId}`, { headers: authHeader() });
+    const response = await axios.get(`${CHARACTERS_URL}/${characterId}`, { headers: getAuthHeader() });
     return response.data; // Vrací objekt postavy
   } catch (error) {
     console.error(`Chyba při načítání detailu postavy ${characterId}:`, error.response?.data || error.message);

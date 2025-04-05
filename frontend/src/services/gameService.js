@@ -1,12 +1,13 @@
 import axios from 'axios';
-import authHeader from './authHeader';
+import { API_URL } from '../config';
+import { getAuthHeader } from './authService';
 
-const API_URL = 'http://localhost:3001/api/game';
+const GAME_URL = `${API_URL}/game`;
 
 // Funkce pro zahájení nové hry nebo pokračování
 const startGame = async (characterId, storyId) => {
   try {
-    const response = await axios.post(`${API_URL}/start`, { characterId, storyId }, { headers: authHeader() });
+    const response = await axios.post(`${GAME_URL}/start`, { characterId, storyId }, { headers: getAuthHeader() });
     return response.data; // Vrací { message, session }
   } catch (error) {
     console.error('Chyba při zahajování hry:', error.response?.data || error.message);
@@ -17,7 +18,7 @@ const startGame = async (characterId, storyId) => {
 // Funkce pro získání stavu herního sezení
 const getGameSession = async (sessionId) => {
   try {
-    const response = await axios.get(`${API_URL}/session/${sessionId}`, { headers: authHeader() });
+    const response = await axios.get(`${GAME_URL}/session/${sessionId}`, { headers: getAuthHeader() });
     return response.data; // Vrací objekt session
   } catch (error) {
     console.error(`Chyba při načítání sezení ${sessionId}:`, error.response?.data || error.message);
@@ -29,7 +30,7 @@ const getGameSession = async (sessionId) => {
 const handlePlayerAction = async (sessionId, action, target = null) => {
   try {
     const payload = target ? { action, target } : { action };
-    const response = await axios.post(`${API_URL}/session/${sessionId}/action`, payload, { headers: authHeader() });
+    const response = await axios.post(`${GAME_URL}/session/${sessionId}/action`, payload, { headers: getAuthHeader() });
     return response.data; // Vrací { message, session } s aktualizovaným stavem
   } catch (error) {
     console.error(`Chyba při odesílání akce v sezení ${sessionId}:`, error.response?.data || error.message);

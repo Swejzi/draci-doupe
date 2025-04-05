@@ -1,19 +1,19 @@
 import axios from 'axios';
+import { API_URL } from '../config';
 
-// Základní URL backendového API
-// V produkci by mělo být konfigurovatelné (např. přes .env)
-const API_URL = 'http://localhost:3001/api/auth'; 
+// Základní URL pro autentizaci
+const AUTH_URL = `${API_URL}/auth`;
 
 // Funkce pro registraci
 const register = async (username, email, password) => {
   try {
-    const response = await axios.post(`${API_URL}/register`, {
+    const response = await axios.post(`${AUTH_URL}/register`, {
       username,
       email,
       password,
     });
     // Backend vrací data uživatele při úspěšné registraci (bez hesla)
-    return response.data; 
+    return response.data;
   } catch (error) {
     // Zpracování chyb z backendu (např. uživatel již existuje)
     console.error('Chyba při registraci:', error.response?.data || error.message);
@@ -24,20 +24,30 @@ const register = async (username, email, password) => {
 // Funkce pro přihlášení
 const login = async (usernameOrEmail, password) => {
   try {
-    const response = await axios.post(`${API_URL}/login`, {
+    console.log(`[Frontend] Pokus o přihlášení uživatele: ${usernameOrEmail}`);
+    console.log(`[Frontend] URL pro přihlášení: ${AUTH_URL}/login`);
+
+    const response = await axios.post(`${AUTH_URL}/login`, {
       usernameOrEmail,
       password,
     });
+
+    console.log('[Frontend] Odpověď serveru:', response.status, response.statusText);
+    console.log('[Frontend] Data odpovědi:', response.data);
+
     // Backend vrací token a data uživatele
     if (response.data.token) {
+      console.log('[Frontend] Token získán, ukládám do localStorage');
       // Uložíme token do localStorage pro perzistenci mezi sessiony
-      localStorage.setItem('userToken', response.data.token); 
+      localStorage.setItem('userToken', response.data.token);
       // Můžeme uložit i data uživatele, pokud je potřebujeme často
       localStorage.setItem('userInfo', JSON.stringify(response.data.user));
     }
     return response.data;
   } catch (error) {
-    console.error('Chyba při přihlášení:', error.response?.data || error.message);
+    console.error('[Frontend] Chyba při přihlášení:', error);
+    console.error('[Frontend] Detail chyby:', error.response?.data || error.message);
+    console.error('[Frontend] Status chyby:', error.response?.status);
     throw error.response?.data || new Error('Chyba serveru při přihlášení.');
   }
 };
@@ -72,7 +82,7 @@ const getCurrentUser = () => {
 const getStatus = async (token) => {
   if (!token) return null;
   try {
-    const response = await axios.get(`${API_URL}/status`, {
+    const response = await axios.get(`${AUTH_URL}/status`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     return response.data; // Vrací { message, user }
@@ -86,6 +96,14 @@ const getStatus = async (token) => {
   }
 };
 
+// Funkce pro získání autentizační hlavičky pro API požadavky
+export const getAuthHeader = () => {
+  const token = localStorage.getItem('userToken');
+  if (token) {
+    return { Authorization: `Bearer ${token}` };
+  }
+  return {};
+};
 
 export default {
   register,
@@ -93,4 +111,5 @@ export default {
   logout,
   getCurrentUser,
   getStatus,
+  getAuthHeader
 };

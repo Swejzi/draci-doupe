@@ -5,6 +5,7 @@ import characterService from '../services/characterService';
 import storyService from '../services/storyService';
 import { useAuth } from '../context/AuthContext';
 import CombatControls from '../components/CombatControls';
+import QuestLog from '../components/QuestLog';
 
 function GamePage() {
   const { sessionId } = useParams();
@@ -233,16 +234,8 @@ function GamePage() {
             ))}
           </div>
         )}
-        {activeQuests.length > 0 && (
-          <div style={styles.quests}>
-            <strong>Úkoly:</strong>
-            <ul style={styles.questList}>
-              {activeQuests.map((quest, index) => (
-                <li key={index}>{quest.title}</li>
-              ))}
-            </ul>
-          </div>
-        )}
+        {/* Komponenta pro zobrazení úkolů */}
+        <QuestLog sessionId={sessionId} storyData={storyData} />
         {npcsInLocation && npcsInLocation.length > 0 && (
           <div style={styles.presentNpcs}>
             <strong>Přítomné postavy:</strong>

@@ -26,11 +26,13 @@ function LoginPage() {
     }
 
     try {
+      console.log('[LoginPage] Pokus o přihlášení:', usernameOrEmail);
       await login(usernameOrEmail, password);
+      console.log('[LoginPage] Přihlášení úspěšné, přesměrování na dashboard');
       // Po úspěšném přihlášení přesměrovat na nástěnku
-      navigate('/dashboard'); 
+      navigate('/dashboard');
     } catch (err) {
-      console.error('Chyba přihlášení:', err);
+      console.error('[LoginPage] Chyba přihlášení:', err);
       setError(err.message || 'Nepodařilo se přihlásit. Zkontrolujte údaje.');
     } finally {
       setLoading(false);

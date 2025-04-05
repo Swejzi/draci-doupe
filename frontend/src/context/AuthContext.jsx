@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
           console.log('Uživatel ověřen při startu:', backendStatus.user.username);
         } else {
           // Token není platný (nebo chyba), odhlásit
-          authService.logout(); 
+          authService.logout();
         }
       }
       setLoading(false);
@@ -41,12 +41,14 @@ export const AuthProvider = ({ children }) => {
   // Funkce pro přihlášení
   const login = async (usernameOrEmail, password) => {
     try {
+      console.log('[AuthContext] Vyvolávám authService.login');
       const data = await authService.login(usernameOrEmail, password);
+      console.log('[AuthContext] Přihlášení úspěšné, data:', data);
       setCurrentUser(data.user);
       setToken(data.token);
       return data; // Vrátit data pro případné další zpracování v komponentě
     } catch (error) {
-      console.error('Chyba přihlášení v AuthContext:', error);
+      console.error('[AuthContext] Chyba přihlášení v AuthContext:', error);
       throw error; // Předat chybu dál pro zobrazení v UI
     }
   };
@@ -56,7 +58,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const data = await authService.register(username, email, password);
       // Můžeme zde uživatele rovnou přihlásit, pokud chceme
-      // await login(username, password); 
+      // await login(username, password);
       return data;
     } catch (error) {
       console.error('Chyba registrace v AuthContext:', error);
@@ -87,7 +89,7 @@ export const AuthProvider = ({ children }) => {
   // Nezobrazujeme children, dokud se neověří stav přihlášení
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children} 
+      {!loading && children}
     </AuthContext.Provider>
   );
 };
