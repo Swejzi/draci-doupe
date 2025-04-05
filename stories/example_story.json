@@ -11,19 +11,44 @@
   "initialSetup": {
     "introduction": "Nacházíte se v malé, klidné vesnici Oakhaven, která leží na okraji hlubokého lesa. Poslední dobou se však z lesa ozývají podivné zvuky a několik vesničanů zmizelo. Starosta vás požádal o pomoc.",
     "startingLocation": "oakhaven_village_square",
-    "availableRaces": ["Člověk", "Elf", "Trpaslík", "Půlčík"],
-    "availableClasses": ["Bojovník", "Hraničář", "Klerik", "Zloděj"],
-    "recommendedLevel": 1
+    "availableRaces": ["Člověk", "Elf", "Trpaslík", "Půlčík", "Půlelf", "Gnóm"],
+    "availableClasses": ["Bojovník", "Hraničář", "Klerik", "Zloděj", "Kouzelník", "Bard", "Paladin", "Druid"],
+    "recommendedLevel": 1,
+    "startingTime": "08:00",
+    "startingWeather": "clear",
+    "startingGold": 50,
+    "startingItems": ["basic_backpack", "torch", "waterskin", "rations_3days"]
   },
   "locations": [
     {
       "id": "oakhaven_village_square",
       "name": "Náměstí ve vesnici Oakhaven",
       "description": "Malé náměstí s kašnou uprostřed. Okolo stojí několik domů, krčma 'U Spícího draka' a radnice.",
-      "connectedLocations": ["oakhaven_tavern", "oakhaven_town_hall", "forest_edge"],
+      "connectedLocations": ["oakhaven_tavern", "oakhaven_town_hall", "forest_edge", "oakhaven_market"],
       "npcs": ["mayor_gregor", "villager_1"],
-      "events": ["notice_poster_event"], 
-      "items": []
+      "events": ["notice_poster_event"],
+      "items": [],
+      "travelTime": {
+        "oakhaven_tavern": 2,
+        "oakhaven_town_hall": 1,
+        "forest_edge": 5,
+        "oakhaven_market": 3
+      },
+      "reputation": {
+        "default": 50,
+        "modifiers": {
+          "quest_rescue_villagers_completed": 20,
+          "helped_villager_1": 5
+        }
+      },
+      "shopkeeper": null,
+      "restArea": false,
+      "dangerLevel": 0,
+      "weatherEffects": {
+        "rain": "Kašna se plni dešťovou vodou a náměstí je mokré a kluzké.",
+        "fog": "Mlha se valí mezi domy a zahaluje náměstí do tajemného oparu.",
+        "snow": "Náměstí je pokryté bílou přikrývkou sněhu, který křupe pod vašimi kroky."
+      }
     },
     {
       "id": "oakhaven_tavern",
@@ -48,7 +73,7 @@
       "name": "Okraj lesa",
       "description": "Hustý les začíná hned za vesnicí. Cesta vede hlouběji do temných hvozdů.",
       "connectedLocations": ["oakhaven_village_square", "goblin_cave_entrance"],
-      "npcs": [], 
+      "npcs": [],
       "events": ["goblin_ambush_event"],
       "items": []
     },
@@ -56,8 +81,8 @@
       "id": "goblin_cave_entrance",
       "name": "Vchod do gobliní jeskyně",
       "description": "Nenápadný vchod do jeskyně ukrytý mezi skalami a kořeny stromů. Jsou zde vidět stopy malých humanoidů.",
-      "connectedLocations": ["forest_edge"], 
-      "npcs": ["goblin_guard_1", "goblin_guard_2"], 
+      "connectedLocations": ["forest_edge"],
+      "npcs": ["goblin_guard_1", "goblin_guard_2"],
       "events": [],
       "items": []
     }
@@ -110,15 +135,15 @@
       "name": "Gobliní stráž",
       "description": "Malá, zelená, odporná bytost s rezavou šavlí.",
       "personality": "Agresivní, hloupý, útočí na potkání.",
-      "stats": { 
-          "level": 1, 
+      "stats": {
+          "level": 1,
           "health": 15,
           "ac": 13,
-          "strength": 12, 
-          "attackBonus": 2, 
-          "damageDice": "1d6" 
+          "strength": 12,
+          "attackBonus": 2,
+          "damageDice": "1d6"
       },
-      "loot": ["Rezavá šavle", "5 zlatých"], 
+      "loot": ["Rezavá šavle", "5 zlatých"],
       "dialogue": {
         "greeting": "*Skřek! Vetřelec!*",
         "topics": {}
@@ -129,15 +154,15 @@
       "name": "Gobliní stráž",
       "description": "Další malá, zelená bytost, tato s krátkým lukem.",
       "personality": "Zbabělý, střílí z dálky, chrochtá.",
-      "stats": { 
-          "level": 1, 
+      "stats": {
+          "level": 1,
           "health": 12,
           "ac": 12,
-          "dexterity": 14, 
-          "attackBonus": 3, 
-          "damageDice": "1d4" 
+          "dexterity": 14,
+          "attackBonus": 3,
+          "damageDice": "1d4"
       },
-      "loot": ["Krátký luk", "3 šípy", "2 zlaté"], 
+      "loot": ["Krátký luk", "3 šípy", "2 zlaté"],
       "dialogue": {
         "greeting": "*Chrocht! Střílej!*",
         "topics": {}
@@ -149,6 +174,7 @@
       "id": "rescue_villagers",
       "title": "Záchrana ztracených vesničanů",
       "description": "Najděte ztracené vesničany a zjistěte, co se děje v lese.",
+      "type": "main",
       "giver": "mayor_gregor",
       "startLocation": "oakhaven_village_square",
       "objectives": [
@@ -161,20 +187,49 @@
         {
           "id": "find_villagers",
           "description": "Najděte ztracené vesničany.",
-          "location": "goblin_cave_entrance", 
+          "location": "goblin_cave_entrance",
           "completionCondition": "Hráč najde vesničany."
         },
         {
           "id": "defeat_goblins",
           "description": "Zbavte se goblinů, kteří ohrožují vesnici.",
-          "location": "goblin_cave_entrance", 
-          "completionCondition": "Hráč porazí gobliny." 
+          "location": "goblin_cave_entrance",
+          "completionCondition": "Hráč porazí gobliny."
         }
       ],
       "rewards": {
         "experience": 150,
         "gold": 100,
-        "items": ["healing_potion_1"]
+        "items": ["healing_potion_1"],
+        "description": "Starosta Gregor vám nabídne odměnu za záchranu vesničanů."
+      }
+    },
+    {
+      "id": "tavern_supplies",
+      "title": "Zásoby pro krčmu",
+      "description": "Výčepní Borin potřebuje doplnit zásoby pro svou krčmu. Pomůžete mu získat ingredience pro jeho speciální nápoj.",
+      "type": "side",
+      "giver": "barkeep_borin",
+      "startLocation": "oakhaven_tavern",
+      "objectives": [
+        {
+          "id": "gather_herbs",
+          "description": "Nasbrejte léčivé byliny na okraji lesa.",
+          "location": "forest_edge",
+          "completionCondition": "Hráč nasbrá potřebné byliny."
+        },
+        {
+          "id": "deliver_herbs",
+          "description": "Doručte byliny zpět Borinovi.",
+          "location": "oakhaven_tavern",
+          "completionCondition": "Hráč předá byliny Borinovi."
+        }
+      ],
+      "rewards": {
+        "experience": 50,
+        "gold": 25,
+        "items": ["healing_potion_1"],
+        "description": "Borin vám nabídne svůj speciální léčivý nápoj, který vám může pomoci při výpravě do lesa."
       }
     }
   ],
@@ -201,12 +256,12 @@
       "trigger": "Hráč vstoupí do lokace 'oakhaven_village_square' poprvé.",
       "outcomes": [
         {
-          "condition": "true", 
+          "condition": "true",
           "result": "Plakát varuje před nebezpečím v lese a nabízí odměnu za informace.",
           "consequences": {
             "modifyLocation": {
               "location": "oakhaven_village_square",
-              "changes": " Na nástěnce visí vybledlý plakát." 
+              "changes": " Na nástěnce visí vybledlý plakát."
             }
           }
         }

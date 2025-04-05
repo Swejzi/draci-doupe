@@ -5,11 +5,17 @@ import { getAuthHeader } from './authService';
 /**
  * Získá seznam aktivních úkolů pro dané herní sezení
  * @param {number} sessionId - ID herního sezení
+ * @param {string} [type] - Typ úkolů k získání ('main', 'side' nebo undefined pro všechny)
  * @returns {Promise<Array>} - Seznam aktivních úkolů
  */
-const getActiveQuests = async (sessionId) => {
+const getActiveQuests = async (sessionId, type) => {
   try {
-    const response = await axios.get(`${API_URL}/quests/session/${sessionId}`, {
+    // Přidání parametru typu do URL, pokud je specifikován
+    const url = type
+      ? `${API_URL}/quests/session/${sessionId}?type=${type}`
+      : `${API_URL}/quests/session/${sessionId}`;
+
+    const response = await axios.get(url, {
       headers: getAuthHeader()
     });
     return response.data;

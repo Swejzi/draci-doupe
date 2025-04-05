@@ -5,9 +5,10 @@ const { applyQuestRewards } = require('../utils/gameMechanics');
 /**
  * Získá aktivní úkoly pro dané herní sezení
  * @param {number} sessionId - ID herního sezení
+ * @param {string} [type] - Typ úkolů k získání ('main', 'side' nebo undefined pro všechny)
  * @returns {Promise<Array>} - Seznam aktivních úkolů
  */
-async function getActiveQuests(sessionId) {
+async function getActiveQuests(sessionId, type) {
   try {
     const result = await db.query(
       'SELECT game_state FROM game_sessions WHERE id = $1',
@@ -19,7 +20,14 @@ async function getActiveQuests(sessionId) {
     }
 
     const gameState = result.rows[0].game_state;
-    return gameState.activeQuests || [];
+    const quests = gameState.activeQuests || [];
+
+    // Pokud je specifikován typ, filtrujeme úkoly podle typu
+    if (type) {
+      return quests.filter(quest => quest.type === type);
+    }
+
+    return quests;
   } catch (error) {
     console.error('Chyba při získávání aktivních úkolů:', error);
     throw error;
@@ -73,6 +81,7 @@ async function addQuest(sessionId, questId) {
     gameState.activeQuests.push({
       id: questId,
       title: questDefinition.title,
+      type: questDefinition.type || 'main', // Přidání typu úkolu (hlavní/vedlejší)
       completedObjectives: {},
       startedAt: new Date().toISOString()
     });
@@ -90,6 +99,7 @@ async function addQuest(sessionId, questId) {
         id: questId,
         title: questDefinition.title,
         description: questDefinition.description,
+        type: questDefinition.type || 'main', // Přidání typu úkolu
         objectives: questDefinition.objectives
       }
     };
@@ -193,6 +203,7 @@ async function updateObjectiveStatus(sessionId, questId, objectiveId, completed)
       gameState.completedQuests.push({
         id: questId,
         title: questDefinition.title,
+        type: questDefinition.type || 'main', // Přidání typu úkolu
         completedAt: new Date().toISOString()
       });
 

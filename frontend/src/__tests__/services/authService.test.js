@@ -22,17 +22,17 @@ describe('Auth Service', () => {
       })
     };
   })();
-  
+
   Object.defineProperty(window, 'localStorage', {
     value: localStorageMock
   });
-  
+
   beforeEach(() => {
     // Clear mocks before each test
     jest.clearAllMocks();
     localStorageMock.clear();
   });
-  
+
   describe('login', () => {
     test('should call API with correct parameters and store token', async () => {
       // Arrange
@@ -47,12 +47,12 @@ describe('Auth Service', () => {
           message: 'Přihlášení úspěšné.'
         }
       };
-      
+
       axios.post.mockResolvedValue(mockResponse);
-      
+
       // Act
       const result = await authService.login('testuser', 'password123');
-      
+
       // Assert
       expect(axios.post).toHaveBeenCalledWith(
         `${API_URL}/auth/login`,
@@ -61,7 +61,7 @@ describe('Auth Service', () => {
           password: 'password123'
         }
       );
-      
+
       expect(localStorageMock.setItem).toHaveBeenCalledWith('userToken', 'test-token');
       expect(localStorageMock.setItem).toHaveBeenCalledWith(
         'userInfo',
@@ -71,10 +71,10 @@ describe('Auth Service', () => {
           email: 'test@example.com'
         })
       );
-      
+
       expect(result).toEqual(mockResponse.data);
     });
-    
+
     test('should throw error when API call fails', async () => {
       // Arrange
       const errorResponse = {
@@ -85,51 +85,56 @@ describe('Auth Service', () => {
           status: 401
         }
       };
-      
+
       axios.post.mockRejectedValue(errorResponse);
-      
+
       // Act & Assert
       await expect(authService.login('testuser', 'wrongpassword')).rejects.toEqual(
         errorResponse.response.data
       );
-      
+
       expect(localStorageMock.setItem).not.toHaveBeenCalled();
     });
   });
-  
+
   describe('logout', () => {
     test('should remove user data from localStorage', () => {
       // Arrange
       localStorageMock.setItem('userToken', 'test-token');
       localStorageMock.setItem('userInfo', JSON.stringify({ id: 1, username: 'testuser' }));
-      
+
       // Act
       authService.logout();
-      
+
       // Assert
       expect(localStorageMock.removeItem).toHaveBeenCalledWith('userToken');
       expect(localStorageMock.removeItem).toHaveBeenCalledWith('userInfo');
     });
   });
-  
+
   describe('getCurrentUser', () => {
     test('should return user from localStorage if exists', () => {
       // Arrange
       const mockUser = { id: 1, username: 'testuser' };
+      const mockToken = 'test-token';
       localStorageMock.setItem('userInfo', JSON.stringify(mockUser));
-      
+      localStorageMock.setItem('userToken', mockToken);
+
       // Act
       const result = authService.getCurrentUser();
-      
+
       // Assert
-      expect(result).toEqual(mockUser);
+      // Ověříme, že getItem byl zavolán se správným klíčem
       expect(localStorageMock.getItem).toHaveBeenCalledWith('userInfo');
+      expect(localStorageMock.getItem).toHaveBeenCalledWith('userToken');
+      // Porovnáme výsledek s očekávanou hodnotou
+      expect(result).toEqual({ token: mockToken, user: mockUser });
     });
-    
+
     test('should return null if user not in localStorage', () => {
       // Act
       const result = authService.getCurrentUser();
-      
+
       // Assert
       expect(result).toBeNull();
       expect(localStorageMock.getItem).toHaveBeenCalledWith('userInfo');

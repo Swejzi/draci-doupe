@@ -6,11 +6,12 @@ const questService = require('../services/questService');
 const getActiveQuests = async (req, res) => {
   try {
     const { sessionId } = req.params;
+    const { type } = req.query; // Získání parametru typu z query
     const userId = req.user.userId;
 
     // Ověření, že uživatel má přístup k danému sezení
-    const activeQuests = await questService.getActiveQuests(sessionId);
-    
+    const activeQuests = await questService.getActiveQuests(sessionId, type);
+
     res.status(200).json(activeQuests);
   } catch (error) {
     console.error('Chyba při získávání aktivních úkolů:', error);
@@ -32,7 +33,7 @@ const addQuest = async (req, res) => {
     }
 
     const result = await questService.addQuest(sessionId, questId);
-    
+
     res.status(200).json(result);
   } catch (error) {
     console.error('Chyba při přidávání úkolu:', error);
@@ -54,7 +55,7 @@ const updateObjectiveStatus = async (req, res) => {
     }
 
     const result = await questService.updateObjectiveStatus(sessionId, questId, objectiveId, completed);
-    
+
     res.status(200).json(result);
   } catch (error) {
     console.error('Chyba při aktualizaci stavu cíle:', error);
@@ -71,7 +72,7 @@ const getQuestDetails = async (req, res) => {
     const userId = req.user.userId;
 
     const questDetails = await questService.getQuestDetails(sessionId, questId);
-    
+
     res.status(200).json(questDetails);
   } catch (error) {
     console.error('Chyba při získávání detailů úkolu:', error);
