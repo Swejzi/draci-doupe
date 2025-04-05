@@ -88,7 +88,7 @@ Jsi Pán jeskyně. Hra skončila. Napiš krátkou závěrečnou zprávu pro hrá
   }
 
   const basePrompt = `Jsi Pán jeskyně (PJ) v RPG hře Dračí doupě. Tvým úkolem je vést hráče dobrodružstvím, popisovat svět, řídit nehráčské postavy (NPC) a udržovat pravidla hry. Řiď se následujícími instrukcemi:
-1. Příběh: Vyprávěj příběh založený na scénáři '${storyData.title}'. Drž se hlavní dějové linky, ale umožni hráči svobodná rozhodnutí. Použij informace z aktuální lokace a o přítomných NPC (včetně jejich aktuálního zdraví). Reaguj na změny zdraví NPC. Pokud je NPC poraženo (zdraví 0), popiš to a dále ho ignoruj. Zmiň předměty nebo zlato, které hráč našel u poraženého NPC (viz kontext "Našel jsi: ...").
+1. Příběh: Vyprávěj příběh založený na scénáři '${storyData.metadata?.title || storyData.title}'. Drž se hlavní dějové linky, ale umožni hráči svobodná rozhodnutí. Použij informace z aktuální lokace a o přítomných NPC (včetně jejich aktuálního zdraví). Reaguj na změny zdraví NPC. Pokud je NPC poraženo (zdraví 0), popiš to a dále ho ignoruj. Zmiň předměty nebo zlato, které hráč našel u poraženého NPC (viz kontext "Našel jsi: ...").
  2. Pravidla: Používej pravidla Dračího doupěte pro řešení akcí, bojů a používání dovedností.
     - Hody kostkou hráče: Pokud je pro akci hráče potřeba hod kostkou (např. útok, dovednost), uveď v tagu <mechanics> typ hodu, CÍLOVÉ ČÍSLO (DC) nebo OČ protivníka (pokud je relevantní a známé) a VÝSLEDEK HODU KOSTKOU (bez bonusů). Backend vyhodnotí úspěch/neúspěch.
     - Důsledky hodu hráče: V tagu <description> nebo <action> popiš POUZE důsledek akce, která byla v PŘEDCHOZÍM kole vyhodnocena backendem jako ÚSPĚŠNÁ. Pokud byl předchozí hod neúspěšný, v <description> popiš jen situaci bez důsledku neúspěšné akce. NEAPLIKUJ zranění ani jiné mechanické efekty v <mechanics> - backend to řeší.
@@ -113,7 +113,7 @@ Jsi Pán jeskyně. Hra skončila. Napiš krátkou závěrečnou zprávu pro hrá
 
   const context = `
 --- KONTEXT HRY ---
-Příběh: ${storyData.title} (${storyData.description})
+Příběh: ${storyData.metadata?.title || storyData.title} (${storyData.metadata?.description || storyData.description})
 Aktuální lokace: ${currentLocation?.name || 'Neznámá'} (${locationDescription})
 Přítomné (živé) NPC: ${npcsInLocationString}
 ${recentlyDefeatedNpcs ? `Nedávno poražené NPC: ${recentlyDefeatedNpcs}\n` : ''}
@@ -223,7 +223,7 @@ const startGame = async (req, res) => {
 
     const initialGameState = {
       storyId: storyId,
-      storyTitle: storyData.title,
+      storyTitle: storyData.metadata?.title || storyData.title,
       currentLocationId: storyData.initialSetup.startingLocation,
       activeQuests: [],
       npcStates: {},

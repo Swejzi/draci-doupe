@@ -1,9 +1,10 @@
 {
-  "title": "Záchrana vesnice Oakhaven",
-  "description": "Krátké úvodní dobrodružství pro začínající postavy.",
-  "author": "AI Cline",
-  "version": "0.1",
-  "settings": {
+  "metadata": {
+    "title": "Záchrana vesnice Oakhaven",
+    "author": "AI Cline",
+    "version": "0.1",
+    "description": "Krátké úvodní dobrodružství pro začínající postavy.",
+    "difficulty": "Začátečník",
     "world": "Zapomenuté říše (základní)",
     "era": "Neurčená",
     "theme": "Klasická fantasy, záchrana"

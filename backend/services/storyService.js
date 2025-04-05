@@ -17,9 +17,10 @@ const listAvailableStories = async () => {
         // Vrátíme jen základní info pro seznam
         return {
           id: path.parse(file).name, // ID odvozené z názvu souboru
-          title: storyData.title || 'Neznámý název',
-          description: storyData.description || 'Bez popisu',
-          author: storyData.author || 'Neznámý autor',
+          title: storyData.metadata?.title || storyData.title || 'Neznámý název',
+          description: storyData.metadata?.description || storyData.description || 'Bez popisu',
+          author: storyData.metadata?.author || storyData.author || 'Neznámý autor',
+          difficulty: storyData.metadata?.difficulty || 'Neznámá obtížnost'
         };
       } catch (parseError) {
         console.error(`Chyba při parsování souboru ${file}:`, parseError);
@@ -47,7 +48,7 @@ const loadStoryById = async (storyId) => {
   } catch (error) {
     if (error.code === 'ENOENT') {
       // Soubor neexistuje
-      return null; 
+      return null;
     } else if (error instanceof SyntaxError) {
       // Chyba parsování JSON
       console.error(`Chyba parsování JSON v souboru ${filename}:`, error);

@@ -1,9 +1,10 @@
 {
-  "title": "Kvantová flotila",
-  "description": "Dobrodružství odehrávající se v roce 3000 na pomezí kvantové pěny a vesmírných dimenzí.",
-  "author": "AI Cline",
-  "version": "1.0",
-  "settings": {
+  "metadata": {
+    "title": "Kvantová flotila",
+    "author": "AI Cline",
+    "version": "1.0",
+    "description": "Dobrodružství odehrávající se v roce 3000 na pomezí kvantové pěny a vesmírných dimenzí.",
+    "difficulty": "Pokročilý",
     "world": "Multidimenzionální kontinuum",
     "era": "Transhumánní éra, rok 3000",
     "theme": "Kvantová realita, mezidimenzionální průzkum, existenciální hrozba"
