@@ -1,0 +1,1306 @@
+{
+  "metadata": {
+    "title": "Kobra 11: Honička na dálnici",
+    "author": "AI DM",
+    "version": "1.0",
+    "description": "Moderní dobrodružství, ve kterém se hráč stává třetím členem elitní policejní jednotky Kobra 11 spolu se Semirem a Tomem. Postavte se zločincům na německých dálnicích v tomto akčním příběhu plném honiček, výbuchů a napínavých soubojů.",
+    "difficulty": "Pokročilý",
+    "world": "Moderní Německo",
+    "era": "Současnost",
+    "theme": "Policejní akce, honička, vyšetřování"
+  },
+  "initialSetup": {
+    "introduction": "Vítejte u dálničního oddělení Kobra 11! Po úspěšném dokončení policejní akademie jste byl/a přidělen/a k elitní jednotce pod vedením zkušených detektivů Semira Gerkhana a Toma Kranicha. Vaše první den začíná poklidně, ale tísňové volání brzy změní rutinní hlídku v nebezpečnou honičku. Připravte se na akci, výbuchy a dramatické pronásledování na německých dálnicích!",
+    "startingLocation": "kobra_hq",
+    "availableRaces": ["Člověk"],
+    "availableClasses": ["Detektiv", "Technik", "Specialista", "Vyjednavač"],
+    "recommendedLevel": 1,
+    "startingTime": "08:00",
+    "startingWeather": "clear",
+    "startingGold": 100,
+    "startingItems": ["police_badge", "handcuffs", "service_pistol", "police_radio", "smartphone"]
+  },
+  "locations": [
+    {
+      "id": "kobra_hq",
+      "name": "Velitelství Kobry 11",
+      "description": "Moderní budova dálničního oddělení policie s kancelářemi, zasedací místností, počítačovou laboratoří a garáží plnou výkonných policejních vozů. Zde začíná a končí každý váš pracovní den.",
+      "connectedLocations": ["police_garage", "highway_a4", "chief_office"],
+      "npcs": ["chief_engelhardt", "hartmut", "elli"],
+      "events": ["morning_briefing"],
+      "items": ["case_files", "coffee_machine"],
+      "travelTime": {
+        "police_garage": 1,
+        "highway_a4": 5,
+        "chief_office": 1
+      },
+      "reputation": {
+        "default": 50,
+        "modifiers": {
+          "solved_case": 10,
+          "helped_colleague": 5
+        }
+      },
+      "restArea": true,
+      "restCost": 0,
+      "restHealAmount": 10,
+      "dangerLevel": 0,
+      "weatherEffects": {
+        "rain": "Déšť bubnuje na střechu budovy, zatímco uvnitř panuje obvyklý ruch.",
+        "fog": "Mlha halí okolí budovy, ale uvnitř je teplo a světlo.",
+        "snow": "Budova je obklopena sněhovou pokrývkou, ale uvnitř je příjemně teplo."
+      }
+    },
+    {
+      "id": "police_garage",
+      "name": "Policejní garáž",
+      "description": "Prostorná garáž plná policejních vozů. Dominuje zde řada černých BMW, benzínová čerpací stanice a dílna pro rychlé opravy. Zde si vyzvedáváte služební vozidla před výjezdem.",
+      "connectedLocations": ["kobra_hq", "highway_a4"],
+      "npcs": ["dieter_mechanic"],
+      "events": ["car_selection"],
+      "items": ["repair_tools", "spare_parts"],
+      "travelTime": {
+        "kobra_hq": 1,
+        "highway_a4": 2
+      },
+      "reputation": {
+        "default": 50
+      },
+      "restArea": false,
+      "dangerLevel": 0
+    },
+    {
+      "id": "highway_a4",
+      "name": "Dálnice A4",
+      "description": "Rušná německá dálnice s několika pruhy v každém směru. Vozidla se zde pohybují velmi vysokou rychlostí. Z této hlavní tepny se můžete dostat na další části dálniční sítě a do přilehlých oblastí.",
+      "connectedLocations": ["kobra_hq", "police_garage", "gas_station", "crash_site", "warehouse_district"],
+      "npcs": ["commuter_witness"],
+      "events": ["speeding_car", "car_accident"],
+      "items": [],
+      "travelTime": {
+        "kobra_hq": 5,
+        "police_garage": 2,
+        "gas_station": 10,
+        "crash_site": 15,
+        "warehouse_district": 20
+      },
+      "reputation": {
+        "default": 40
+      },
+      "restArea": false,
+      "dangerLevel": 3,
+      "weatherEffects": {
+        "rain": "Déšť výrazně zhoršuje viditelnost a dělá vozovku kluzkou, zvyšuje nebezpečí nehod.",
+        "fog": "Mlha drasticky snižuje viditelnost, někteří řidiči zpomalují, jiní riskantně předjíždějí.",
+        "snow": "Zasněžená vozovka je velmi nebezpečná, silničáři pracují na její údržbě."
+      }
+    },
+    {
+      "id": "gas_station",
+      "name": "Čerpací stanice",
+      "description": "Velká čerpací stanice s obchodem, restaurací a odpočívadlem. Často zde zastavují řidiči kamionů i osobních aut pro občerstvení a natankování.",
+      "connectedLocations": ["highway_a4"],
+      "npcs": ["gas_station_attendant", "truck_driver"],
+      "events": ["suspicious_exchange"],
+      "items": ["energy_drink", "sandwich"],
+      "travelTime": {
+        "highway_a4": 10
+      },
+      "reputation": {
+        "default": 50
+      },
+      "shopkeeper": "gas_station_attendant",
+      "shop": {
+        "type": "convenience_store",
+        "inventory": [
+          {"id": "energy_drink", "price": 3, "quantity": 20},
+          {"id": "sandwich", "price": 5, "quantity": 10},
+          {"id": "coffee", "price": 2, "quantity": 30},
+          {"id": "first_aid_kit", "price": 15, "quantity": 5}
+        ],
+        "buyRate": 0.5,
+        "sellRate": 1.2
+      },
+      "restArea": true,
+      "restCost": 5,
+      "restHealAmount": 3,
+      "dangerLevel": 1
+    },
+    {
+      "id": "crash_site",
+      "name": "Místo nehody",
+      "description": "Úsek dálnice, kde došlo k vážné dopravní nehodě. Trosky vozidel, sklo a další úlomky jsou rozesety po vozovce. Provoz je zpomalen a kolem místa pracují záchranáři.",
+      "connectedLocations": ["highway_a4"],
+      "npcs": ["paramedic", "accident_witness"],
+      "events": ["investigate_crash"],
+      "items": ["vehicle_debris", "skid_marks"],
+      "travelTime": {
+        "highway_a4": 15
+      },
+      "reputation": {
+        "default": 45
+      },
+      "restArea": false,
+      "dangerLevel": 2,
+      "weatherEffects": {
+        "rain": "Déšť ztěžuje práci záchranářů a vyšetřování nehody.",
+        "fog": "Mlha vytváří kolem místa nehody ponurou atmosféru a snižuje viditelnost.",
+        "snow": "Sníh komplikuje přístup k místu nehody a zakrývá důkazy."
+      }
+    },
+    {
+      "id": "warehouse_district",
+      "name": "Skladištní oblast",
+      "description": "Průmyslová zóna plná velkých skladů, kamionů a kontejnerů. Perfektní místo pro nelegální operace mimo dohled veřejnosti. V noci je oblast slabě osvětlena a téměř opuštěná.",
+      "connectedLocations": ["highway_a4", "abandoned_warehouse"],
+      "npcs": ["security_guard", "suspicious_worker"],
+      "events": ["stake_out"],
+      "items": ["warehouse_map", "suspicious_cargo"],
+      "travelTime": {
+        "highway_a4": 20,
+        "abandoned_warehouse": 5
+      },
+      "reputation": {
+        "default": 30
+      },
+      "restArea": false,
+      "dangerLevel": 4,
+      "weatherEffects": {
+        "rain": "Déšť vytváří hluk na plechových střechách skladů a snižuje slyšitelnost.",
+        "fog": "Mlha se vine mezi budovami a poskytuje dokonalý úkryt pro podezřelé aktivity.",
+        "snow": "Sněhová pokrývka odhaluje stopy vedoucí mezi jednotlivými sklady."
+      }
+    },
+    {
+      "id": "abandoned_warehouse",
+      "name": "Opuštěný sklad",
+      "description": "Zchátralý sklad s polorozpadlou střechou, rozbitými okny a zrezivělými kovovými konstrukcemi. Uvnitř je tma, prach a známky nedávné lidské přítomnosti.",
+      "connectedLocations": ["warehouse_district"],
+      "npcs": ["gang_leader", "henchman_1", "henchman_2"],
+      "events": ["final_confrontation"],
+      "items": ["stolen_goods", "gang_evidence"],
+      "travelTime": {
+        "warehouse_district": 5
+      },
+      "reputation": {
+        "default": 20
+      },
+      "restArea": false,
+      "dangerLevel": 5,
+      "weatherEffects": {
+        "rain": "Déšť prosakuje skrz děravou střechu a vytváří kalužiny na betonové podlaze.",
+        "fog": "Mlha proniká do skladu skrz rozbité stěny a okna, vytvářející přízračnou atmosféru.",
+        "snow": "Sníh se hromadí v otvorech ve střeše a na podlaze tvoří malé závěje."
+      }
+    },
+    {
+      "id": "chief_office",
+      "name": "Kancelář komisařky",
+      "description": "Prostorná, ale stroze zařízená kancelář šéfky oddělení. Dominuje zde velký pracovní stůl, na stěnách visí policejní vyznamenání a certifikáty.",
+      "connectedLocations": ["kobra_hq"],
+      "npcs": ["chief_engelhardt"],
+      "events": ["briefing", "debriefing"],
+      "items": ["confidential_files"],
+      "travelTime": {
+        "kobra_hq": 1
+      },
+      "reputation": {
+        "default": 50
+      },
+      "restArea": false,
+      "dangerLevel": 0
+    }
+  ],
+  "npcs": [
+    {
+      "id": "semir_gerkhan",
+      "name": "Semir Gerkhan",
+      "description": "Zkušený detektiv tureckého původu s krátkými černými vlasy a pronikavýma očima. Výborný řidič a bojovník, který se nebojí riskovat. Váš mentor a parťák.",
+      "personality": "Impulzivní, odvážný, oddaný práci a přátelům. Má skvělý instinkt a často jedná na vlastní pěst. Je spolehlivý v krizových situacích.",
+      "stats": {
+        "level": 10,
+        "health": 100,
+        "ac": 14,
+        "strength": 14,
+        "dexterity": 16,
+        "constitution": 15,
+        "intelligence": 13,
+        "wisdom": 14,
+        "charisma": 15,
+        "attackBonus": 5,
+        "damageDice": "1d6+2"
+      },
+      "faction": "kobra_11",
+      "occupation": "Policejní detektiv",
+      "loot": ["spare_pistol", "police_badge"],
+      "dialogue": {
+        "greeting": "Ahoj, parťáku! Připraven/a na další směnu? Dálnice nikdy nespí a zločinci taky ne.",
+        "topics": {
+          "cases": "Máme toho teď hodně. Série krádeží luxusních aut, pašeráci drog a ten případ s ukradenými součástkami... Engelhardt po nás chce výsledky, a to rychle.",
+          "tom": "Tom je nejlepší parťák, jakého jsem kdy měl. Je to analytik - rozvážný, přesný a spolehlivý. Dokonale se doplňujeme.",
+          "cars": "Moje BMW je moje druhé já! 340 koní pod kapotou, dokonalé ovládání... Není nic lepšího než se řítit po dálnici při honičce.",
+          "past": "Byl jsem u Kobry už hodně dlouho, viděl jsem věci, které by ti nedaly spát. Ztratil jsem pár dobrých přátel... Ale tahle práce je moje poslání."
+        },
+        "questDialogue": {
+          "highway_heist": {
+            "notStarted": "Mám takový pocit, že dnes bude horký den. Nedávno se objevila nová gang, co přepadává kamiony. Měj oči otevřené.",
+            "inProgress": "Musíme ty bandity chytit! Podle informací se pohybují kolem skladištní zóny na východ odsud. Ještě nikdy neutekli před Kobrou 11!",
+            "completed": "Výborná práce, parťáku! Jsem rád, že tě mám v týmu. Tohle byl pořádný úlovek!"
+          }
+        }
+      },
+      "schedule": [
+        {"time": "08:00", "location": "kobra_hq", "activity": "Ranní porada"},
+        {"time": "09:00", "location": "highway_a4", "activity": "Hlídkování"},
+        {"time": "12:00", "location": "gas_station", "activity": "Obědová pauza"},
+        {"time": "13:00", "location": "highway_a4", "activity": "Hlídkování"},
+        {"time": "18:00", "location": "kobra_hq", "activity": "Papírování"}
+      ],
+      "relationships": {
+        "tom_kranich": "best_friend",
+        "chief_engelhardt": "respectful",
+        "dieter_mechanic": "friendly"
+      },
+      "skills": ["driving", "hand_to_hand", "investigation", "persuasion"],
+      "spells": []
+    },
+    {
+      "id": "tom_kranich",
+      "name": "Tom Kranich",
+      "description": "Vysoký, atletický muž s krátkými blond vlasy a modrýma očima. Je klidný, systematický a výborný střelec. Váš druhý parťák a přítel.",
+      "personality": "Klidný, analytický, přemýšlivý. Je to perfekcionista, který plánuje dopředu. Dokonale vyvažuje Semirovu impulzivnost.",
+      "stats": {
+        "level": 9,
+        "health": 90,
+        "ac": 13,
+        "strength": 13,
+        "dexterity": 15,
+        "constitution": 14,
+        "intelligence": 16,
+        "wisdom": 15,
+        "charisma": 14,
+        "attackBonus": 4,
+        "damageDice": "1d6+1"
+      },
+      "faction": "kobra_11",
+      "occupation": "Policejní detektiv",
+      "loot": ["precision_pistol", "police_badge"],
+      "dialogue": {
+        "greeting": "Zdravím, nový kolego. Doufám, že jsi připraven/a na akci. S Kobrou 11 to nikdy není nudná práce.",
+        "topics": {
+          "investigation": "Při vyšetřování je klíčové všímat si detailů. Malé nesrovnalosti často vedou k velkým případům. Nikdy nepodceňuj stopy, které se zdají nevýznamné.",
+          "semir": "Semir je jako bratr. Někdy je trochu zbrklý, ale nemohl bych si přát lepšího parťáka. Výborně se doplňujeme - on je srdce, já jsem hlava.",
+          "weapons": "Preferuji přesnost nad palebnou silou. Kvalitní pistole v rukou zkušeného střelce je efektivnější než samopal v rukou amatéra.",
+          "training": "Každý týden si udržuji střeleckou formu. Pokud máš zájem, můžeme si někdy zajít na střelnici. Rád ti předám pár tipů."
+        },
+        "questDialogue": {
+          "highway_heist": {
+            "notStarted": "Poslední dva měsíce zaznamenáváme zvýšený počet přepadení kamionů. Podle analýzy mají bandité přesné informace o nákladu - musí mít někoho uvnitř.",
+            "inProgress": "Našel jsem spojitost mezi přepadeními - všechny kamiony vyjížděly ze stejného logistického centra. Myslím, že bychom se měli podívat do skladištní oblasti.",
+            "completed": "Výborná práce. S tvou pomocí jsme rozprášili celou síť. Analytické oddělení bude mít co dělat s vyhodnocováním všech důkazů, které jsme získali."
+          }
+        }
+      },
+      "schedule": [
+        {"time": "08:00", "location": "kobra_hq", "activity": "Ranní porada"},
+        {"time": "09:00", "location": "highway_a4", "activity": "Hlídkování"},
+        {"time": "12:00", "location": "gas_station", "activity": "Obědová pauza"},
+        {"time": "13:00", "location": "highway_a4", "activity": "Hlídkování"},
+        {"time": "18:00", "location": "kobra_hq", "activity": "Vyhodnocování důkazů"}
+      ],
+      "relationships": {
+        "semir_gerkhan": "best_friend",
+        "chief_engelhardt": "respectful",
+        "hartmut": "friendly"
+      },
+      "skills": ["marksmanship", "investigation", "interrogation", "analysis"],
+      "spells": []
+    },
+    {
+      "id": "chief_engelhardt",
+      "name": "Komisařka Anna Engelhardt",
+      "description": "Elegantní žena středního věku s upravenými krátko hnědými vlasy a pronikavým pohledem. Vždy upravená a profesionální.",
+      "personality": "Přísná, ale spravedlivá. Očekává výsledky a profesionalitu. Za svůj tým by však položila život.",
+      "stats": {
+        "level": 12,
+        "health": 70,
+        "ac": 12,
+        "strength": 10,
+        "dexterity": 12,
+        "constitution": 11,
+        "intelligence": 17,
+        "wisdom": 16,
+        "charisma": 15,
+        "attackBonus": 2,
+        "damageDice": "1d4"
+      },
+      "faction": "police_leadership",
+      "occupation": "Policejní komisařka",
+      "loot": ["official_credentials", "office_key"],
+      "dialogue": {
+        "greeting": "Dobrý den, detektive. Doufám, že jste připraven/a na nové výzvy. Kobra 11 má vysoké standardy.",
+        "topics": {
+          "disciplína": "Očekávám od svých detektivů naprostou disciplínu a oddanost. To však neznamená, že by neměli myslet sami za sebe. Iniciativa je vítána, pokud neohrožuje bezpečnost.",
+          "politika": "Bohužel, policie není jen o chytání zločinců. Je to také o politice, rozpočtech a vztazích s veřejností. To je část mé práce, kterou vás chci ušetřit.",
+          "semir_tom": "Gerkhan a Kranich jsou mí nejlepší detektivové. Ano, někdy překračují hranice, ale vždy dostanou výsledky. Věřím jim jako málokomu.",
+          "administrativa": "Papírování je nutné zlo. Bez řádné dokumentace by žádný případ neobstál u soudu. Vždy dokončete svá hlášení včas a kompletně."
+        },
+        "questDialogue": {
+          "highway_heist": {
+            "notStarted": "Přepadení kamionů se stává vážným problémem. Policie i dopravci jsou pod tlakem. Potřebuji, abyste tento případ vyřešili rychle a diskrétně.",
+            "inProgress": "Jak pokračuje vyšetřování? Ministr dopravy mě každý den bombarduje telefonáty. Potřebuji výsledky, ale nechci žádné zbytečné riziko.",
+            "completed": "Výborná práce, detektive. Byl to riskantní zákrok, ale výsledky mluví samy za sebe. Ministerstvo je spokojeno a já též. Toto bude ve vašem hodnocení."
+          }
+        }
+      },
+      "schedule": [
+        {"time": "07:30", "location": "chief_office", "activity": "Administrativní práce"},
+        {"time": "08:00", "location": "kobra_hq", "activity": "Vedení ranní porady"},
+        {"time": "09:00", "location": "chief_office", "activity": "Schůzky a telefonáty"},
+        {"time": "12:30", "location": "chief_office", "activity": "Oběd a paperwork"},
+        {"time": "17:00", "location": "kobra_hq", "activity": "Kontrola denních výsledků"}
+      ],
+      "relationships": {
+        "semir_gerkhan": "professional_respect",
+        "tom_kranich": "professional_respect"
+      },
+      "skills": ["leadership", "administration", "negotiation", "insight"],
+      "spells": []
+    },
+    {
+      "id": "hartmut",
+      "name": "Hartmut Freund",
+      "description": "Podsaditý, starší muž s prořídlými vlasy a brýlemi. Technologický génius a počítačový expert oddělení.",
+      "personality": "Inteligentní, trochu nervózní, ale naprosto oddaný své práci. Miluje technologie a nesnáší, když se jeho vybavení poškodí.",
+      "stats": {
+        "level": 7,
+        "health": 50,
+        "ac": 10,
+        "strength": 9,
+        "dexterity": 11,
+        "constitution": 10,
+        "intelligence": 18,
+        "wisdom": 14,
+        "charisma": 10,
+        "attackBonus": 1,
+        "damageDice": "1d4-1"
+      },
+      "faction": "kobra_11",
+      "occupation": "Technik",
+      "loot": ["laptop", "high_tech_gadget"],
+      "dialogue": {
+        "greeting": "Ah, náš nový detektiv! Potřebujete-li cokoliv ohledně techniky nebo elektronických důkazů, jsem váš člověk.",
+        "topics": {
+          "technologie": "V našem oddělení máme to nejlepší vybavení. Sledovací zařízení, odposlouchávací technika, forenzní nástroje... Jen je, prosím, nevracejte poničené jako Semir!",
+          "počítače": "Dokážu hacknout téměř jakýkoliv systém. Ne že bych to dělal nelegálně, samozřejmě! Vše v rámci vyšetřování a s patřičným povolením.",
+          "evidence": "Digitální stopy nelžou. Můžu vysledovat telefonní hovory, analyzovat nahrávky z kamer, obnovit smazaná data... Zločinci podceňují, kolik informací po sobě zanechávají.",
+          "vybavení": "Tahle malá kamera se dá připnout kamkoliv a vysílá obraz přímo do centrály. A tenhle odposlech zachytí hovor i přes třikrát izolovanou stěnu. Úžasné, že?"
+        },
+        "questDialogue": {
+          "highway_heist": {
+            "notStarted": "Poslední dobou zachycujeme zvláštní rádiový provoz v pásmu, které používají kamionisté. Myslím, že gangy používají stejnou frekvenci pro koordinaci přepadení.",
+            "inProgress": "Podařilo se mi triangulovat několik podezřelých rádiových přenosů. Všechny směřují do oblasti kolem skladištní zóny. Mohu vám dát sledovací zařízení pro vaši operaci.",
+            "completed": "Paráda! Zabavené počítače a telefony jsou zlatý důl informací. Dej mi pár hodin a budu vědět o celé jejich síti úplně všechno."
+          }
+        }
+      },
+      "schedule": [
+        {"time": "08:00", "location": "kobra_hq", "activity": "Ranní porada"},
+        {"time": "09:00", "location": "kobra_hq", "activity": "Práce s technologiemi"},
+        {"time": "13:00", "location": "kobra_hq", "activity": "Forenzní analýza"}
+      ],
+      "relationships": {
+        "tom_kranich": "friendly",
+        "semir_gerkhan": "exasperated_friendship"
+      },
+      "skills": ["hacking", "forensics", "electronics", "research"],
+      "spells": []
+    },
+    {
+      "id": "elli",
+      "name": "Elli Schneider",
+      "description": "Mladá žena s dlouhými blond vlasy, bystrými zelenými očima a přátelským úsměvem. Řídí administrativu oddělení.",
+      "personality": "Organizovaná, efektivní, přátelská. Všechno ví, všechno najde a na všechno má systém.",
+      "stats": {
+        "level": 5,
+        "health": 40,
+        "ac": 10,
+        "strength": 8,
+        "dexterity": 12,
+        "constitution": 10,
+        "intelligence": 15,
+        "wisdom": 14,
+        "charisma": 16,
+        "attackBonus": 0,
+        "damageDice": "1d4-1"
+      },
+      "faction": "kobra_11",
+      "occupation": "Administrativní asistentka",
+      "loot": ["personal_organizer", "office_supplies"],
+      "dialogue": {
+        "greeting": "Dobré ráno! Mám připravené všechny formuláře, které budete potřebovat. Kávu s mlékem nebo černou?",
+        "topics": {
+          "administrativa": "Bez řádné administrativy by se celé oddělení zhroutilo. Každý případ potřebuje správnou dokumentaci, každý důkaz musí být řádně katalogizován.",
+          "kolegové": "Semir je jako tornádo - všude, kde se objeví, zanechá spoušť, ale výsledky mluví samy za sebe. Tom je naprosto spolehlivý a přesný, vždy odevzdává zprávy včas.",
+          "kanceláře": "Znám každý kout této budovy. Potřebujete-li cokoliv najít, stačí se zeptat. A prosím, používejte správné pořadače pro vaše zprávy!",
+          "drby": "Nerada šířím drby, ale... slyšela jsem, že komisařka Engelhardt dostala nabídku na povýšení do Berlína. Ale to je jen mezi námi!"
+        },
+        "questDialogue": {
+          "highway_heist": {
+            "notStarted": "Právě jsem dostala hlášení od dopravců - další přepadení kamionu. Složka je na vašem stole, včetně všech předchozích případů.",
+            "inProgress": "Zajistila jsem vám všechna potřebná povolení pro sledování a operaci ve skladištní zóně. A upomínám, že zpráva z poslední akce je stále nevyplněná.",
+            "completed": "Gratuluji k úspěchu! Všechny protokoly a předání pachatelů jsem už připravila. Potřebuji jen váš podpis tady, tady a... tady."
+          }
+        }
+      },
+      "schedule": [
+        {"time": "07:30", "location": "kobra_hq", "activity": "Příprava dokumentů"},
+        {"time": "08:00", "location": "kobra_hq", "activity": "Ranní porada"},
+        {"time": "09:00", "location": "kobra_hq", "activity": "Administrativní práce"},
+        {"time": "17:00", "location": "kobra_hq", "activity": "Zpracování denních zpráv"}
+      ],
+      "relationships": {
+        "chief_engelhardt": "respectful",
+        "semir_gerkhan": "friendly_exasperated",
+        "tom_kranich": "friendly"
+      },
+      "skills": ["organization", "administration", "communication", "research"],
+      "spells": []
+    },
+    {
+      "id": "dieter_mechanic",
+      "name": "Dieter Schmidt",
+      "description": "Statný muž s ušpiněnýma rukama, v montérkách a s věčně podrážděným výrazem. Génius na auta a motory.",
+      "personality": "Mrzutý na povrchu, ale se srdcem ze zlata. Miluje auta více než lidi a omdlévá při pohledu na poničené policejní vozy.",
+      "stats": {
+        "level": 6,
+        "health": 60,
+        "ac": 11,
+        "strength": 15,
+        "dexterity": 14,
+        "constitution": 13,
+        "intelligence": 14,
+        "wisdom": 10,
+        "charisma": 8,
+        "attackBonus": 3,
+        "damageDice": "1d6+2"
+      },
+      "faction": "kobra_11",
+      "occupation": "Automechanik",
+      "loot": ["toolkit", "car_parts"],
+      "dialogue": {
+        "greeting": "Co jste s ním zase udělali? Ten vůz byl včera jako nový!",
+        "topics": {
+          "auta": "Tohle je BMW 540i s výkonem 340 koní, speciálně upravená pro policejní honičky. Lepší vůz na německých silnicích nenajdete.",
+          "opravy": "Samozřejmě, že to opravím. Ale ať už to příště nevidím v tomhle stavu! A ne že s tím budete zase skákat přes mosty jako Semir minulý týden.",
+          "semir": "Gerkhan je můj nejhorší noční můra. Jeho vozy se ke mně vrací s prostřílenými pneumatikami, rozbitými čelními skly a ohnutými nápravami. A to je ještě dobrý den!",
+          "technika": "Moderní auta jsou jako počítače na kolech. Bez diagnostiky a speciálního softwaru se dnes už neopraví nic. Naštěstí se v tom vyznám lépe než většina těch továrních techniků."
+        },
+        "questDialogue": {
+          "highway_heist": {
+            "notStarted": "Zrovna jsem dokončil přípravu dvou vozů. Obě BMW jsou v perfektním stavu - ale rád bych, aby tak i zůstala, jasné?",
+            "inProgress": "Máte problémy s autem? Mohu vám dát pár tipů po telefonu, ale některé věci prostě na dálku neopravím. Jezděte opatrně!",
+            "completed": "No teda! Vrátili jste auto s JEDNÍM škrábancem. To je snad poprvé v historii. Začínám mít naději pro tohle oddělení."
+          }
+        }
+      },
+      "schedule": [
+        {"time": "07:00", "location": "police_garage", "activity": "Příprava vozidel"},
+        {"time": "09:00", "location": "police_garage", "activity": "Opravy a údržba"},
+        {"time": "16:00", "location": "police_garage", "activity": "Diagnostika vozů"}
+      ],
+      "relationships": {
+        "semir_gerkhan": "love_hate",
+        "tom_kranich": "respectful"
+      },
+      "skills": ["mechanics", "driving", "electronics", "weaponry"],
+      "spells": []
+    },
+    {
+      "id": "gang_leader",
+      "name": "Viktor Novak",
+      "description": "Vysoký, svalnatý muž s jizvou přes levé oko a krátkými černými vlasy. Vyzařuje z něj nebezpečí a autoritu.",
+      "personality": "Chladnokrevný, vypočítavý a bezohledný. Věří v sílu a respekt získaný strachem. K vlastním lidem je však překvapivě loajální.",
+      "stats": {
+        "level": 8,
+        "health": 85,
+        "ac": 14,
+        "strength": 16,
+        "dexterity": 14,
+        "constitution": 15,
+        "intelligence": 14,
+        "wisdom": 12,
+        "charisma": 15,
+        "attackBonus": 5,
+        "damageDice": "1d8+3"
+      },
+      "faction": "highway_gang",
+      "occupation": "Vůdce zločinecké skupiny",
+      "loot": ["leader_pistol", "encrypted_phone", "warehouse_keys", "valuable_watch"],
+      "dialogue": {
+        "greeting": "Tak policie konečně poslala novou posilu? Doufám, že jste připraven/a zemřít za svůj odznak.",
+        "topics": {
+          "gang": "Moji lidé jsou loajální, protože je dobře platím a chráním. Je to lepší rodina než ta, kterou většina z nich kdy měla.",
+          "business": "Byznys je jednoduchý - bereme si, co chceme, a prodáváme to těm, kdo zaplatí nejvíc. Není to nic osobního, jen obchod.",
+          "police": "Policie je jako obtížný hmyz. Občas někoho chytí, ale nikdy nezastaví celou operaci. Vždy najdeme způsob, jak pokračovat.",
+          "past": "Vyrůstal jsem v chudobě, s ničím a nikým. Všechno, co mám, jsem si vzal sám. Společnost mi nikdy nic nedala, tak proč bych já měl dávat něco jí?"
+        },
+        "questDialogue": {
+          "highway_heist": {
+            "notStarted": "",
+            "inProgress": "",
+            "completed": "Tak jste mě dostali. Ale nemyslete si, že tím končí. Moje organizace funguje dál. Za mnou stojí lidé, o kterých nemáte ani tušení!"
+          }
+        }
+      },
+      "schedule": [
+        {"time": "10:00", "location": "abandoned_warehouse", "activity": "Plánování operací"},
+        {"time": "15:00", "location": "abandoned_warehouse", "activity": "Schůzky s komplici"},
+        {"time": "20:00", "location": "abandoned_warehouse", "activity": "Kontrola ukradených zásob"}
+      ],
+      "relationships": {
+        "henchman_1": "boss",
+        "henchman_2": "boss",
+        "suspicious_worker": "accomplice"
+      },
+      "skills": ["intimidation", "tactics", "combat", "leadership"],
+      "spells": []
+    },
+    {
+      "id": "henchman_1",
+      "name": "Klaus Müller",
+      "description": "Mohutný muž s plešatou hlavou a hustým plnovousem. Vypadá jako chodicí hora svalů.",
+      "personality": "Brutální, přímočarý, s překvapivě dobromyslným humorem. Věrný svému šéfovi a ochotný udělat špinavou práci.",
+      "stats": {
+        "level": 5,
+        "health": 70,
+        "ac": 12,
+        "strength": 17,
+        "dexterity": 10,
+        "constitution": 16,
+        "intelligence": 8,
+        "wisdom": 9,
+        "charisma": 8,
+        "attackBonus": 4,
+        "damageDice": "2d6+3"
+      },
+      "faction": "highway_gang",
+      "occupation": "Enforcer",
+      "loot": ["shotgun", "brass_knuckles", "stack_of_cash"],
+      "dialogue": {
+        "greeting": "Další polda? Váš kolega z minulého týdne odešel s několika zlomenými žebry. Chcete se přidat?",
+        "topics": {
+          "boss": "Viktor je férový šéf. Platí dobře a stará se o své lidi. Ne jako ti hajzlové, pro které jsem dělal předtím.",
+          "job": "Moje práce? Je jednoduchá. Když někdo dělá problémy, já ty problémy vyřeším. Obvykle to zabere jen jednu návštěvu.",
+          "fighting": "Vždycky jsem měl talent pro rvačky. Na ulici se buď naučíte bojovat, nebo skončíte jako oběť. Já jsem se rozhodl nebýt obětí.",
+          "police": "Co je vaše práce? Zatýkat chudáky jako já, aby bohatí mohli dál krást legálně? Mezi námi a policií není takový rozdíl, jak si myslíte."
+        }
+      },
+      "schedule": [
+        {"time": "11:00", "location": "abandoned_warehouse", "activity": "Hlídka"},
+        {"time": "16:00", "location": "warehouse_district", "activity": "Zastrašování dodavatelů"},
+        {"time": "21:00", "location": "abandoned_warehouse", "activity": "Střežení skladu"}
+      ],
+      "relationships": {
+        "gang_leader": "loyal",
+        "henchman_2": "friendly_rival"
+      },
+      "skills": ["brawling", "intimidation", "heavy_lifting", "driving"],
+      "spells": []
+    },
+    {
+      "id": "henchman_2",
+      "name": "Fabian Schwarz",
+      "description": "Štíhlý, nervózní muž s ostrými rysy a přesným pohledem. Vždy ve střehu, s rukou blízko zbrani.",
+      "personality": "Paranoidní, opatrný, analytický. Neustále vyhodnocuje rizika a plánuje únikové cesty.",
+      "stats": {
+        "level": 5,
+        "health": 50,
+        "ac": 15,
+        "strength": 11,
+        "dexterity": 16,
+        "constitution": 12,
+        "intelligence": 14,
+        "wisdom": 13,
+        "charisma": 10,
+        "attackBonus": 4,
+        "damageDice": "1d8+2"
+      },
+      "faction": "highway_gang",
+      "occupation": "Odstřelovač a plánovač",
+      "loot": ["sniper_rifle", "binoculars", "escape_plans"],
+      "dialogue": {
+        "greeting": "Nenuťte mě použít tohle. Jsem známý tím, že nikdy nechybím.",
+        "topics": {
+          "security": "Největší slabinou každého plánu je lidský faktor. Lidé dělají chyby, jsou předvídatelní a snadno se nechají uplatit.",
+          "plans": "Každá operace vyžaduje tři plány: základní plán, záložní plán a únikový plán. Kdo není připraven na selhání, je připraven selhat.",
+          "weapons": "Preferuji přesnost nad silou. Čistá práce na dálku je vždy lepší než špinavá zblízka. Jeden přesný zásah je efektivnější než deset náhodných.",
+          "past": "Býval jsem ve speciálních jednotkách. Pak jsem zjistil, že mé dovednosti jsou mnohem lépe placené v soukromém sektoru. Zvláště v tom nelegálním."
+        }
+      },
+      "schedule": [
+        {"time": "09:00", "location": "warehouse_district", "activity": "Průzkum oblasti"},
+        {"time": "14:00", "location": "abandoned_warehouse", "activity": "Čištění zbraní"},
+        {"time": "20:00", "location": "abandoned_warehouse", "activity": "Střežení skladu s výškové pozice"}
+      ],
+      "relationships": {
+        "gang_leader": "professional",
+        "henchman_1": "cautious_respect"
+      },
+      "skills": ["marksmanship", "stealth", "tactics", "surveillance"],
+      "spells": []
+    },
+    {
+      "id": "gas_station_attendant",
+      "name": "Monika Bauer",
+      "description": "Přátelská žena středního věku s krátkými hnědými vlasy a unavenýma, ale vřelýma očima.",
+      "personality": "Pracovitá, přátelská, všímavá. Zná většinu pravidelných řidičů a registruje cokoli neobvyklého.",
+      "stats": {
+        "level": 2,
+        "health": 20,
+        "ac": 10,
+        "strength": 9,
+        "dexterity": 11,
+        "constitution": 10,
+        "intelligence": 12,
+        "wisdom": 14,
+        "charisma": 13,
+        "attackBonus": 0,
+        "damageDice": "1d4-1"
+      },
+      "faction": "civilians",
+      "occupation": "Obsluha čerpací stanice",
+      "loot": ["cash_register", "coffee_thermos"],
+      "dialogue": {
+        "greeting": "Dobrý den, detektive! Káva je čerstvá a mám nové sendviče. Co dnes pro vás?",
+        "topics": {
+          "dálnice": "Na dálnici je to jako na dlani - vidím všechny, kdo projíždějí. Zvláštní auta, podezřelé typy, zmatené turisty... všechno.",
+          "kamiony": "Kamioňáci jsou moji nejlepší zákazníci. Znám většinu z těch pravidelných. V poslední době jsou ale nervózní kvůli těm přepadením.",
+          "podezřelé": "Minulý týden tu zastavila skupina drsně vypadajících chlapů. Mluvili o nějakém nákladu a harmonogramu. Zdálo se mi to divné, tak jsem si zapsala jejich SPZ.",
+          "práce": "24 hodin denně, 7 dní v týdnu. Někdo tu musí být vždy. Není to nejzábavnější práce, ale potkám spoustu zajímavých lidí a vyslechnu spoustu příběhů."
+        },
+        "questDialogue": {
+          "highway_heist": {
+            "notStarted": "Poslední dobou tu zastavuje spousta kamionů. Řidiči jsou nervózní, bojí se přepadení. Prý mají informace, že gang útočí specificky na hodnotné náklady.",
+            "inProgress": "Nedávno jsem viděla podezřelé muže, jak si prohlížejí kamiony na odpočívadle. Měli takový ten malý skener - možná hledali sledovací zařízení?",
+            "completed": "Slyšela jsem, že jste chytili ty lupiče! To je skvělá zpráva. Řidiči kamionů budou určitě rádi, že mohou zase jezdit bez strachu."
+          }
+        }
+      },
+      "schedule": [
+        {"time": "06:00", "location": "gas_station", "activity": "Ranní směna"},
+        {"time": "14:00", "location": "gas_station", "activity": "Doplňování zboží"},
+        {"time": "22:00", "location": "gas_station", "activity": "Uzavírání pokladny"}
+      ],
+      "relationships": {
+        "truck_driver": "friendly",
+        "semir_gerkhan": "admiring"
+      },
+      "skills": ["observation", "communication", "emergency_first_aid"],
+      "spells": []
+    }
+  ],
+  "quests": [
+    {
+      "id": "highway_heist",
+      "title": "Přepadení na dálnici",
+      "description": "Série přepadení kamionů převážejících hodnotné zboží znepokojuje dopravce i policii. Vaším úkolem je infiltrovat oblast, kde gang operuje, a zastavit jejich činnost.",
+      "type": "main",
+      "giver": "chief_engelhardt",
+      "startLocation": "kobra_hq",
+      "prerequisites": {
+        "level": 1
+      },
+      "objectives": [
+        {
+          "id": "gather_info",
+          "description": "Shromážděte informace o nedávných přepadeních.",
+          "location": "kobra_hq",
+          "completionCondition": "Hráč prohledá dostupné složky a promluví s Hartmutem o analýze případů.",
+          "optional": false
+        },
+        {
+          "id": "interview_witnesses",
+          "description": "Vyslechněte svědky na čerpací stanici.",
+          "location": "gas_station",
+          "completionCondition": "Hráč promluví s obsluhou čerpací stanice a řidičem kamionu.",
+          "optional": false
+        },
+        {
+          "id": "investigate_crash",
+          "description": "Prozkoumejte místo nedávného přepadení.",
+          "location": "crash_site",
+          "completionCondition": "Hráč najde stopy vedoucí ke skladištní oblasti.",
+          "optional": false
+        },
+        {
+          "id": "surveillance",
+          "description": "Proveďte průzkum skladištní oblasti.",
+          "location": "warehouse_district",
+          "completionCondition": "Hráč identifikuje podezřelé aktivity kolem opuštěného skladu.",
+          "optional": false
+        },
+        {
+          "id": "infiltrate_warehouse",
+          "description": "Infiltrujte opuštěný sklad a získejte důkazy.",
+          "location": "abandoned_warehouse",
+          "completionCondition": "Hráč se dostane do skladu a nalezne důkazy o kriminální činnosti.",
+          "optional": false
+        },
+        {
+          "id": "arrest_gang",
+          "description": "Zatknete členy gangu včetně jejich vůdce.",
+          "location": "abandoned_warehouse",
+          "completionCondition": "Hráč konfrontuje a zatýká Viktora Novaka a jeho komplice.",
+          "optional": false
+        }
+      ],
+      "timeLimit": {
+        "days": 3,
+        "hours": 0
+      },
+      "rewards": {
+        "experience": 300,
+        "gold": 200,
+        "items": ["special_badge", "police_commendation"],
+        "reputation": {
+          "kobra_11": 20,
+          "police_leadership": 15
+        }
+      },
+      "consequences": {
+        "success": "Gang je rozprášen, ukradené zboží navráceno a bezpečnost na dálnicích obnovena. Získáváte uznání od nadřízených i médií.",
+        "failure": "Gang pokračuje v přepadeních, škody rostou a důvěra veřejnosti v policii klesá. Komisařka Engelhardt je pod tlakem vedení."
+      },
+      "followUpQuest": "corrupt_insider"
+    },
+    {
+      "id": "corrupt_insider",
+      "title": "Zrádce ve vlastních řadách",
+      "description": "Po zatčení gangu přepadávajícího kamiony se objevují indicie, že někdo z policejních řad poskytoval zločincům interní informace. Vaším úkolem je odhalit zrádce.",
+      "type": "main",
+      "giver": "chief_engelhardt",
+      "startLocation": "chief_office",
+      "prerequisites": {
+        "level": 2,
+        "quests": ["highway_heist"]
+      },
+      "objectives": [
+        {
+          "id": "analyze_evidence",
+          "description": "Analyzujte důkazy získané při zatčení gangu.",
+          "location": "kobra_hq",
+          "completionCondition": "Hráč prostuduje zabavené dokumenty a elektronická data.",
+          "optional": false
+        },
+        {
+          "id": "follow_money_trail",
+          "description": "Sledujte tok peněz spojený s gangem.",
+          "location": "kobra_hq",
+          "completionCondition": "Hráč s pomocí Hartmuta analyzuje finanční transakce a najde podezřelé platby.",
+          "optional": false
+        },
+        {
+          "id": "surveillance_suspect",
+          "description": "Sledujte podezřelého policistu.",
+          "location": "highway_a4",
+          "completionCondition": "Hráč diskrétně sleduje podezřelého a zachytí tajné setkání.",
+          "optional": false
+        },
+        {
+          "id": "gather_proof",
+          "description": "Shromážděte dostatek důkazů pro zatčení.",
+          "location": "warehouse_district",
+          "completionCondition": "Hráč získá nezvratné důkazy o zradě.",
+          "optional": false
+        },
+        {
+          "id": "confront_traitor",
+          "description": "Konfrontujte a zatknete zrádce.",
+          "location": "kobra_hq",
+          "completionCondition": "Hráč konfrontuje zrádce a provede zatčení.",
+          "optional": false
+        }
+      ],
+      "timeLimit": {
+        "days": 2,
+        "hours": 0
+      },
+      "rewards": {
+        "experience": 400,
+        "gold": 300,
+        "items": ["detective_promotion", "special_weapon"],
+        "reputation": {
+          "kobra_11": 25,
+          "police_leadership": 20
+        }
+      },
+      "consequences": {
+        "success": "Zrádce je zatčen, bezpečnost jednotky obnovena a důvěra veřejnosti v policii posílena.",
+        "failure": "Zrádce uniká spravedlnosti, pokračuje v předávání informací a ohrožuje další policejní operace."
+      }
+    },
+    {
+      "id": "high_speed_chase",
+      "title": "Honička ve vysoké rychlosti",
+      "description": "Luxusní sportovní vůz ukradený z autosalonu v Kolíně nad Rýnem byl spatřen na dálnici A4. Vaším úkolem je pronásledovat a zastavit zloděje před tím, než způsobí nehodu nebo unikne.",
+      "type": "side",
+      "giver": "semir_gerkhan",
+      "startLocation": "kobra_hq",
+      "prerequisites": {
+        "level": 1
+      },
+      "objectives": [
+        {
+          "id": "locate_vehicle",
+          "description": "Najděte ukradený vůz na dálnici.",
+          "location": "highway_a4",
+          "completionCondition": "Hráč spatří a identifikuje ukradený vůz.",
+          "optional": false
+        },
+        {
+          "id": "pursue_thief",
+          "description": "Pronásledujte zloděje v bezpečné vzdálenosti.",
+          "location": "highway_a4",
+          "completionCondition": "Hráč úspěšně pronásleduje vozidlo bez ztráty kontaktu.",
+          "optional": false
+        },
+        {
+          "id": "force_stop",
+          "description": "Přinuťte zloděje k zastavení.",
+          "location": "gas_station",
+          "completionCondition": "Hráč použije policejní taktiky k bezpečnému zastavení vozidla.",
+          "optional": false
+        },
+        {
+          "id": "arrest_thief",
+          "description": "Zatknete zloděje.",
+          "location": "gas_station",
+          "completionCondition": "Hráč provede zatčení bez zranění civilistů nebo podezřelého.",
+          "optional": false
+        }
+      ],
+      "timeLimit": {
+        "hours": 2
+      },
+      "rewards": {
+        "experience": 150,
+        "gold": 100,
+        "reputation": {
+          "kobra_11": 10
+        }
+      },
+      "consequences": {
+        "success": "Zloděj je zatčen, cenné vozidlo vráceno majiteli. Získáváte pochvalu za profesionální zákrok.",
+        "failure": "Zloděj uniká nebo dochází k vážné nehodě. Komisařka Engelhardt je zklamaná výkonem jednotky."
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "police_badge",
+      "name": "Policejní odznak",
+      "description": "Oficiální odznak dálniční policie Kobra 11. Symbol vaší autority a povinnosti chránit veřejnost.",
+      "type": "key",
+      "rarity": "uncommon",
+      "value": 100,
+      "weight": 0.2,
+      "effects": {
+        "buff": {
+          "stat": "charisma",
+          "amount": 2,
+          "duration": -1
+        }
+      },
+      "requirements": {
+        "class": ["Detektiv", "Technik", "Specialista", "Vyjednavač"]
+      },
+      "equippable": true,
+      "slot": "accessory",
+      "consumable": false,
+      "questItem": false,
+      "lore": "Tento odznak je více než jen kus kovu - je to symbol důvěry veřejnosti a závazek k spravedlnosti."
+    },
+    {
+      "id": "service_pistol",
+      "name": "Služební pistole",
+      "description": "Standardní policejní zbraň, spolehlivá a přesná. Vždy poslední možnost, když všechno ostatní selže.",
+      "type": "weapon",
+      "rarity": "common",
+      "value": 200,
+      "weight": 1,
+      "effects": {
+        "damage": "1d8+1"
+      },
+      "requirements": {
+        "level": 1,
+        "class": ["Detektiv", "Specialista"]
+      },
+      "durability": {
+        "current": 100,
+        "max": 100
+      },
+      "equippable": true,
+      "slot": "weapon",
+      "consumable": false,
+      "questItem": false,
+      "lore": "Standardní vybavení každého policisty. Tato pistole byla navržena pro spolehlivost v kritických situacích."
+    },
+    {
+      "id": "handcuffs",
+      "name": "Policejní pouta",
+      "description": "Standardní ocelová pouta používaná k zadržení podezřelých osob.",
+      "type": "misc",
+      "rarity": "common",
+      "value": 50,
+      "weight": 0.5,
+      "effects": {},
+      "requirements": {
+        "class": ["Detektiv", "Specialista", "Technik", "Vyjednavač"]
+      },
+      "equippable": false,
+      "consumable": false,
+      "questItem": false,
+      "lore": "Nezbytný nástroj pro každého policistu. Pouta představují autoritu zákona a zajišťují bezpečnost při zatýkání."
+    },
+    {
+      "id": "police_radio",
+      "name": "Policejní vysílačka",
+      "description": "Moderní komunikační zařízení s šifrovaným přenosem, umožňující kontakt s centrálou a ostatními jednotkami.",
+      "type": "misc",
+      "rarity": "uncommon",
+      "value": 150,
+      "weight": 0.3,
+      "effects": {
+        "buff": {
+          "stat": "investigation",
+          "amount": 1,
+          "duration": -1
+        }
+      },
+      "requirements": {
+        "class": ["Detektiv", "Technik", "Specialista", "Vyjednavač"]
+      },
+      "equippable": true,
+      "slot": "accessory",
+      "consumable": false,
+      "questItem": false,
+      "lore": "Klíčový nástroj pro komunikaci v terénu. Tato vysílačka poskytuje okamžité spojení s centrálou a kolegy."
+    },
+    {
+      "id": "smartphone",
+      "name": "Služební smartphone",
+      "description": "Špičkový chytrý telefon s přístupem do policejních databází a speciálními aplikacemi pro vyšetřování.",
+      "type": "misc",
+      "rarity": "uncommon",
+      "value": 300,
+      "weight": 0.2,
+      "effects": {
+        "buff": {
+          "stat": "intelligence",
+          "amount": 1,
+          "duration": -1
+        }
+      },
+      "requirements": {
+        "class": ["Detektiv", "Technik", "Specialista", "Vyjednavač"]
+      },
+      "equippable": true,
+      "slot": "accessory",
+      "consumable": false,
+      "questItem": false,
+      "lore": "Moderní technologie v rukou policie. Tento smartphone byl speciálně navržen pro potřeby policejní práce."
+    },
+    {
+      "id": "energy_drink",
+      "name": "Energetický nápoj",
+      "description": "Plechovka plná kofeinu a cukru, která vám dodá okamžitý příval energie.",
+      "type": "potion",
+      "rarity": "common",
+      "value": 3,
+      "weight": 0.3,
+      "effects": {
+        "buff": {
+          "stat": "dexterity",
+          "amount": 1,
+          "duration": 3600
+        },
+        "heal": 5
+      },
+      "requirements": {},
+      "equippable": false,
+      "consumable": true,
+      "charges": 1,
+      "questItem": false,
+      "lore": "Oblíbený nápoj řidičů a policistů na dlouhých směnách. Výrobce varuje před konzumací více než tří plechovek denně."
+    },
+    {
+      "id": "first_aid_kit",
+      "name": "Lékárnička",
+      "description": "Kompaktní sada první pomoci obsahující obvazy, dezinfekci a základní léky.",
+      "type": "potion",
+      "rarity": "uncommon",
+      "value": 15,
+      "weight": 1,
+      "effects": {
+        "heal": 20
+      },
+      "requirements": {},
+      "equippable": false,
+      "consumable": true,
+      "charges": 3,
+      "questItem": false,
+      "lore": "Standardní policejní lékárnička obsahující vybavení pro ošetření nejčastějších zranění v terénu."
+    },
+    {
+      "id": "bulletproof_vest",
+      "name": "Neprůstřelná vesta",
+      "description": "Ochranná vesta schopná zastavit většinu střel z ručních zbraní.",
+      "type": "armor",
+      "rarity": "uncommon",
+      "value": 500,
+      "weight": 5,
+      "effects": {
+        "buff": {
+          "stat": "ac",
+          "amount": 4,
+          "duration": -1
+        }
+      },
+      "requirements": {
+        "strength": 10
+      },
+      "durability": {
+        "current": 100,
+        "max": 100
+      },
+      "equippable": true,
+      "slot": "chest",
+      "consumable": false,
+      "questItem": false,
+      "lore": "Tato vesta již zachránila život mnoha policistům. Je navržena tak, aby poskytovala maximální ochranu při zachování mobility."
+    },
+    {
+      "id": "police_commendation",
+      "name": "Policejní vyznamenání",
+      "description": "Oficiální vyznamenání za mimořádné služby a odvahu při plnění povinností.",
+      "type": "misc",
+      "rarity": "rare",
+      "value": 250,
+      "weight": 0.1,
+      "effects": {
+        "buff": {
+          "stat": "charisma",
+          "amount": 2,
+          "duration": -1
+        }
+      },
+      "requirements": {},
+      "equippable": true,
+      "slot": "accessory",
+      "consumable": false,
+      "questItem": false,
+      "lore": "Toto vyznamenání je udělováno jen těm nejodvážnějším a nejúspěšnějším policistům. Je symbolem respektu a uznání od celého policejního sboru."
+    },
+    {
+      "id": "special_badge",
+      "name": "Speciální odznak Kobry 11",
+      "description": "Unikátní odznak udělovaný jen členům elitní jednotky Kobra 11 za výjimečné výkony.",
+      "type": "key",
+      "rarity": "epic",
+      "value": 1000,
+      "weight": 0.2,
+      "effects": {
+        "buff": {
+          "stat": "reputation",
+          "amount": 10,
+          "duration": -1
+        }
+      },
+      "requirements": {
+        "quests": ["highway_heist"]
+      },
+      "equippable": true,
+      "slot": "accessory",
+      "consumable": false,
+      "questItem": true,
+      "lore": "Tento vzácný odznak je nejvyšším uznáním v rámci dálniční policie. Nositelé tohoto odznaku jsou legendami na německých dálnicích."
+    }
+  ],
+  "events": [
+    {
+      "id": "morning_briefing",
+      "name": "Ranní porada",
+      "description": "Každodenní ranní setkání členů Kobry 11, kde se projednávají aktuální případy a přidělují úkoly.",
+      "trigger": "Hráč vstoupí do velitelství Kobry 11 poprvé v daný den mezi 8:00 a 9:00.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Komisařka Engelhardt vede poradu, shrnuje aktuální situaci na dálnicích a přiděluje denní úkoly. Semir a Tom sedí vedle vás a dělají si poznámky.",
+          "consequences": {
+            "startQuest": "highway_heist"
+          }
+        }
+      ],
+      "repeatable": true,
+      "cooldown": {
+        "hours": 24
+      },
+      "priority": 5
+    },
+    {
+      "id": "car_selection",
+      "name": "Výběr služebního vozu",
+      "description": "Výběr policejního vozidla pro dnešní směnu z garáže Kobry 11.",
+      "trigger": "Hráč vstoupí do policejní garáže poprvé po ranní poradě.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Dieter vám ukazuje dostupná vozidla. 'Máme nové BMW 540i, právě seřízené a připravené. Ale mám tady i Porsche pro speciální situace. Co si vyberete?'",
+          "consequences": {
+            "giveItem": "car_keys"
+          }
+        }
+      ],
+      "repeatable": true,
+      "cooldown": {
+        "hours": 24
+      },
+      "priority": 4
+    },
+    {
+      "id": "speeding_car",
+      "name": "Rychle jedoucí vozidlo",
+      "description": "Kolem vás na dálnici projíždí vozidlo výrazně překračující povolenou rychlost.",
+      "trigger": "Hráč se pohybuje po dálnici A4 a náhodná šance 30%.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Stříbrný Mercedes projíždí kolem vás rychlostí přes 200 km/h, nebezpečně kličkující mezi ostatními vozidly.",
+          "consequences": {
+            "startQuest": "high_speed_chase"
+          }
+        }
+      ],
+      "repeatable": true,
+      "cooldown": {
+        "hours": 3
+      },
+      "priority": 3
+    },
+    {
+      "id": "car_accident",
+      "name": "Dopravní nehoda",
+      "description": "Na dálnici došlo k vážné dopravní nehodě vyžadující okamžitý zásah policie.",
+      "trigger": "Hráč se pohybuje po dálnici A4 a náhodná šance 20%.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Před vámi vidíte následky srážky několika vozidel. Provoz je zastaven, zraněné osoby potřebují pomoc a situace vyžaduje rychlý zásah pro zajištění bezpečnosti.",
+          "consequences": {
+            "modifyReputation": {
+              "faction": "civilians",
+              "amount": 5
+            }
+          }
+        }
+      ],
+      "repeatable": true,
+      "cooldown": {
+        "hours": 8
+      },
+      "priority": 4
+    },
+    {
+      "id": "suspicious_exchange",
+      "name": "Podezřelá výměna",
+      "description": "Na čerpací stanici dochází k podezřelé výměně balíčků mezi dvěma muži.",
+      "trigger": "Hráč je na čerpací stanici a náhodná šance 40%.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Všimnete si dvou mužů ve vzdáleném rohu parkoviště. Jeden předává druhému malý balíček, za který dostává tlustou obálku. Při pohledu na vás rychle nasedají do svých vozů.",
+          "consequences": {
+            "modifyReputation": {
+              "faction": "kobra_11",
+              "amount": 3
+            }
+          }
+        }
+      ],
+      "repeatable": true,
+      "cooldown": {
+        "hours": 12
+      },
+      "priority": 3
+    },
+    {
+      "id": "investigate_crash",
+      "name": "Vyšetřování nehody",
+      "description": "Vyšetřování místa nedávného přepadení kamionu, které skončilo havárií.",
+      "trigger": "Hráč vstupuje na místo nehody během quest 'highway_heist'.",
+      "outcomes": [
+        {
+          "condition": "quest_active('highway_heist')",
+          "result": "Místo nehody je ohraničeno policejní páskou. Vidíte převrácený kamion, rozbité sklo a stopy po střelbě. Záchranáři již odvezli zraněného řidiče, ale svědci jsou stále k dispozici pro výslech.",
+          "consequences": {
+            "completeObjective": {
+              "quest": "highway_heist",
+              "objective": "investigate_crash"
+            }
+          }
+        }
+      ],
+      "repeatable": false,
+      "priority": 5
+    },
+    {
+      "id": "stake_out",
+      "name": "Sledování podezřelé oblasti",
+      "description": "Sledování skladištní oblasti, kde by se mohl ukrývat gang.",
+      "trigger": "Hráč vstupuje do skladištní oblasti během quest 'highway_heist' po dokončení předchozích cílů.",
+      "outcomes": [
+        {
+          "condition": "quest_active('highway_heist') && objective_completed('highway_heist', 'investigate_crash')",
+          "result": "Z vašeho úkrytu pozorujete podezřelé pohyby kolem opuštěného skladu. Muži v černých bundách vykládají krabice z dodávky a odnášejí je dovnitř. Vypadá to jako ukradené zboží.",
+          "consequences": {
+            "completeObjective": {
+              "quest": "highway_heist",
+              "objective": "surveillance"
+            }
+          }
+        }
+      ],
+      "repeatable": false,
+      "priority": 5
+    },
+    {
+      "id": "final_confrontation",
+      "name": "Závěrečná konfrontace",
+      "description": "Konečná konfrontace s vůdcem gangu a jeho komplici v opuštěném skladu.",
+      "trigger": "Hráč vstupuje do opuštěného skladu během quest 'highway_heist' po dokončení sledování.",
+      "outcomes": [
+        {
+          "condition": "quest_active('highway_heist') && objective_completed('highway_heist', 'surveillance')",
+          "result": "Uprostřed skladu stojí Viktor Novak obklopený svými muži. Kolem nich jsou krabice s ukradeným zbožím. 'Policie!' vykřikne Semir, když vtrhne dovnitř s pistolí v ruce. 'Všichni na zem, jste zatčeni!' Nastává chaos a střelba.",
+          "consequences": {
+            "completeObjective": {
+              "quest": "highway_heist",
+              "objective": "infiltrate_warehouse"
+            }
+          }
+        }
+      ],
+      "repeatable": false,
+      "priority": 5
+    }
+  ],
+  "aiGuidelines": {
+    "storyTheme": "Akční policejní drama s důrazem na vysokorychlostní honičky, vyšetřování a spolupráci v týmu. Kombinujte napětí, humor a kamarádství typické pro seriál Kobra 11.",
+    "characterVoices": "Semir Gerkhan mluví rychle, často používá sarkasmus a humor. Je neformální, občas používá slang. Tom Kranich mluví klidně a rozvážně, používá přesné formulace. Je formálnější než Semir, ale má suchý humor. Šéfka Engelhardt je formální, autoritativní a přímá.",
+    "pacing": "Střídejte klidnější momenty vyšetřování s intenzivními akčními scénami. Každý den by měl obsahovat alespoň jednu zápletku nebo konflikt, který posouvá hlavní příběh vpřed.",
+    "combatStyle": "Souboje by měly být dynamické a filmové. Využívejte prostředí (auta, překážky, výbuchy), umožněte kreativní řešení konfliktů. Nepřátelé nejsou hloupí, ale policisté mají výhodu výcviku a týmové spolupráce.",
+    "worldRules": "Příběh se odehrává v realistickém moderním světě, ale s typickou 'televizní akcí' - výbuchy jsou větší, přestřelky dramatičtější a honičky intenzivnější než v realitě. Základy policejní práce (důkazy, zatýkání, protokoly) by měly být respektovány.",
+    "factionInteractions": "Policisté z dálniční policie mají dobré vztahy s ostatními policejními složkami, ale občas dochází ke konfliktům ohledně pravomocí. Zločinci jsou nepřátelští, ale někteří mohou spolupracovat výměnou za mírnější trest. Civilisté jsou obvykle neutrální, ale mohou se stát svědky nebo informanty."
+  }
+}
