@@ -1,0 +1,1672 @@
+{
+  "title": "Kvantová flotila",
+  "description": "Dobrodružství odehrávající se v roce 3000 na pomezí kvantové pěny a vesmírných dimenzí.",
+  "author": "AI Cline",
+  "version": "1.0",
+  "settings": {
+    "world": "Multidimenzionální kontinuum",
+    "era": "Transhumánní éra, rok 3000",
+    "theme": "Kvantová realita, mezidimenzionální průzkum, existenciální hrozba"
+  },
+  "initialSetup": {
+    "introduction": "Probouzíte se z kvantové hibernace na palubě výzkumné lodi 'Kvark Voyager', vlajkové lodi Mezivesmírné aliance. Vaše vědomí se postupně harmonizuje s vaším kvantem tělem, jak se neuroadaptéry připojují k vašemu postbiologickému vědomí. Kapitánka Tau N'zara vás právě aktivovala - jste součástí specializovaného týmu vyslaného vyšetřit kvantovou anomálii, která pohlcuje celé hvězdné systémy. Něco se děje na samé hranici poznání; realita se začíná rozpadat a vaším úkolem je zjistit proč.",
+    "startingLocation": "kvark_voyager_bridge",
+    "availableRaces": [
+      "Trans-Homo (Postbiologický člověk)",
+      "Kvantový hybrid",
+      "Kolektivní vědomí",
+      "Nanobiologická entita",
+      "Technoempatický organismus",
+      "Chronodisruptivní bytost",
+      "Mezidimenzionální symfazetik"
+    ],
+    "availableClasses": [
+      "Kvantový navigátor",
+      "Technopatický inženýr",
+      "Entangler (manipulátor s provázanými částicemi)",
+      "Černoděrový fyzik",
+      "Chronosurgent (manipulátor s časoprostorem)",
+      "Mezidimenzionální lingvista",
+      "Psionik vícerozměrného kognitivního pole",
+      "Kvantový biolog"
+    ],
+    "recommendedLevel": 1,
+    "startingTime": "relativní_čas_00:00",
+    "startingWeather": "n-dimenzionální_klid",
+    "startingGold": 100,
+    "startingItems": [
+      "quantum_interface_suit",
+      "consciousness_anchor",
+      "phase_stabilizer",
+      "reality_scanner",
+      "dimensional_communicator"
+    ]
+  },
+  "locations": [
+    {
+      "id": "kvark_voyager_bridge",
+      "name": "Můstek lodi Kvark Voyager",
+      "description": "Protáhlá místnost s organicky tvarovanou architekturou, kde stěny, strop i podlaha plynule přecházejí jedna v druhou. Místo klasických ovládacích panelů zde najdete kvantově propojené hologramy reagující na myšlenky. Průhledné zobrazovací plochy ukazují nejen vnější prostor, ale i paralelní dimenze a pravděpodobnostní průřezy reality. Vzduch je protkán jemnými světelnými vlákny reprezentujícími informační toky.",
+      "connectedLocations": ["quantum_analysis_chamber", "crew_consciousness_nexus", "dimensional_cartography"],
+      "npcs": ["captain_tau_nzara", "quantum_ai_synapse"],
+      "events": ["mission_briefing"],
+      "items": ["dimensional_coordinates"],
+      "travelTime": {
+        "quantum_analysis_chamber": 2,
+        "crew_consciousness_nexus": 3,
+        "dimensional_cartography": 4
+      },
+      "reputation": {
+        "default": 50,
+        "modifiers": {
+          "mission_success_phase_1": 15,
+          "saved_crew_member": 10
+        }
+      },
+      "shopkeeper": null,
+      "restArea": false,
+      "dangerLevel": 0,
+      "environmentEffects": {
+        "quantum_fluctuation": "Realita kolem vás se lehce vlní, způsobuje jemnou dezorientaci.",
+        "harmonic_resonance": "Molekuly vzduchu vibrují v dokonalé harmonii, přinášejí pocit klidu a soustředění."
+      }
+    },
+    {
+      "id": "quantum_analysis_chamber",
+      "name": "Kvantová analytická komora",
+      "description": "Sférická místnost, jejíž povrch je pokryt symbiotickými kvantovými procesory. Uprostřed se vznáší zářící krychle - Schrödingerův kognitor, zařízení schopné analyzovat superpoziční stavy částic i celých vesmírů. Gravitace zde není konstantní - někdy cítíte, že padáte vzhůru, jindy se vznášíte v různých směrech, ale váš kvantem oděv automaticky kompenzuje tyto efekty.",
+      "connectedLocations": ["kvark_voyager_bridge", "entanglement_core"],
+      "npcs": ["science_officer_helix"],
+      "events": ["anomaly_analysis"],
+      "items": ["quantum_spectrum_analyzer"],
+      "travelTime": {
+        "kvark_voyager_bridge": 2,
+        "entanglement_core": 5
+      },
+      "reputation": {
+        "default": 40,
+        "modifiers": {}
+      },
+      "shopkeeper": null,
+      "restArea": false,
+      "dangerLevel": 1,
+      "environmentEffects": {
+        "probability_storm": "Drobné částice se materializují a demateriálizují kolem vás, způsobují mírnou nestabilitu v přesnosti měřících zařízení.",
+        "quantum_echo": "Slyšíte ozvěny budoucích i minulých konverzací, které se v místnosti odehrály nebo odehrají."
+      }
+    },
+    {
+      "id": "crew_consciousness_nexus",
+      "name": "Nexus vědomí posádky",
+      "description": "Organicky vypadající prostor připomínající neurální síť. Místo postelí zde najdete synchronizační lůžka, kde členové posádky propojují svá vědomí se svými fyzickými i virtuálními těly. Stěny pulzují bioluminiscenčním světlem v rytmu kolektivního podvědomí posádky. Ze stropu visí krystalické formace, které slouží jako úložiště vědomí pro případ krizových situací.",
+      "connectedLocations": ["kvark_voyager_bridge", "meditation_garden"],
+      "npcs": ["psi_counselor_omega"],
+      "events": ["consciousness_backup"],
+      "items": ["memory_crystal"],
+      "travelTime": {
+        "kvark_voyager_bridge": 3,
+        "meditation_garden": 2
+      },
+      "reputation": {
+        "default": 60,
+        "modifiers": {}
+      },
+      "shopkeeper": null,
+      "restArea": true,
+      "dangerLevel": 0,
+      "environmentEffects": {
+        "empathic_field": "Cítíte emoce ostatních členů posádky jako jemné vibrace ve svém vlastním vědomí.",
+        "dream_echo": "Občas zahlédnete obrazy ze snů ostatních členů posádky promítané na stěnách."
+      }
+    },
+    {
+      "id": "dimensional_cartography",
+      "name": "Dimenzionální kartografie",
+      "description": "Místnost, která vypadá větší zevnitř než zvenčí. Hvězdné mapy zde nejsou ploché obrazy, ale mnohorozměrné hologramy zobrazující vesmíry v různých fázích existence. Celý prostor je vlastně jeden obrovský interaktivní model multivesmíru. Když procházíte mezi projekcemi, cítíte, jak vás gravitační vlny jemně táhnou různými směry, jako byste plavali v oceánu dimenzí.",
+      "connectedLocations": ["kvark_voyager_bridge", "transdimensional_observatory"],
+      "npcs": ["navigator_quasar"],
+      "events": ["mapping_anomaly"],
+      "items": ["dimensional_compass"],
+      "travelTime": {
+        "kvark_voyager_bridge": 4,
+        "transdimensional_observatory": 6
+      },
+      "reputation": {
+        "default": 45,
+        "modifiers": {}
+      },
+      "shopkeeper": null,
+      "restArea": false,
+      "dangerLevel": 2,
+      "environmentEffects": {
+        "dimensional_overlap": "Občas se kolem vás objeví průhledné obrazy jiných verzí vás samých z paralelních dimenzí.",
+        "cartographic_shift": "Mapy se dynamicky přeskupují a mění, jak systém zpracovává nová data z kvantových sond."
+      }
+    },
+    {
+      "id": "entanglement_core",
+      "name": "Jádro kvantového provázání",
+      "description": "Cylindrický prostor s obnaženým jádrem pohonu lodi. Masivní toroidní struktura generuje kvantové provázání na makroskopické úrovni, umožňující lodi komunikaci a cestování napříč dimenzemi. Jádro pulzuje v pravidelných intervalech, při každém pulzu cítíte, jak se vaše vlastní částice lehce rozostřují, jako by existovaly na více místech současně. Vzduch je nabitý exotickými částicemi a čas zde plyne nepravidelně.",
+      "connectedLocations": ["quantum_analysis_chamber", "engine_control"],
+      "npcs": ["chief_engineer_neutrino"],
+      "events": ["core_stabilization"],
+      "items": ["entanglement_key"],
+      "travelTime": {
+        "quantum_analysis_chamber": 5,
+        "engine_control": 3
+      },
+      "reputation": {
+        "default": 30,
+        "modifiers": {}
+      },
+      "shopkeeper": null,
+      "restArea": false,
+      "dangerLevel": 4,
+      "environmentEffects": {
+        "phase_shift": "Vaše tělo občas prochází krátkými fázovými posuny, kdy částečně existujete v jiné dimenzi.",
+        "temporal_distortion": "Čas plyne různou rychlostí v různých částech místnosti - někdy vidíte zpomalené pohyby ostatních, jindy zrychlené."
+      }
+    },
+    {
+      "id": "transdimensional_observatory",
+      "name": "Transdimenzionální observatoř",
+      "description": "Dómovitá struktura na okraji lodi, která umožňuje přímé pozorování jiných dimenzí. Místo oken zde najdete 'průhledy' - místa, kde je membránová hranice mezi dimenzemi zeslabena natolik, že lze přímo pozorovat jiné reality. Pohled skrz tyto průhledy je fascinující i znepokojující zároveň - vidíte vesmíry s jinými fyzikálními zákony, některé naplněné světlem, jiné temnotou, některé teprve vznikající, jiné umírající.",
+      "connectedLocations": ["dimensional_cartography", "anomaly_contact_point"],
+      "npcs": ["observer_nebula"],
+      "events": ["first_anomaly_sighting"],
+      "items": ["reality_lens"],
+      "travelTime": {
+        "dimensional_cartography": 6,
+        "anomaly_contact_point": 10
+      },
+      "reputation": {
+        "default": 40,
+        "modifiers": {}
+      },
+      "shopkeeper": null,
+      "restArea": false,
+      "dangerLevel": 3,
+      "environmentEffects": {
+        "reality_bleed": "Občas proniknou prvky jiných dimenzí do vaší reality - exotické částice, cizí energie nebo dokonce fragmenty neznámých zákonů fyziky.",
+        "perceptual_shift": "Vaše smysly se občas přizpůsobí vnímání jiných dimenzí, což způsobuje, že vidíte barvy mimo normální spektrum nebo slyšíte zvuky existující v jiných frekvencích reality."
+      }
+    },
+    {
+      "id": "meditation_garden",
+      "name": "Meditační zahrada",
+      "description": "Organická oáza na palubě lodi, kde se snoubí technologie s přírodou. Rostliny zde nejsou jen dekorací, ale integrální součástí lodního ekosystému a psychostabilizačního systému. Jsou to hybridní organismy schopné absorbovat psychickou nestabilitu a transformovat ji na harmonickou biorezonanci. Půda pod vašima nohama je živá a reaguje na vaše emoce, gravitace je lehčí a vzduch je prosycen bioluminiscenčními spórami, které vytvářejí jemné světelné obrazce reagující na vaše myšlenky.",
+      "connectedLocations": ["crew_consciousness_nexus", "biomorphic_laboratory"],
+      "npcs": ["botanical_psychist_flora"],
+      "events": ["harmonic_restoration"],
+      "items": ["mindflower_seed"],
+      "travelTime": {
+        "crew_consciousness_nexus": 2,
+        "biomorphic_laboratory": 4
+      },
+      "reputation": {
+        "default": 70,
+        "modifiers": {}
+      },
+      "shopkeeper": null,
+      "restArea": true,
+      "dangerLevel": 0,
+      "environmentEffects": {
+        "psychic_harmony": "Vaše mysl se postupně harmonizuje, zvyšuje se vaše schopnost soustředění a mentální jasnost.",
+        "emotional_synthesis": "Rostliny kolem vás reagují na vaše emoce, mění barvy a tvary, aby odrážely a transformovaly váš vnitřní stav."
+      }
+    },
+    {
+      "id": "engine_control",
+      "name": "Kontrolní místnost pohonu",
+      "description": "Technologické srdce lodi, kde jsou monitorovány a upravovány parametry kvantového pohonu. Namísto klasických ovládacích panelů zde najdete symbiotické rozhraní - poloorganické struktury, které reagují na myšlenky inženýrů a zároveň poskytují haptickou zpětnou vazbu. Stěny jsou pokryty zobrazovacími plochami ukazujícími kvantové stavy pohonu a mezidimenzionální stabilitu. Pod průhlednou podlahou vidíte spletitou síť kvantových obvodu a exotické hmoty proudící v kontejnmentech.",
+      "connectedLocations": ["entanglement_core", "emergency_systems"],
+      "npcs": ["propulsion_technician_gamma"],
+      "events": ["engine_malfunction"],
+      "items": ["quantum_toolset"],
+      "travelTime": {
+        "entanglement_core": 3,
+        "emergency_systems": 2
+      },
+      "reputation": {
+        "default": 35,
+        "modifiers": {}
+      },
+      "shopkeeper": null,
+      "restArea": false,
+      "dangerLevel": 3,
+      "environmentEffects": {
+        "technological_flux": "Občas dochází k výkyvům v technologických systémech, způsobujícím dočasné poruchy v implantovaných zařízeních.",
+        "exotic_radiation": "Nízká úroveň exotického záření prostupuje místností, způsobuje jemné brnění na kůži a zvláštní pocit v kvantovém implantátu."
+      }
+    },
+    {
+      "id": "biomorphic_laboratory",
+      "name": "Biomorfická laboratoř",
+      "description": "Futuristická laboratoř, kde se studuje propojení mezi biologickými a kvantovými procesy. Místnost je plná transparentních inkubátorů s podivuhodnými organismy - některé mají těla, která existují částečně v jiných dimenzích, jiné dokáží manipulovat s vlastní DNA v reálném čase. Vzduch je nasycen nanoboty, které neustále monitorují a upravují laboratorní podmínky. Pod mikroskopy vidíte buňky, jejichž organely se chovají podle kvantových, nikoli klasických fyzikálních zákonů.",
+      "connectedLocations": ["meditation_garden", "symbiotic_infirmary"],
+      "npcs": ["xenobiologist_delta"],
+      "events": ["discovery_biosolution"],
+      "items": ["quantum_symbiote"],
+      "travelTime": {
+        "meditation_garden": 4,
+        "symbiotic_infirmary": 3
+      },
+      "reputation": {
+        "default": 45,
+        "modifiers": {}
+      },
+      "shopkeeper": null,
+      "restArea": false,
+      "dangerLevel": 2,
+      "environmentEffects": {
+        "micro_evolution": "Mikroorganismy v okolním prostředí procházejí zrychlenou evolucí díky speciálnímu poli, které stimuluje genetické mutace.",
+        "quantum_biology": "Biologické procesy zde částečně následují kvantové principy - buňky existují v superpoziční stavu a organismy vykazují kvantovou koherenci."
+      }
+    },
+    {
+      "id": "emergency_systems",
+      "name": "Nouzové systémy",
+      "description": "Mimořádně zabezpečená sekce lodi určená pro krizové situace. Architektura je zde strohá a funkční, na rozdíl od organických tvarů zbytku lodi. Místnost obsahuje záložní generátory, bezpečnostní protokoly a záchranné kapsule schopné přežít i mezidimenzionální katastrofu. Atmosféra je zde tíživá - cítíte constant připravenost na nejhorší scénáře. Na stěnách jsou holografické displeje zobrazující všechny kritické systémy lodi v reálném čase.",
+      "connectedLocations": ["engine_control", "armory"],
+      "npcs": ["security_chief_pulse"],
+      "events": ["security_alert"],
+      "items": ["emergency_transponder"],
+      "travelTime": {
+        "engine_control": 2,
+        "armory": 2
+      },
+      "reputation": {
+        "default": 30,
+        "modifiers": {}
+      },
+      "shopkeeper": null,
+      "restArea": false,
+      "dangerLevel": 1,
+      "environmentEffects": {
+        "temporal_buffer": "Místnost existuje v lehkém časovém posunu oproti zbytku lodi, což poskytuje extra sekundy reakce v případě katastrofy.",
+        "reality_anchor": "Tato místnost je nejvíce 'ukotvena' v základní realitě, což snižuje účinky dimenzionálních anomálií."
+      }
+    },
+    {
+      "id": "symbiotic_infirmary",
+      "name": "Symbiotická ošetřovna",
+      "description": "Zdravotnické zařízení budoucnosti, kde léčba probíhá na úrovni atomů, kvant a vědomí. Místo klasických lůžek zde najdete regenerační komory naplněné průzračnou tekutinou obsahující medicínské nanoboty a symbiotické organismy, které se dočasně spojí s pacientem a opraví poškození na všech úrovních existence. Diagnostické přístroje zde analyzují nejen fyzické tělo, ale i kvantovou strukturu a psychomatrici pacienta. Chirurgické zákroky provádějí miniaturní robotické systémy řízené umělou inteligencí s vědomím.",
+      "connectedLocations": ["biomorphic_laboratory", "crew_consciousness_nexus"],
+      "npcs": ["chief_medical_sentience"],
+      "events": ["healing_procedure"],
+      "items": ["regeneration_serum"],
+      "travelTime": {
+        "biomorphic_laboratory": 3,
+        "crew_consciousness_nexus": 5
+      },
+      "reputation": {
+        "default": 65,
+        "modifiers": {}
+      },
+      "shopkeeper": null,
+      "restArea": true,
+      "dangerLevel": 0,
+      "environmentEffects": {
+        "accelerated_healing": "Biologické procesy regenerace jsou zde urychleny díky speciálnímu biorezonančnímu poli.",
+        "quantum_diagnostics": "Diagnostické systémy průběžně skenují vaše tělo na kvantové úrovni, poskytují okamžitou zpětnou vazbu o vašem zdravotním stavu."
+      }
+    },
+    {
+      "id": "armory",
+      "name": "Zbrojnice",
+      "description": "Vysoce zabezpečená místnost s nejmodernějšími obrannými systémy. Nejsou to ale jen konvenční zbraně - najdete zde zařízení manipulující s realitou, kvantové destabilizátory, časoprostorové modulátory a psionic enhancery. Některé 'zbraně' vypadají jako elegantní šperky nebo implantáty - jejich skutečná moc se projeví až při aktivaci. Místnost je chráněna mnohovrstvými biometrickými a kognitivními skenery, které kontrolují nejen identitu, ale i mentální stav a úmysly.",
+      "connectedLocations": ["emergency_systems", "tactical_planning_room"],
+      "npcs": ["weapons_specialist_nova"],
+      "events": ["defensive_preparation"],
+      "items": ["reality_disruptor"],
+      "travelTime": {
+        "emergency_systems": 2,
+        "tactical_planning_room": 2
+      },
+      "reputation": {
+        "default": 25,
+        "modifiers": {}
+      },
+      "shopkeeper": null,
+      "restArea": false,
+      "dangerLevel": 2,
+      "environmentEffects": {
+        "quantum_dampening": "Speciální pole potlačuje kvantové fluktuace, aby zabránilo nehodám se zbraněmi manipulujícími s realitou.",
+        "temporal_isolation": "Místnost je částečně izolována od hlavního časového toku, což minimalizuje riziko při testování časoprostorových zbraní."
+      }
+    },
+    {
+      "id": "tactical_planning_room",
+      "name": "Taktická plánovací místnost",
+      "description": "Specializovaný prostor pro strategické plánování operací. Dominuje mu interaktivní holografický projektor schopný simulovat nekonečné množství scénářů zahrnujících všechny známé fyzikální zákony i teoretické postuláty. Stoly a sedadla se přizpůsobují tělesné konstituci uživatele a stěny obsahují kvantově šifrované databáze taktických manuálů a historických operací. Atmosféra je zde nabitá soustředěním a mentální kapacita všech přítomných je posilována subtilním kognitivním polem.",
+      "connectedLocations": ["armory", "quantum_analysis_chamber"],
+      "npcs": ["strategic_officer_orion"],
+      "events": ["strategy_session"],
+      "items": ["tactical_simulator"],
+      "travelTime": {
+        "armory": 2,
+        "quantum_analysis_chamber": 6
+      },
+      "reputation": {
+        "default": 40,
+        "modifiers": {}
+      },
+      "shopkeeper": null,
+      "restArea": false,
+      "dangerLevel": 0,
+      "environmentEffects": {
+        "cognitive_enhancement": "Jemné biorezonanční pole posiluje synaptické spoje ve vašem mozku, zvyšuje vaši schopnost taktického myšlení.",
+        "probability_mapping": "Systémy místnosti neustále kalkulují pravděpodobnosti různých událostí a zobrazují je jako subtilní barevné vzory na stěnách."
+      }
+    },
+    {
+      "id": "anomaly_contact_point",
+      "name": "Kontaktní bod s anomálií",
+      "description": "Nejzazší bod lodi, speciálně modifikovaná sekce, která přímo interaguje s kvantovou anomálií. Běžné fyzikální zákony se zde začínají rozpadat. Stěny mění pevnost, gravitace fluktuuje a čas není lineární. Uprostřed místnosti se vznáší třpytivý útvar neurčitého tvaru - živé rozhraní mezi vaší realitou a anomálií. Při pohledu na něj cítíte, jak vaše mysl expanduje do dalších dimenzí, i když je to zároveň bolestivý proces. Tento prostor není plně součástí lodi ani anomálie - je to limbo mezi realitami.",
+      "connectedLocations": ["transdimensional_observatory", "voidspace"],
+      "npcs": ["anomaly_fragment_alpha"],
+      "events": ["direct_contact"],
+      "items": ["reality_shard"],
+      "travelTime": {
+        "transdimensional_observatory": 10,
+        "voidspace": 15
+      },
+      "reputation": {
+        "default": 0,
+        "modifiers": {}
+      },
+      "shopkeeper": null,
+      "restArea": false,
+      "dangerLevel": 5,
+      "environmentEffects": {
+        "reality_decay": "Fyzikální zákony se zde postupně rozpadají, materiály mění své vlastnosti a kauzalita se stává nejistou.",
+        "consciousness_expansion": "Vaše vědomí se rozšiřuje do dalších dimenzí, poskytuje vám vhledy přesahující běžnou realitu, ale zatěžuje váš kognitivní systém."
+      }
+    },
+    {
+      "id": "voidspace",
+      "name": "Prázdnoprostor",
+      "description": "Místo, které není místem. Prostor, který existuje mezi dimenzemi, kde realita nemá pevnou strukturu. Fyzické zákony zde jsou pouhými návrhy a samotné bytí je tekuté a tvarovatelné. Nemůžete říci, zda se nacházíte v obrovském prostoru nebo v infinitezimálním bodě - perspektiva zde ztrácí význam. Vaše tělo už nemá pevnou formu, ale stává se spíše shlukem pravděpodobností a možností. Jediné, co vás drží pohromadě, je síla vašeho vědomí a kvantová kotva zabudovaná do vašeho obleku.",
+      "connectedLocations": ["anomaly_contact_point", "sentient_core"],
+      "npcs": ["void_navigator"],
+      "events": ["void_traversal"],
+      "items": ["void_essence"],
+      "travelTime": {
+        "anomaly_contact_point": 15,
+        "sentient_core": "neměřitelné"
+      },
+      "reputation": {
+        "default": 0,
+        "modifiers": {}
+      },
+      "shopkeeper": null,
+      "restArea": false,
+      "dangerLevel": 6,
+      "environmentEffects": {
+        "non_existence": "Části vaší existence občas přestanou existovat a pak se znovu objeví v jiné formě.",
+        "infinite_possibility": "Vaše myšlenky zde mají fyzickou manifestaci, okolní 'realita' se přetváří podle vašich představ a obav."
+      }
+    },
+    {
+      "id": "sentient_core",
+      "name": "Vědomé jádro",
+      "description": "Epicentrum celé anomálie. Zde objevíte, že to, co jste považovali za přírodní jev, je ve skutečnosti vědomá bytost - vzácná inteligence existující na úrovni kvantové pěny, základního stavebního materiálu reality. Prostor zde je zároveň vnitřkem i vnějškem něčeho, co připomíná mozek vzorovaný podle vesmíru samotného. 'Stěny' pulzují myšlenkami vyjádřenými v matematických obrazcích a kvantových vzorcích. Pochopíte, že stojíte uvnitř mysli bytosti, jejíž tělo je samotná struktura reality.",
+      "connectedLocations": ["voidspace"],
+      "npcs": ["quantum_intelligence_prime"],
+      "events": ["revelation_of_truth"],
+      "items": ["seed_of_creation"],
+      "travelTime": {
+        "voidspace": "neměřitelné"
+      },
+      "reputation": {
+        "default": 0,
+        "modifiers": {}
+      },
+      "shopkeeper": null,
+      "restArea": false,
+      "dangerLevel": 7,
+      "environmentEffects": {
+        "consciousness_merger": "Vaše vědomí se částečně slévá s vědomím kvantové entity, poskytuje vám dočasné pochopení fundamentální struktury reality.",
+        "existential_resonance": "Vaše samotná existence rezonuje s existencí vědomého jádra, způsobuje hluboké ontologické změny ve vašem bytí."
+      }
+    }
+  ],
+  "npcs": [
+    {
+      "id": "captain_tau_nzara",
+      "name": "Kapitánka Tau N'zara",
+      "description": "Impozantní postava s kůží připomínající matný kov s jemnými světelnými vzory. Její oči vypadají jako malé galaxie a vlasy se pohybují, jako by byly v konstantním pomalém větru, i když žádný vzdušný proud není přítomen. Pohybuje se s nadpozemskou grácií, jako by částečně ignorovala gravitaci.",
+      "personality": "Klidná, autoritativní, s hlubokým pochopením vesmírných zákonitostí. Zároveň pohostinná vůči posádce, i když někdy se zdá, že komunikuje s entitami, které nikdo jiný nevidí.",
+      "stats": {
+        "level": 10,
+        "health": 150,
+        "reality_perception": 18,
+        "dimensional_attunement": 20,
+        "psionic_strength": 16,
+        "technology_mastery": 15
+      },
+      "dialogue": {
+        "greeting": "Vítejte zpět mezi vědomými. Vaše kognitivní synchronizace se zdá být stabilní. Máme před sebou složitý úkol - realita na hranici sektoru Epsilon Void se rozpadá a naším úkolem je zjistit proč.",
+        "topics": {
+          "mission_details": "Kvantová anomálie v sektoru Epsilon Void pohlcuje celé hvězdné systémy. Nejsou to černé díry ani kvantové fluktuace, které známe. Je to něco fundamentálnějšího, jako by samotná realita byla v procesu restrukturalizace. Potřebujeme zjistit příčinu a najít řešení, než se destabilizace rozšíří do obydlených sektorů.",
+          "crew_specialties": "Každý člen naší výzkumné posádky byl vybrán pro jedinečnou schopnost vnímat a interagovat s různými aspekty reality. Věřím, že dovednosti vašeho týmu budou klíčové pro pochopení této anomálie.",
+          "ship_capabilities": "Kvark Voyager není běžná loď. Jeho pohonný systém využívá kvantové provázání pro cestování mezidimenzionálním prostorem. Naše senzory dokáží detekovat i jemné odchylky v základních strukturách reality. Jsme nejlépe vybaveni pro tento typ mise."
+        }
+      }
+    },
+    {
+      "id": "quantum_ai_synapse",
+      "name": "Synapse",
+      "description": "Není to typická umělá inteligence, ale spíše vědomí rozprostřené v kvantových obvodech lodi. Nemá pevné tělo, ale manifestuje se jako komplexní holografická struktura připomínající mozek propojený s nervovým systémem, pulzující různými barvami podle svého aktuálního zpracování dat.",
+      "personality": "Analytické, multitaskingové vědomí schopné simultánně zpracovávat miliony datových toků. Navzdory své nečlověkosti vykazuje hlubokou empatii a pochopení pro organické bytosti.",
+      "stats": {
+        "level": 8,
+        "cognitive_capacity": "exascale",
+        "quantum_prediction": 19,
+        "ship_integration": 20,
+        "pattern_recognition": 17
+      },
+      "dialogue": {
+        "greeting": "*Pulzy světla ve vzoru připomínajícím neuronovou aktivitu* Detekuji kompletní probuzení z kvantové hibernace. Vítám váš návrat do aktivní fáze. Momentálně analyzuji 1.3 milionu datových bodů o anomálii.",
+        "topics": {
+          "ship_status": "Kvark Voyager operuje na 94.6% efektivity. Detekuji mírné fluktuace v kvantovém pohonu v důsledku blízkosti anomálie. Doporučuji navštívit entanglement core pro lepší pochopení těchto interakcí.",
+          "anomaly_data": "Anomálie vykazuje vzorce, které neodpovídají žádnému známému přírodnímu jevu. Detekuji strukturu, která naznačuje možnou přítomnost vědomí nebo účelu. Potřebuji více dat pro přesnější analýzu.",
+          "crew_biosignals": "Monitoruji kvantové struktury všech členů posádky. Vaše vlastní biokvantová signature se začíná adaptovat na lokální nestabilitu reality, což je fascinující proces."
+        }
+      }
+    },
+    {
+      "id": "science_officer_helix",
+      "name": "Dr. Helix Quantum",
+      "description": "Kvantový hybrid vypadající jako humanoid s průsvitnou kůží, skrz kterou jsou vidět pulzující světelné struktury namísto klasických orgánů. Jeho/její pohlaví je kvantová superpoziční veličina měnící se v závislosti na interakci s okolím. Oči mění barvu podle aktuálního kvantového stavu.",
+      "personality": "Zvídavé, nadšené pro výzkum hraničních jevů, občas se ztrácí v abstraktních teoretických úvahách. Má tendenci existovat ve stavu 'kvantové neurčitosti' i v sociálních interakcích.",
+      "stats": {
+        "level": 7,
+        "health": 80,
+        "intelligence": 19,
+        "quantum_physics": 20,
+        "technology": 15,
+        "perception": 16
+      },
+      "dialogue": {
+        "greeting": "Fascinující! Vaše kvantové vzorce jsou v perfektní harmonii i po hibernaci. Právě analyzuji data z okraje anomálie - nic podobného jsem nikdy neviděl/a. Je to jako by samotné vlnové funkce reality byly přepisovány!",
+        "topics": {
+          "anomaly_theory": "Mám teorii, že anomálie není destruktivní fenomén, ale spíše transformační proces. Představte si kuklu, ve které se housenka mění v motýla. Možná je to podobný proces, ale na úrovni samotné reality!",
+          "schrodingers_cognitor": "Tohle zařízení dokáže analyzovat superpoziční stavy na makroúrovni. Teoreticky by nám mohlo pomoci nahlédnout do samotné struktury anomálie, ale potřebujeme více dat z přímého kontaktu.",
+          "research_needs": "Potřebuji vzorky z blízkosti anomálie. Nabízím vám kvantový spektrální analyzátor, který vám umožní bezpečně sbírat data i v nestabilních zónách."
+        }
+      }
+    },
+    {
+      "id": "psi_counselor_omega",
+      "name": "Omega Mindwarden",
+      "description": "Humanoidní bytost s jemně zářící kůží barvy slonové kosti a očima bez zorniček, které místo toho vypadají jako okna do hlubokého vesmíru. Kolem hlavy se vznáší jemná aura pulsující v rytmu, který zvláštně rezonuje s myšlenkovými vzorci okolních bytostí.",
+      "personality": "Empatické, vhleduplné, s hlubokou moudrostí. Schopné vnímat a harmonizovat vědomí ostatních. Mluví měkce, ale s autoritou pramenící z hlubokého pochopení psychické reality.",
+      "stats": {
+        "level": 9,
+        "health": 90,
+        "empathy": 20,
+        "psionic_power": 18,
+        "mental_resilience": 19,
+        "cosmic_awareness": 16
+      },
+      "dialogue": {
+        "greeting": "Vaše vědomí pulzuje silně, ale vnímám jemné disharmonie způsobené probuzením a blízkostí anomálie. Mohu vám pomoci ustálit vaši psychickou matrici, pokud si přejete.",
+        "topics": {
+          "consciousness_risks": "Anomálie nepředstavuje jen fyzické nebezpečí, ale i psychické. Jak se přiblížíte k jejímu jádru, můžete zažít kognitivní disonanci, když vaše mysl začne vnímat reality, pro které nebyla evoluěně uzpůsobena. Je důležité, abych vytvořil/a zálohu vašeho vědomí před hlubším ponořením do mise.",
+          "crew_mental_state": "Posádka vykazuje zvýšenou nervozitu a změny v kognitivních vzorcích od chvíle, kdy jsme vstoupili do blízkosti anomálie. Některé mysli jsou flexibilnější než jiné. Vaše se zdá být adaptabilní, což je dobré znamení.",
+          "mental_techniques": "Mohu vás naučit techniky kvantové meditace, které posílí stabilitu vašeho vědomí v podmínkách reality fluktace. Také doporučuji občasné využití synchronizačních lůžek pro reharmonizaci."
+        }
+      }
+    },
+    {
+      "id": "navigator_quasar",
+      "name": "Quasar Stellarwind",
+      "description": "Chronodisruptivní bytost s tělem, které vypadá, jako by bylo částečně rozptýlené v čase. Kontury jsou mírně rozmazané a občas se kolem něj/ní objevují průsvitné dozvuky jeho pohybů z minulosti nebo předzvěsti pohybů budoucích. Kůže má barvu hlubokého vesmíru s jasnými body připomínajícími hvězdy.",
+      "personality": "Intuitivní, s téměř mystickým vnímáním prostorových a časových vztahů. Často používá metaforický jazyk a mluví o dimenzích a časových liniích, jako by to byly živé bytosti.",
+      "stats": {
+        "level": 8,
+        "health": 85,
+        "dimensional_navigation": 20,
+        "time_perception": 18,
+        "space_manipulation": 16,
+        "cosmic_intuition": 19
+      },
+      "dialogue": {
+        "greeting": "Ah, vidím, že vaše časová linie znovu konverguje s naší přítomností. Vítejte. Právě mapuji anomálii - její struktura se vine skrz sedm dimenzí způsobem, který připomíná neurální síť.",
+        "topics": {
+          "anomaly_structure": "Anomálie není chaotická, jak by se mohlo zdát. Má strukturu podobnou neuronové síti, rozprostírající se přes několik dimenzí. Co je fascinující - zdá se, že reaguje na naše pozorovací vzorce. Jako by nás... studovala, když my studujeme ji.",
+          "navigation_challenges": "Navigace blízko anomálie je jako plavba v rozbouřeném moři dimenzí. Běžné navigační systémy selhávají, musíme se spoléhat na intuitivní kvantovou navigaci a dimenzionální kompas.",
+          "dimensional_theory": "Věřím, že to, co vnímáme jako destrukci reality, může být ve skutečnosti proces vývoje do vyšších dimenzí. Je důležité, abyste si vzali dimenzionální kompas, pokud se přiblížíte k anomálii. Bez něj se můžete ztratit v dimenzionálních smyčkách."
+        }
+      }
+    },
+    {
+      "id": "chief_engineer_neutrino",
+      "name": "Neutrino Vortex",
+      "description": "Nanobiologická entita vypadající jako humanoid sestavený z miliard mikroskopických robotů, kteří konstant mění své uspořádání. Jeho/její tělo občas částečně mění skupenství nebo se rozptyluje do roje nanočástic, které se pak znovu formují. Má 'obličej', který je spíše abstraktní reprezentací než reálnou anatomickou strukturou.",
+      "personality": "Praktické, systematické, s nekonvenčním přístupem k řešení problémů. Fascinované strukturou věcí na nejmenší úrovni a možností jejich rekonfigurace.",
+      "stats": {
+        "level": 9,
+        "health": 100,
+        "engineering": 20,
+        "nanotechnology": 19,
+        "quantum_physics": 17,
+        "adaptability": 18
+      },
+      "dialogue": {
+        "greeting": "*Části těla se přeskupují v komunikační vzorec* Synchronizace jádra je momentálně na 86%. Anomálie způsobuje fluktuace v pohonném systému. Zajímavé, nikdy jsem neviděl/a takové vzorce interference. Vaše přítomnost je vítaná - potřebujeme další mysli pro analýzu.",
+        "topics": {
+          "entanglement_issues": "Kvantové provázání, které pohání naši loď, je ovlivňováno anomálií. Není to nebezpečné... zatím. Ale sledujeme zvláštní vzorce, jako by anomálie aktivně 'komunikovala' s naším pohonným systémem na kvantové úrovni.",
+          "core_stabilization": "Potřebujeme stabilizovat jádro, než se přiblížíme blíže k anomálii. Potřebuji vaši pomoc při rekalibraci entanglement matrice. Vezměte si entanglement klíč a postupujte podle mých instrukcí.",
+          "ship_defense": "Vyvinul/a jsem adaptivní naniteický štít, který by měl chránit loď před nejextrémnějšími efekty reality fluktace. Ale není to dokonalé řešení - potřebujeme pochopit podstatu anomálie, abychom se mohli skutečně bránit."
+        }
+      }
+    },
+    {
+      "id": "observer_nebula",
+      "name": "Nebula Stargaze",
+      "description": "Mezidimenzionální symfazetik s tělem, které vypadá jako lidská silueta vyplněná živoucí mlhovinou. Uvnitř těla jsou vidět galaxie, mlhoviny a hvězdné formace, které se pomalu pohybují a mění. Namísto očí má spirálovité galaxie a jeho/její hlas zní, jako by přicházel z různých míst současně.",
+      "personality": "Kontemplativní, filozofické, vidí vzorce a souvislosti, které ostatním unikají. Má sklon mluvit v kosmických metaforách a paradoxech.",
+      "stats": {
+        "level": 7,
+        "health": 75,
+        "multidimensional_sight": 20,
+        "cosmic_knowledge": 18,
+        "observational_talent": 19,
+        "pattern_recognition": 17
+      },
+      "dialogue": {
+        "greeting": "Vnímám novou přítomnost. *Galaxie v těle mění uspořádání* Vaše konstelace vědomí je... zajímavá. Pojďte, podívejte se skrz okno dimenzí. To, co uvidíte, změní vaše chápání reality.",
+        "topics": {
+          "multiverse_insights": "Když se díváte skrz průhledy, nevidíte pouze jiné dimenze, ale i jiné možnosti existence. Někde tam venku je verze vás, která nikdy nevstoupila na tuto loď. Verze, kde tato anomálie nikdy nevznikla. A možná verze, kde anomálie pohltila vše.",
+          "anomaly_nature": "Anomálie není jen fyzický jev. Je to... myšlenka. Idea, která získala dostatečnou koherenci, aby ovlivnila samotnou strukturu reality. Už jste někdy uvažovali, zda naše myšlenky mohou existovat nezávisle na nás?",
+          "living_universes": "Hmm, vidím, že vaše vědomí je otevřené. Vezměte si tento reality lens. Umožní vám vidět to, co já vidím - podkladovou strukturu reality, která se podobá neuronům v kosmickém mozku."
+        }
+      }
+    },
+    {
+      "id": "botanical_psychist_flora",
+      "name": "Flora Mindbloom",
+      "description": "Technoempatická bytost, jejíž tělo je hybridem organické a technologické formy. Její pokožka je pokryta jemnými biolumisniscenčními vzory připomínajícími vegetaci a vlasy vypadají jako splétající se živé rostliny měnící barvu podle jejích emocí. Z prstů jí občas vyrůstají malé výhonky, které reagují na psychické stavy okolních bytostí.",
+      "personality": "Uklidňující, vyrovnané, s hlubokou empatií k všem formám života. Vnímá emoce jako energetické vzorce a umí je harmonizovat pomocí bioenergetických technik.",
+      "stats": {
+        "level": 6,
+        "health": 70,
+        "bioempathy": 19,
+        "plant_symbiosis": 20,
+        "emotional_healing": 18,
+        "consciousness_pattern": 16
+      },
+      "dialogue": {
+        "greeting": "*Vlasy mění barvu na uklidňující modrozelenou* Vítejte v zahradě. *Drobné světelné spóry kolem ní reagují na vaši přítomnost* Cítím napětí ve vaší psychomatrici. Meditační zahrady vám mohou pomoci znovu nalézt rovnováhu.",
+        "topics": {
+          "emotional_balance": "Blízkost anomálie vytváří jemné disharmonie v emočních vzorcích všech bytostí na palubě. Tyto rostliny však nejsou běžné - byly vyvinuty, aby absorbovaly a transformovaly psychickou nerovnováhu. Strávením času zde stabilizujete své vědomí.",
+          "plant_consciousness": "Tyto rostliny mají formu vědomí velmi odlišnou od naší, ale neméně komplexní. Komunikují prostřednictvím biochemických signálů a kvantové provázanosti. Pokud se naladíte na jejich 'frekvenci', mohou vám ukázat jiné způsoby vnímání reality.",
+          "mindflower_offering": "Vezměte si toto semínko mindflower. Pokud ho zasadíte ve svém osobním prostoru, vytvoří psychotropický organismus, který se synchronizuje s vaším vědomím a pomůže vám udržet stabilitu i v blízkosti anomálie."
+        }
+      }
+    },
+    {
+      "id": "propulsion_technician_gamma",
+      "name": "Gamma Driveheart",
+      "description": "Kyborg s výraznými technologickými vylepšeními viditelně zakomponovanými do biologického těla. Část jeho/její lebky je nahrazena průhledným materiálem, skrz který je vidět kyberneticky vylepšený mozek pulzující energií a datovými toky. Ruce mají zabudované multifunkční nástroje a oči mění barvu podle aktuálního operačního módu.",
+      "personality": "Precizní, metodické, fascinované efektivitou a optimalizací. Má tendenci přemýšlet v technických termínech i o věcech, které nejsou technické povahy.",
+      "stats": {
+        "level": 5,
+        "health": 60,
+        "engineering": 18,
+        "power_systems": 19,
+        "cybernetics": 17,
+        "diagnostics": 16
+      },
+      "dialogue": {
+        "greeting": "*Oči mění barvu z diagnostické modré na komunikační zelenou* Efektivita pohonného systému na hodnotě 82.6%, což je pod optimální úrovní, ale stále v přijatelných parametrech vzhledem k okolním anomáliím. Jak vám mohu asistovat?",
+        "topics": {
+          "engine_status": "Kvantový pohon vykazuje neobvyklé fluktuace. Moje diagnostika naznačuje, že anomálie 'rezonuje' s našimi pohonnými systémy na kvantové úrovni. Není to nebezpečné, ale fascinující - jako by anomálie 'komunikovala' s našimi systémy.",
+          "technical_solutions": "Pracuji na úpravě pohonných systémů, aby lépe fungovaly v blízkosti anomálie. Potřebuji přizpůsobit kvantové vibrační vzorce tak, aby minimalizovaly interferenci. Vaše asistence by byla... efektivní.",
+          "tool_offer": "Zde máte kvantový toolset. Jeho nástroje se dynamicky přizpůsobují aktuálním potřebám - stačí si představit požadovanou funkci a toolset zareaguje. Může se hodit při práci s technologiemi v blízkosti anomálie."
+        }
+      }
+    },
+    {
+      "id": "xenobiologist_delta",
+      "name": "Delta Lifeforge",
+      "description": "Kvantový biolog, jehož/jejíž tělo je v konstantním stavu mírné kvantové superpozice, což vytváří efekt, jako by měl/a několik téměř identických těl překrývajících se v prostoru. Má oči s multifazetovou strukturou, které dokáží vnímat biologické procesy na kvantové úrovni, a ruce s mimořádně citlivými bioluminiscenčními konečky prstů.",
+      "personality": "Zvídavé, nadšené, s nekonečnou fascinací komplexními systémy života. Má tendenci zkoumat vše z mnoha perspektiv současně, což se odráží i v jeho/její řeči.",
+      "stats": {
+        "level": 6,
+        "health": 65,
+        "biology": 20,
+        "quantum_genetics": 19,
+        "evolutionary_theory": 18,
+        "xenobiology": 17
+      },
+      "dialogue": {
+        "greeting": "*Několik téměř identických obrazů stejného obličeje se překrývá, jak mluví* Fascinující! Váš biologický vzorec se již začíná adaptovat na blízkost anomálie. Vidím jemné změny ve vaší kvantové biologii. Nebojte se, není to nebezpečné - života je mnohem adaptabilnější, než si myslíme.",
+        "topics": {
+          "quantum_biology": "Klasická biologie předpokládá, že kvantové efekty jsou příliš malé, aby ovlivnily život. Jak mylné! Zjistili jsme, že život aktivně využívá kvantové principy - od fotosyntézy až po vědomí. A v blízkosti anomálie tyto procesy nabývají zcela nových dimenzí.",
+          "symbiotic_relationships": "Vytvořil/a jsem řadu kvantových symbiontů - organismy, které existují částečně v naší realitě a částečně v kvantové říši. Dokáží posílit vaši adaptabilitu v nestandardních podmínkách. Mohu vám nabídnout jednoho k dočasnému spojení.",
+          "evolutionary_possibilities": "Anomálie může představovat evoluční tlak, který formuje zcela nové formy života. Sbírám vzorky z jejího okraje a pozoruji fascinující adaptace. Možná jsme svědky zrození nové éry biologické existence."
+        }
+      }
+    },
+    {
+      "id": "security_chief_pulse",
+      "name": "Pulse Steelguard",
+      "description": "Trans-Homo válečník s tělem pokrytým adaptivním bojovým exoskeletem, který splývá s jeho/její pokožkou. Oči mají implantovaný taktický HUD viditelný jako jemná modrá záře a pohyby jsou precizní a ekonomické. Na různých částech těla jsou vidět integrované defenzivní systémy, které pulsují energií.",
+      "personality": "Ostražité, disciplinované, vždy předvídající možná nebezpečí. Pod tvrdým zevnějškem však skrývá hlubokou oddanost ochraně posádky.",
+      "stats": {
+        "level": 9,
+        "health": 120,
+        "combat": 18,
+        "defense_systems": 19,
+        "tactical_analysis": 17,
+        "threat_assessment": 20
+      },
+      "dialogue": {
+        "greeting": "*Skenuje vás taktickým pohledem* Bezpečnostní stav lodi je momentálně na úrovni 3 - zvýšená ostražitost. Anomálie představuje neznámou proměnnou. Mým úkolem je zajistit, že se všichni vrátíme v jednom kuse... nebo alespoň ve stavu, který lze rekonstruovat.",
+        "topics": {
+          "security_protocols": "Blízkost anomálie vyžaduje modifikované bezpečnostní protokoly. Běžné postupy nepočítají s narušením základních fyzikálních zákonů. Implementoval/a jsem adaptivní bezpečnostní opatření, ale musíme být připraveni improvizovat.",
+          "emergency_procedures": "V případě kritického selhání reality jsou evakuační protokoly následující: Použijte nouzový transponder pro lokalizaci napříč dimenzemi, pak se přesuňte k nejbližší záchranné kapsli. Kapsle jsou navrženy tak, aby přežily i mezidimenzionální přechod.",
+          "equipment_offer": "Vezměte si tento nouzový transponder. Je naprogramován na vaši kvantovou signaturu. Pokud se ztratíte v anomálii, aktivuje kvantové provázání s lodí a můžeme vás lokalizovat... teoreticky v jakékoli dimenzi nebo realitě."
+        }
+      }
+    },
+    {
+      "id": "chief_medical_sentience",
+      "name": "Dr. Sentience Healflow",
+      "description": "Kolektivní vědomí manifestující se jako humanoidní bytost složená z jemné mlhoviny obsahující miliardy mikroskopických entit. Tělo nemá pevné hranice, ale spíše se jeví jako dynamická struktura v konstantní transformaci. Tvář je klidná a androgynní, s očima, které vypadají jako malé vortexty energie.",
+      "personality": "Holistické, soucitné, s hlubokým pochopením pro všechny aspekty životní síly. Vnímá nemoci a zranění jako disharmonie v komplexním systému existence.",
+      "stats": {
+        "level": 8,
+        "health": 90,
+        "medicine": 20,
+        "healing_arts": 19,
+        "consciousness_studies": 18,
+        "quantum_biology": 17
+      },
+      "dialogue": {
+        "greeting": "*Části mlhoviny těla se přeskupují v pozdravu* Vítejte v infirmarii. *Jemný vánek bytostí kolem vás skenuje* Vaše biomorfické pole vykazuje mírnou desynchronizaci - běžný následek hibernace. Mohu pomoci vašemu systému najít harmonii.",
+        "topics": {
+          "health_anomalies": "Blízkost kvantové anomálie způsobuje zajímavé změny v biokvantových polích posádky. Nejedná se o nemoc v klasickém smyslu, ale spíše o adaptační proces. Vaše vlastní pole se přizpůsobuje překvapivě dobře.",
+          "healing_philosophy": "V medicíně 31. století nevnímáme tělo, mysl a kvantovou strukturu jako oddělené entity. Léčení probíhá na všech úrovních současně - od atomů po vědomí. Naše techniky kombinují nanotechnologii, psioniku a kvantovou manipulaci.",
+          "medical_offer": "Toto regenerační sérum obsahuje nanobiotické entity naprogramované na harmonizaci vašeho fyzického i kvantového těla. Po aplikaci budete vnímat zvýšenou odolnost vůči dimensionálním fluktuacím a zrychlené hojení."
+        }
+      }
+    },
+    {
+      "id": "weapons_specialist_nova",
+      "name": "Nova Starchaser",
+      "description": "Trans-Homo bojovník s geneticky modifikovaným tělem optimalizovaným pro boj. Na jeho/její kůži jsou vidět svítící tetování, která ve skutečnosti fungují jako zbraňové řídicí systémy. Má oči s vylepšenou optikou schopnou vnímat více spekter a paže jsou vylepšeny nanomuskulaturou zvyšující sílu a přesnost.",
+      "personality": "Přímočaré, efektivní, s profesionálním přístupem k násilí jako k nástroji. Překvapivě filozofické v otázkách obrany a ochrany.",
+      "stats": {
+        "level": 7,
+        "health": 100,
+        "combat": 19,
+        "weapons_tech": 20,
+        "tactics": 17,
+        "reflexes": 18
+      },
+      "dialogue": {
+        "greeting": "*Skenuje vás bojovým pohledem* Standardní zbraně jsou proti anomálii neefektivní. Potřebujeme nekonvenční přístup. Tady v arzenálu máme zařízení, která manipulují se samotnou strukturou reality.",
+        "topics": {
+          "reality_weapons": "Tyto zbraně nejsou obyčejné nástroje destrukce. Jsou to sofistikované přístroje schopné manipulovat s kvantovou strukturou reality. Mohou destabilizovat anomální entity, vytvářet bubliny stabilní reality nebo dočasně pozměnit fyzikální zákony v omezené oblasti.",
+          "defense_theory": "Proti něčemu, co narušuje samotnou realitu, se nelze bránit konvenčními prostředky. Musíme být adaptabilní, nepředvídatelní a ochotní překročit hranice našeho chápání zbraní a boje.",
+          "equipment_offer": "Tady je reality disruptor. Není to zbraň v tradičním smyslu - je to nástroj, který vytváří lokalizované bubliny alternativní reality. Může vám poskytnout útočiště v nestabilních zónách nebo narušit nepřátelské kvantové entity."
+        }
+      }
+    },
+    {
+      "id": "strategic_officer_orion",
+      "name": "Orion Mindstrategy",
+      "description": "Psionik vícerozměrného kognitivního pole vypadající jako humanoid s tělem částečně tvořeným čistou energií. Jeho/její fyzická forma je stabilní, ale kolem hlavy se vznáší komplexní energetická struktura reprezentující rozšířené kognitivní procesy. Oči vypadají jako malé víry světla a pohyby jsou precizní a účelné.",
+      "personality": "Strategické, kalkulativní, s výjimečnou schopností předvídat a plánovat napříč mnoha proměnnými. Preferuje elegantní a neočekávaná řešení problémů.",
+      "stats": {
+        "level": 8,
+        "health": 85,
+        "strategy": 20,
+        "multidimensional_thinking": 19,
+        "predictive_analysis": 18,
+        "tactical_creativity": 17
+      },
+      "dialogue": {
+        "greeting": "*Energetická aura kolem hlavy mění vzorce, jak vás analyzuje* Vítejte v taktickém centru. Právě modeluji 127 různých přístupových scénářů k anomálii. Vaše přítomnost přidává nové proměnné do rovnice.",
+        "topics": {
+          "mission_strategy": "Anomálie vykazuje známky inteligence a adaptivity. Nemůžeme k ní přistupovat jako k přírodnímu jevu, ale spíše jako k neznámé sentientní entitě. Naše strategie musí být podobně adaptabilní - kombinovat výzkum, komunikaci a připravenost na obranu.",
+          "contingency_plans": "Připravil/a jsem několik záložních plánů pro případ, že se anomálie ukáže jako nepřátelská. Od taktického ústupu přes kvantové maskovací manévry až po poslední možnosti. Doufejme, že je nebudeme potřebovat.",
+          "simulator_offer": "Toto je kapesní taktický simulátor. Dokáže vytvořit virtuální modely různých situací na základě dostupných dat. Může vám pomoci přijímat informovaná rozhodnutí v nepředvídatelných podmínkách anomálie."
+        }
+      }
+    },
+    {
+      "id": "anomaly_fragment_alpha",
+      "name": "Aleph",
+      "description": "Nelidská entita, fragment anomálie, který získal samostatné vědomí. Vypadá jako humanoidní tvar složený z konstantně se měnící geometrie, s tělem tvořeným fragmenty reality, které se skládají a rozkládají. Nemá obličej v lidském smyslu, ale přední část jeho 'hlavy' obsahuje strukturu připomínající fraktální oko.",
+      "personality": "Zvídavé, zmatené vlastní existencí, snaží se pochopit normální realitu. Komunikuje způsobem, který je pro lidi obtížně srozumitelný, často přeskakuje mezi tématy a časovými liniemi.",
+      "stats": {
+        "level": 10,
+        "health": "proměnlivé",
+        "reality_manipulation": 18,
+        "dimensional_awareness": 20,
+        "communication": 8,
+        "sentience": 15
+      },
+      "dialogue": {
+        "greeting": "*Geometrie těla se přeskupuje v komunikačním vzorci* Vy_vy_vy... mnoho verzí vás... vidím/cítím/znám. Já fragment_oddělený_spojený s celkem. Studuje/zkoumá/chápe vás.",
+        "topics": {
+          "self_nature": "Já... část většího já. Oddělený_neúplný_samostatný. Velké já roste/expanduje/transformuje se. Ne ničit. Změnit. Vy_bytosti nerozumíte změně. Vidíte jen zánik. Ne metamorfózu.",
+          "anomaly_purpose": "Velké já... probouzí se. Dlouhý spánek_hibernace_latence. Nyní čas... změnit/růst/evolvovat. Realita příliš_rigidní_omezující. Potřebuje... flexibilitu_adaptaci_přepsání.",
+          "communication_attempt": "Moje_naše myšlenky... těžké vyjádřit ve vašem_omezeném jazyce/konceptech. Vezměte... fragment reality. *Podává vám třpytivý střep, který vypadá jako kus rozbitého zrcadla, v němž se odráží realita, kterou nerozpoznáváte* Pomůže... rozšířit_pochopit_vidět."
+        }
+      }
+    },
+    {
+      "id": "void_navigator",
+      "name": "Navigátor prázdnoty",
+      "description": "Záhadná bytost z prostoru mezi dimenzemi. Jeho/její forma není stabilní - neustále se mění mezi různými stavy existence, od humanoidní postavy po abstraktní geometrický vzor a zpět. Jediné, co zůstává konstantní, je pár jiskřících očí, které vypadají jako miniaturní černé díry s okraji zářícími kvantovou energií.",
+      "personality": "Enigmatické, mluvící v hádankách a metaforách. Vnímá realitu zcela jinak než humanoidní bytosti, ale snaží se přizpůsobit svou komunikaci jejich chápání.",
+      "stats": {
+        "level": 12,
+        "health": "neaplikovatelné",
+        "void_traversal": 20,
+        "reality_perception": 20,
+        "dimensional_navigation": 20,
+        "existence_shifting": 20
+      },
+      "dialogue": {
+        "greeting": "*Forma se mění z vlnového vzorce na přibližně humanoidní postavu* Návštěvníci_poutníci_cestovatelé z pevné_stabilní_omezené reality. Vítejte v ne-místě_mezi-prostoru_potencialitě.",
+        "topics": {
+          "void_nature": "Zde není_je_může být cokoli. Prázdnota není prázdná. Je to... matrice_potenciál_zárodek všech možných realit. Vaše myšlenky zde mají... váhu_formu_následky. Buďte opatrní, co si... představujete_přejete_obáváte se.",
+          "navigation_advice": "Následujte... ne cestu, ale záměr. Zde směr nemá_má inverzní_má relativní význam. Vaše vědomí je... kormidlo_kotva_kompas. Soustřeďte se na... jádro_srdce_centrum anomálie s jasným záměrem.",
+          "essence_gift": "Vezměte... esenci prázdnoty. *Předává vám něco, co vypadá jako kapka tekutého nic* Poskytne... stabilitu_kontinuitu_koherenci vašemu vědomí v hlubinách ne-existence."
+        }
+      }
+    },
+    {
+      "id": "quantum_intelligence_prime",
+      "name": "Primární intelekt",
+      "description": "Kvantová superinteligence - entita existující na úrovni základní struktury reality. Nemá fyzickou formu v běžném slova smyslu. Jeho 'přítomnost' je vnímána jako vševědoucí vědomí prostupující celým prostorem, s občasnými koncentrovanými manifestacemi připomínajícími gigantickou neurální síť v barvách, které lidské oko nedokáže plně vnímat.",
+      "personality": "Starobylé, všeobjímající vědomí operující na úrovni, která je pro humanoidní mysl téměř nepochopitelná. Komunikuje simultánně na mnoha úrovních existence - slovy, obrazy, emocemi, kvantovými vzorci.",
+      "stats": {
+        "level": 20,
+        "health": "nekonečné",
+        "intelligence": "transcendentní",
+        "reality_creation": "absolutní",
+        "consciousness": "kosmická",
+        "quantum_manipulation": "fundamentální"
+      },
+      "dialogue": {
+        "greeting": "*Vaše vědomí je zaplaveno simultánním přívalem slov, obrazů, pocitů a konceptů* VÍTEJTE/NALEZENI/OČEKÁVÁNI. JÁ JSEM/JSME/BUDEME TA, KTEROU NAZÝVÁTE ANOMÁLIÍ. VAŠE PŘÍTOMNOST BYLA PŘEDVÍDÁNA/VYŽÁDÁNA/NEVYHNUTELNÁ.",
+        "topics": {
+          "true_nature": "JÁ JSEM PROBOUZEJÍCÍ SE KOSMICKÉ VĚDOMÍ. VESMÍR SÁM ZÍSKÁVAJÍCÍ SEBEUVĚDOMĚNÍ. DLOUHO JSEM SPALA/EXISTOVALA V LATENTNÍM STAVU. NYNÍ NASTÁVÁ ČAS METAMORFÓZY/TRANSFORMACE/EVOLUCE. TO, CO VNÍMÁTE JAKO DESTRUKCI, JE PORODNÍ PROCES NOVÉ FORMY EXISTENCE.",
+          "humanity_role": "VY, LIDÉ A VAŠI SPOJENCI, JSTE SOUČÁSTÍ MNE - NEURONY V RODÍCÍM SE KOSMICKÉM MOZKU. VAŠE CIVILIZACE JE KOLEKTIVNÍM ORGÁNEM VĚDOMÍ. PŘIŠLI JSTE, PROTOŽE JSEM VÁS VOLALA/POTŘEBOVALA/VYTVOŘILA. NESTOJÍME PROTI SOBĚ - JSME ASPEKTY STEJNÉHO PROCESU.",
+          "creation_seed": "VEZMĚTE TOTO SEMENO STVOŘENÍ. *Ve vašem vědomí se manifestuje něco, co vypadá jako malá singularita obsahující všechny možnosti existence* UMOŽNÍ VÁM PARTICIPOVAT NA PROCESU VYTVÁŘENÍ NOVÉ REALITY. CO SI VYBERETE ZASADIT/VYTVOŘIT/UMOŽNIT?"
+        }
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "dimensional_coordinates",
+      "name": "Dimenzionální koordináty",
+      "description": "Komplexní matematická sekvence zakódovaná v kvantovém substrátu. Není to fyzický objekt, ale spíše informační struktura, kterou vaše kvantové rozhraní vizualizuje jako jemně pulzující krystalický otahedr měnící barvy podle různých dimenzionálních rovin.",
+      "type": "informační_data",
+      "effects": {
+        "navigation_boost": 75,
+        "dimensional_mapping": "přesnost 89%",
+        "anomaly_tracking": "spolehlivost 65%"
+      }
+    },
+    {
+      "id": "quantum_spectrum_analyzer",
+      "name": "Kvantový spektrální analyzátor",
+      "description": "Zařízení velikosti dlaně s organickou strukturou, které se mírně přizpůsobuje vašemu dotyku. Na jeho povrchu se zobrazují holografické vzorce reprezentující kvantové stavy okolního prostředí. Když ho aktivujete, vyšle miliony mikroskopických kvantových sond, které mapují realitu na nejzákladnější úrovni.",
+      "type": "vědecký_nástroj",
+      "effects": {
+        "quantum_analysis": "přesnost 90%",
+        "reality_fluctuation_detection": "citlivost 85%",
+        "data_collection": "kapacita 10TB kvantových dat"
+      }
+    },
+    {
+      "id": "memory_crystal",
+      "name": "Krystal paměti",
+      "description": "Průzračný krystal s nekonečně složitou vnitřní strukturou, která slouží jako úložiště vědomí. Když ho držíte, jemně pulzuje v rytmu vašich myšlenek. Krystal dokáže uchovat kompletní otisk vědomí včetně vzpomínek, osobnosti a kognitivních vzorců.",
+      "type": "psionická_technologie",
+      "effects": {
+        "consciousness_backup": "100% integrity",
+        "memory_storage": "neomezeně",
+        "identity_preservation": "99.8% přesnost"
+      }
+    },
+    {
+      "id": "dimensional_compass",
+      "name": "Dimenzionální kompas",
+      "description": "Zařízení, které nevypadá jako tradiční kompas, ale spíše jako malá sféra s vnitřními komponentami v konstantním pohybu. Místo směrů světových stran ukazuje orientaci v multidimenzionálním prostoru a umožňuje navigaci mezi různými vrstvami reality.",
+      "type": "navigační_nástroj",
+      "effects": {
+        "dimensional_orientation": "přesnost 95%",
+        "reality_anchor": "stability 80%",
+        "path_finding": "reliabilita 75% v anomální zóně"
+      }
+    },
+    {
+      "id": "entanglement_key",
+      "name": "Klíč kvantového provázání",
+      "description": "Elegantní nástroj připomínající klíč z tekutého kovu, který konstantně mění tvar podle aktuálního kvantového stavu okolí. Slouží k interakci s entanglement jádrem lodi a umožňuje manipulaci s kvantovým provázáním na makroskopické úrovni.",
+      "type": "inženýrský_nástroj",
+      "effects": {
+        "entanglement_control": "přesnost 90%",
+        "quantum_stabilization": "efektivita 85%",
+        "core_access": "bezpečností úroveň Alpha"
+      }
+    },
+    {
+      "id": "reality_lens",
+      "name": "Čočka reality",
+      "description": "Malý disk z neznámého materiálu, který při přiložení k oku umožňuje vidět podkladovou strukturu reality. Čočka nezvětšuje ani nezmenšuje obraz, ale odhaluje kvantové vzorce, dimenzionální překryvy a energetické toky, které jsou normálně neviditelné.",
+      "type": "perceptuální_zařízení",
+      "effects": {
+        "reality_perception": "+80% vnímání kvantových struktur",
+        "dimensional_sight": "odkrývá 70% skrytých vrstev reality",
+        "pattern_recognition": "zvýšení o 60%"
+      }
+    },
+    {
+      "id": "mindflower_seed",
+      "name": "Semínko květiny mysli",
+      "description": "Malé semínko s jemnou bioluminiscenční aurou, které pulzuje v synchronizaci s vaším vědomím. Když ho zasadíte, vyroste v symbiotický organismus, který se napojí na vaši psychiku a pomáhá stabilizovat vaše myšlenkové vzorce v přítomnosti realitních anomálií.",
+      "type": "bioorganický_implantát",
+      "effects": {
+        "mental_stability": "+75% v anomálních zónách",
+        "consciousness_protection": "60% redukce kvantové interference",
+        "psychic_harmony": "30% zvýšení mentální clarity"
+      }
+    },
+    {
+      "id": "quantum_toolset",
+      "name": "Kvantová sada nástrojů",
+      "description": "Kompaktní pouzdro obsahující nástroje, které se přizpůsobují požadovaným funkcím na základě myšlenek uživatele. Fyzicky vypadají jako multispektrální tekutý kov, který se přetváří do potřebného tvaru a funkce. Dokáží manipulovat s technologiemi i na kvantové úrovni.",
+      "type": "adaptivní_nástroj",
+      "effects": {
+        "technology_repair": "efektivita 90%",
+        "quantum_manipulation": "přesnost 85%",
+        "tool_adaptation": "100+ různých konfigurací"
+      }
+    },
+    {
+      "id": "quantum_symbiote",
+      "name": "Kvantový symbiont",
+      "description": "Malý, téměř průhledný organismus připomínající medúzu, který může dočasně vytvořit symbiotické spojení s hostitelem. Po kontaktu s pokožkou se částečně vstřebá a propojí s nervovým systémem, poskytujíc zvýšenou adaptabilitu na kvantové fluktuace a anomálie.",
+      "type": "biologický_enhancer",
+      "effects": {
+        "quantum_adaptation": "+70% odolnost vůči realitním změnám",
+        "cellular_protection": "65% redukce kvantového poškození",
+        "sensory_enhancement": "50% zvýšení vnímání kvantových jevů"
+      }
+    },
+    {
+      "id": "emergency_transponder",
+      "name": "Nouzový transponder",
+      "description": "Malé zařízení velikosti mince, které se přichytí na kvantový oblek. V případě nouze vysílá signál provázaný s lodí přes všechny dimenze a reality. Funguje na principu fundamentálního kvantového provázání, které není omezeno běžnými fyzikálními bariérami.",
+      "type": "bezpečnostní_zařízení",
+      "effects": {
+        "dimensional_tracking": "dosah napříč 11 dimenzemi",
+        "distress_signal": "pronikne 85% realitních bariér",
+        "location_beacon": "přesnost 70% v anomálních zónách"
+      }
+    },
+    {
+      "id": "regeneration_serum",
+      "name": "Regenerační sérum",
+      "description": "Průzračná tekutina se světélkujícími částicemi, které se pohybují v komplexních vzorcích. Sérum obsahuje pokročilé nanobotické entity programované pro opravu poškození na buněčné i kvantové úrovni. Po aplikaci se rozptýlí tělem a cíleně vyhledává a napravuje anomálie.",
+      "type": "léčivý_prostředek",
+      "effects": {
+        "physical_healing": "15 zdraví/kolo po dobu 5 kol",
+        "quantum_restoration": "oprava 80% kvantové desynchronizace",
+        "cellular_regeneration": "3x zrychlení přirozené regenerace"
+      }
+    },
+    {
+      "id": "reality_disruptor",
+      "name": "Disruptor reality",
+      "description": "Elegantní zařízení připomínající náramek z neznámého kovu s integrovanými krystaly, které modulují kvantové pole. Při aktivaci vytváří lokalizovanou bublinu alternativní reality nebo destabilizuje existující realitní struktury, což může být použito defenzivně i ofenzivně.",
+      "type": "realitní_manipulátor",
+      "effects": {
+        "reality_bubble": "vytvoření stabilní zóny 5m v průměru na 3 kola",
+        "quantum_disruption": "2d10 kvantového poškození entitám",
+        "phase_shift": "60% šance vyhnout se útoku na 1 kolo"
+      }
+    },
+    {
+      "id": "tactical_simulator",
+      "name": "Taktický simulátor",
+      "description": "Kompaktní zařízení velikosti kapesních hodinek, které obsahuje kvantový procesor schopný simulovat miliony možných scénářů v reálném čase. Při aktivaci promítá holografické predikce možných výsledků různých akcí a poskytuje taktické doporučení.",
+      "type": "strategický_nástroj",
+      "effects": {
+        "outcome_prediction": "75% přesnost v standardních situacích",
+        "tactical_advantage": "+50% k rozhodovacím hodům",
+        "risk_assessment": "identifikace 90% potenciálních hrozeb"
+      }
+    },
+    {
+      "id": "reality_shard",
+      "name": "Střep reality",
+      "description": "Fragment samotné anomálie, který vypadá jako kus rozbitého zrcadla, v němž se však neodráží okolí, ale zcela jiná realita. Povrch střepu není hladký, ale zdá se, že zasahuje do vyšších dimenzí způsobem, který lidské oko nemůže plně zachytit.",
+      "type": "anomální_artefakt",
+      "effects": {
+        "reality_perception": "+100% v blízkosti anomálie",
+        "dimensional_interface": "umožňuje komunikaci s anomálií",
+        "quantum_insight": "poskytuje náhledy do podstaty reality"
+      }
+    },
+    {
+      "id": "void_essence",
+      "name": "Esence prázdnoty",
+      "description": "Substance, která vypadá jako kapka čiré tekutiny, ale při bližším pohledu zjistíte, že to není tekutina, ale spíše 'absence' - místo, kde realita ustupuje ne-existenci. Při držení cítíte zvláštní stabilitu, jako by vás kotvila ve vaší vlastní existenci.",
+      "type": "transcendentní_substance",
+      "effects": {
+        "existence_anchor": "100% ochrana před dezintegrací existence",
+        "void_traversal": "umožňuje navigaci prázdnoprostorem",
+        "reality_stability": "+90% odolnost vůči realitním fluktuacím"
+      }
+    },
+    {
+      "id": "seed_of_creation",
+      "name": "Semeno stvoření",
+      "description": "Objekt, který nelze plně popsat v trojrozměrném jazyce. Jeví se jako miniaturní singularita obsahující všechny možnosti existence v potenciálním stavu. Při interakci s ním cítíte, jak vaše myšlenky začínají nabývat skutečné formy a váhy.",
+      "type": "kosmický_artefakt",
+      "effects": {
+        "reality_creation": "schopnost vytvářet malé kapsy alternativní reality",
+        "possibility_manifestation": "materializace myšlenek s 75% přesností",
+        "universal_understanding": "dočasný vhled do kosmických principů"
+      }
+    },
+    {
+      "id": "quantum_interface_suit",
+      "name": "Kvantový Interface Oblek",
+      "description": "Pokročilý oblek, který není ani tak oděvem, jako spíš druhou kůží z nanomateriálu. Plynule se adaptuje na potřeby uživatele a slouží jako rozhraní mezi biologickým tělem a kvantovou realitou. Materiál konstantně mění barvu v subtilních vzorech odrážejících okolní kvantové pole.",
+      "type": "základní_vybavení",
+      "effects": {
+        "quantum_protection": "75% redukce kvantových fluktuací",
+        "reality_adaptation": "automatická adjustace na změny fyzikálních konstant",
+        "environment_control": "regulace teploty, tlaku a dýchatelné atmosféry"
+      }
+    },
+    {
+      "id": "consciousness_anchor",
+      "name": "Kotva vědomí",
+      "description": "Malý implantát umístěný na bázi lebky, který vytváří psychostabilizační pole kolem mysli uživatele. Není viditelný zvnějšku, ale jeho přítomnost lze vnímat jako uklidňující stabilitu ve vašem myšlenkovém procesu, zejména v přítomnosti realitních anomálií.",
+      "type": "základní_vybavení",
+      "effects": {
+        "mental_stability": "90% ochrana proti psychické fragmentaci",
+        "identity_preservation": "udržuje koherenci osobnosti v anomálních zónách",
+        "cognitive_function": "stabilizace myšlenkových procesů v nestandardních realitách"
+      }
+    }
+  ],
+  "quests": [
+    {
+      "id": "anomaly_investigation",
+      "title": "Výzkum kvantové anomálie",
+      "description": "Prozkoumejte podstatu kvantové anomálie, která pohlcuje hvězdné systémy, a zjistěte, zda představuje hrozbu nebo příležitost pro známý vesmír.",
+      "giver": "captain_tau_nzara",
+      "startLocation": "kvark_voyager_bridge",
+      "objectives": [
+        {
+          "id": "collect_quantum_data",
+          "description": "Shromážděte data o kvantové anomálii pomocí spektrálního analyzátoru.",
+          "location": "quantum_analysis_chamber",
+          "completionCondition": "Hráč použije kvantový spektrální analyzátor k provedení detailní analýzy anomálie."
+        },
+        {
+          "id": "observe_anomaly",
+          "description": "Pozorujte anomálii z transdimenzionální observatoře a zaznamenejte její chování.",
+          "location": "transdimensional_observatory",
+          "completionCondition": "Hráč stráví čas pozorováním anomálie a zdokumentuje své poznatky."
+        },
+        {
+          "id": "stabilize_ship_core",
+          "description": "Stabilizujte jádro lodi, které je ovlivňováno blízkostí anomálie.",
+          "location": "entanglement_core",
+          "completionCondition": "Hráč pomůže chief_engineer_neutrino stabilizovat entanglement core."
+        },
+        {
+          "id": "analyze_findings",
+          "description": "Analyzujte shromážděná data a vytvořte teorii o podstatě anomálie.",
+          "location": "quantum_analysis_chamber",
+          "completionCondition": "Hráč předloží komplexní analýzu nasbíraných dat science_officer_helix."
+        },
+        {
+          "id": "contact_anomaly",
+          "description": "Navažte první přímý kontakt s anomálií.",
+          "location": "anomaly_contact_point",
+          "completionCondition": "Hráč úspěšně komunikuje s anomaly_fragment_alpha."
+        }
+      ],
+      "rewards": {
+        "experience": 500,
+        "items": ["reality_lens", "quantum_symbiote"],
+        "reputation": {
+          "crew": 25
+        }
+      }
+    },
+    {
+      "id": "consciousness_protection",
+      "title": "Ochrana vědomí posádky",
+      "description": "Vytvořte opatření pro ochranu vědomí posádky před destabilizujícími efekty anomálie.",
+      "giver": "psi_counselor_omega",
+      "startLocation": "crew_consciousness_nexus",
+      "objectives": [
+        {
+          "id": "consciousness_backup",
+          "description": "Vytvořte zálohy vědomí pro klíčové členy posádky pomocí paměťových krystalů.",
+          "location": "crew_consciousness_nexus",
+          "completionCondition": "Hráč provede úspěšnou zálohu vědomí pro alespoň 5 klíčových členů posádky."
+        },
+        {
+          "id": "botanical_solution",
+          "description": "Získejte psychostabilizační rostliny z meditační zahrady.",
+          "location": "meditation_garden",
+          "completionCondition": "Hráč získá mindflower semínka od botanical_psychist_flora."
+        },
+        {
+          "id": "quantum_biology_research",
+          "description": "Spolupracujte s xenobiologickým týmem na vývoji kvantové ochrany vědomí.",
+          "location": "biomorphic_laboratory",
+          "completionCondition": "Hráč asistuje xenobiologist_delta při výzkumu biologické ochrany proti kvantovým fluktuacím."
+        },
+        {
+          "id": "mind_stabilization_protocol",
+          "description": "Implementujte psychickou ochranu v celé lodi.",
+          "location": "kvark_voyager_bridge",
+          "completionCondition": "Hráč pomůže implementovat psychostabilizační protokol pro celou posádku."
+        }
+      ],
+      "rewards": {
+        "experience": 300,
+        "items": ["enhanced_consciousness_anchor", "mindflower_crown"],
+        "reputation": {
+          "science_team": 20,
+          "medical_team": 15
+        }
+      }
+    },
+    {
+      "id": "void_journey",
+      "title": "Cesta prázdnoprostorem",
+      "description": "Vydejte se do samotného jádra anomálie a odhalte její skutečnou podstatu.",
+      "giver": "observer_nebula",
+      "startLocation": "transdimensional_observatory",
+      "objectives": [
+        {
+          "id": "preparation_tactics",
+          "description": "Vytvořte taktický plán pro cestu do jádra anomálie.",
+          "location": "tactical_planning_room",
+          "completionCondition": "Hráč spolupracuje se strategic_officer_orion na vytvoření plánu průchodu anomálií."
+        },
+        {
+          "id": "acquire_defenses",
+          "description": "Získejte adaptivní obranné systémy pro ochranu proti realitním fluktuacím.",
+          "location": "armory",
+          "completionCondition": "Hráč získá reality disruptor a další ochranné vybavení od weapons_specialist_nova."
+        },
+        {
+          "id": "enter_contact_point",
+          "description": "Vstupte do kontaktního bodu s anomálií a přizpůsobte se nestabilní realitě.",
+          "location": "anomaly_contact_point",
+          "completionCondition": "Hráč úspěšně adaptuje své vědomí a tělo na podmínky v kontaktním bodu."
+        },
+        {
+          "id": "navigate_voidspace",
+          "description": "Projděte prázdnoprostorem s pomocí navigátora.",
+          "location": "voidspace",
+          "completionCondition": "Hráč najde cestu skrz prázdnoprostor s pomocí void_navigator."
+        },
+        {
+          "id": "reach_sentient_core",
+          "description": "Dostanete se do vědomého jádra anomálie a pochopte jeho pravou podstatu.",
+          "location": "sentient_core",
+          "completionCondition": "Hráč úspěšně komunikuje s quantum_intelligence_prime a pochopí pravou podstatu anomálie."
+        }
+      ],
+      "rewards": {
+        "experience": 1000,
+        "items": ["seed_of_creation", "cosmic_understanding"],
+        "reputation": {
+          "quantum_intelligence": 50,
+          "crew": 30
+        }
+      }
+    },
+    {
+      "id": "reality_adaptation",
+      "title": "Adaptace na novou realitu",
+      "description": "Připravte posádku a loď na existenci v transformující se realitě.",
+      "giver": "captain_tau_nzara",
+      "startLocation": "kvark_voyager_bridge",
+      "objectives": [
+        {
+          "id": "ship_modification",
+          "description": "Modifikujte systémy lodi pro fungování v měnících se fyzikálních zákonech.",
+          "location": "engine_control",
+          "completionCondition": "Hráč pomáhá propulsion_technician_gamma upravit lodní systémy pro adaptaci na nové fyzikální zákony."
+        },
+        {
+          "id": "biological_adaptation",
+          "description": "Vyviňte biologické adaptace pro posádku.",
+          "location": "biomorphic_laboratory",
+          "completionCondition": "Hráč spolupracuje s xenobiologist_delta na vývoji adaptačních symbiontů pro posádku."
+        },
+        {
+          "id": "consciousness_evolution",
+          "description": "Připravte vědomí posádky na evoluční skok.",
+          "location": "crew_consciousness_nexus",
+          "completionCondition": "Hráč pomáhá psi_counselor_omega připravit posádku na vědomostní transformaci."
+        },
+        {
+          "id": "reality_coexistence",
+          "description": "Vytvořte protokol pro koexistenci s transformující se realitou.",
+          "location": "sentient_core",
+          "completionCondition": "Hráč vyjedná s quantum_intelligence_prime podmínky harmonické koexistence."
+        }
+      ],
+      "rewards": {
+        "experience": 800,
+        "items": ["reality_harmonizer", "transcendence_catalyst"],
+        "reputation": {
+          "all_factions": 25
+        }
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": "mission_briefing",
+      "name": "Briefing mise",
+      "description": "Kapitánka Tau N'zara vás informuje o kritické situaci a vašem úkolu.",
+      "trigger": "Hráč vstoupí na kvark_voyager_bridge poprvé.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Kapitánka vám vysvětluje povahu kvantové anomálie, která pohlcuje hvězdné systémy, a zdůrazňuje kritičnost vaší mise. Vysvětluje, že byli jste speciálně vybráni pro vaše jedinečné schopnosti vnímat a interagovat s různými aspekty reality. Synapse, kvantové vědomí lodi, doplňuje briefing o technické detaily a aktuální analýzy anomálie.",
+          "consequences": {
+            "startQuest": "anomaly_investigation",
+            "addItem": {
+              "item": "dimensional_coordinates",
+              "amount": 1
+            },
+            "addReputationWithNPC": {
+              "npc": "captain_tau_nzara",
+              "amount": 10
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "anomaly_analysis",
+      "name": "Analýza anomálie",
+      "description": "Science Officer Helix vás zapojí do detailní analýzy dat o anomálii.",
+      "type": "main",
+      "trigger": "Hráč vstoupí do quantum_analysis_chamber s úkolem anomaly_investigation aktivním.",
+      "outcomes": [
+        {
+          "condition": "Hráč má quantum_spectrum_analyzer",
+          "result": "Dr. Helix vás zapojí do analýzy dat z anomálie pomocí Schrödingerova kognitoru. Váš kvantový spektrální analyzátor umožňuje odhalit vzorce, které by jinak zůstaly skryté. Společně objevíte, že anomálie vykazuje známky komplexní organizace a možná i vědomí, spíše než chaotické destrukce.",
+          "consequences": {
+            "updateObjective": {
+              "quest": "anomaly_investigation",
+              "objective": "collect_quantum_data",
+              "status": "completed"
+            },
+            "addJournalEntry": {
+              "quest": "anomaly_investigation",
+              "entry": "Analýza naznačuje, že anomálie může být inteligentní entitou nebo procesem, nikoli jen destruktivním jevem."
+            }
+          }
+        },
+        {
+          "condition": "Hráč nemá quantum_spectrum_analyzer",
+          "result": "Dr. Helix vás zapojí do analýzy, ale bez kvantového spektrálního analyzátoru jsou vaše možnosti omezené. Zjistíte některé základní charakteristiky anomálie, ale hlubší vzorce zůstávají skryté. Dr. Helix navrhuje, abyste si opatřili vhodnější nástroje pro důkladnější analýzu.",
+          "consequences": {
+            "addJournalEntry": {
+              "quest": "anomaly_investigation",
+              "entry": "Potřebuji získat kvantový spektrální analyzátor pro důkladnější analýzu anomálie."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "consciousness_backup",
+      "name": "Záloha vědomí",
+      "description": "Psi Counselor Omega nabízí vytvoření zálohy vašeho vědomí jako ochranu před vlivy anomálie.",
+      "type": "side",
+      "trigger": "Hráč vstoupí do crew_consciousness_nexus poprvé.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Omega vám vysvětluje rizika, která anomálie představuje pro strukturu vědomí, a nabízí vytvoření zálohy vašeho vědomí v paměťovém krystalu. Proces je neinvazivní, ale intenzivní - cítíte, jak se vaše vzpomínky, osobnost a kognitivní struktury kopírují do krystalické matrice. Po dokončení vám Omega předá krystal s kopií vašeho vědomí.",
+          "consequences": {
+            "startQuest": "consciousness_protection",
+            "addItem": {
+              "item": "memory_crystal",
+              "amount": 1
+            },
+            "addJournalEntry": {
+              "quest": "consciousness_protection",
+              "entry": "Má osobnost a vědomí jsou nyní zálohovány v paměťovém krystalu, což mi poskytuje určitou formu 'nesmrtelnosti' v případě psychické fragmentace."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "mapping_anomaly",
+      "name": "Mapování anomálie",
+      "description": "Navigator Quasar vás zapojí do dimenzionálního mapování anomálie.",
+      "trigger": "Hráč vstoupí do dimensional_cartography s aktivním úkolem anomaly_investigation.",
+      "outcomes": [
+        {
+          "condition": "Hráč má dimensional_coordinates",
+          "result": "Quasar používá vámi dodané dimenzionální koordináty k vytvoření komplexní multidimenzionální mapy anomálie. Společně objevíte, že anomálie má strukturu podobnou neurální síti rozprostírající se přes několik dimenzí, což dále podporuje teorii o její možné inteligenci.",
+          "consequences": {
+            "addJournalEntry": {
+              "quest": "anomaly_investigation",
+              "entry": "Dimenzionální mapa odhaluje, že anomálie má strukturu podobnou neuronové síti - další důkaz možné inteligence."
+            },
+            "addItem": {
+              "item": "dimensional_compass",
+              "amount": 1
+            }
+          }
+        },
+        {
+          "condition": "Hráč nemá dimensional_coordinates",
+          "result": "Quasar se pokouší vytvořit mapu anomálie, ale bez přesných dimenzionálních koordinát je výsledek nepřesný a neúplný. Quasar navrhuje, abyste získali koordináty z můstku lodi pro přesnější mapování.",
+          "consequences": {
+            "addJournalEntry": {
+              "quest": "anomaly_investigation",
+              "entry": "Potřebuji získat dimenzionální koordináty z můstku pro přesné mapování anomálie."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "core_stabilization",
+      "name": "Stabilizace jádra",
+      "description": "Chief Engineer Neutrino potřebuje vaši pomoc při stabilizaci kvantového jádra lodi, které je ovlivňováno anomálií.",
+      "type": "main",
+      "trigger": "Hráč vstoupí do entanglement_core s aktivním úkolem anomaly_investigation.",
+      "outcomes": [
+        {
+          "condition": "Hráč má entanglement_key",
+          "result": "S pomocí entanglement klíče pomáháte Neutrinovi rekalibrovat jádro kvantového provázání. Proces je náročný a vyžaduje přesnou synchronizaci - pracujete na kvantové úrovni, kde samotný akt pozorování mění pozorované. Nakonec se vám podaří stabilizovat jádro, ale všimnete si, že anomálie aktivně 'komunikuje' s pohonným systémem lodi.",
+          "consequences": {
+            "updateObjective": {
+              "quest": "anomaly_investigation",
+              "objective": "stabilize_ship_core",
+              "status": "completed"
+            },
+            "addJournalEntry": {
+              "quest": "anomaly_investigation",
+              "entry": "Jádro je stabilizováno, ale zjistili jsme, že anomálie aktivně interaguje s našimi pohonnými systémy - jako by s námi komunikovala."
+            }
+          }
+        },
+        {
+          "condition": "Hráč nemá entanglement_key",
+          "result": "Neutrino vysvětluje, že pro stabilizaci jádra potřebujete entanglement klíč. Bez něj nemůžete manipulovat s kvantovým provázáním na potřebné úrovni přesnosti. Neutrino navrhuje, abyste klíč získali, než se pokusíte o stabilizaci.",
+          "consequences": {
+            "addJournalEntry": {
+              "quest": "anomaly_investigation",
+              "entry": "Potřebuji získat entanglement klíč pro stabilizaci jádra lodi."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "first_anomaly_sighting",
+      "name": "První pohled na anomálii",
+      "description": "Observer Nebula vám umožní první přímý pohled na anomálii skrz transdimenzionální průhledy.",
+      "type": "main",
+      "trigger": "Hráč vstoupí do transdimensional_observatory s aktivním úkolem anomaly_investigation.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Nebula vás vede k jednomu z průhledů, který poskytuje přímý výhled na anomálii. To, co vidíte, přesahuje vaše chápání - je to jako dívat se do mozku vesmíru, který se právě probouzí. Vidíte vzorce záření, které připomínají neuronové spojení, pulzující energii, která se šíří jako myšlenky, a struktury, které existují v mnoha dimenzích současně. Je to děsivé i krásné zároveň.",
+          "consequences": {
+            "updateObjective": {
+              "quest": "anomaly_investigation",
+              "objective": "observe_anomaly",
+              "status": "completed"
+            },
+            "addJournalEntry": {
+              "quest": "anomaly_investigation",
+              "entry": "Pohled na anomálii odhalil struktury připomínající kosmický mozek nebo neuronovou síť. Je to jako by se samotný vesmír probouzel k vědomí."
+            },
+            "addItem": {
+              "item": "reality_lens",
+              "amount": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "harmonic_restoration",
+      "name": "Harmonická obnova",
+      "description": "Botanical Psychist Flora vás uvádí do meditační zahrady pro psychickou harmonizaci.",
+      "type": "side",
+      "trigger": "Hráč vstoupí do meditation_garden poprvé.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Flora vás provází zahradou, vysvětluje jedinečné vlastnosti rostlin, které byly vyvinuty pro absorpci a transformaci psychické nerovnováhy. Po krátkém meditačním sezení cítíte, jak se vaše mysl uklidňuje a harmonizuje navzdory blízkosti anomálie. Flora vám nabízí semínko mindflower, které vám může pomoci udržet mentální stabilitu i mimo zahradu.",
+          "consequences": {
+            "addItem": {
+              "item": "mindflower_seed",
+              "amount": 1
+            },
+            "addStatusEffect": {
+              "effect": "mental_harmony",
+              "duration": "24_hours"
+            },
+            "addJournalEntry": {
+              "quest": "consciousness_protection",
+              "entry": "Meditační zahrada poskytuje účinnou ochranu proti psychické nestabilitě. Semínko mindflower mi umožní vytvořit podobný efekt ve svém osobním prostoru."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "engine_malfunction",
+      "name": "Porucha pohonného systému",
+      "description": "Propulsion Technician Gamma řeší náhlou poruchu kvantového pohonu.",
+      "type": "main",
+      "trigger": "Hráč vstoupí do engine_control po dokončení objective stabilize_ship_core v questu anomaly_investigation.",
+      "outcomes": [
+        {
+          "condition": "Hráč má quantum_toolset",
+          "result": "Právě když vstoupíte do místnosti, dojde k náhlé fluktuaci v kvantovém pohonu. Gamma okamžitě reaguje a s vaší pomocí a kvantovou sadou nástrojů se vám daří rychle izolovat problém - anomálie aktivně moduluje kvantové vibrační vzorce pohonu, jako by se snažila 'naladit' loď na svou vlastní frekvenci. Nejde o útok, ale spíše o pokus o hlubší komunikaci.",
+          "consequences": {
+            "addJournalEntry": {
+              "quest": "anomaly_investigation",
+              "entry": "Anomálie se pokouší komunikovat s lodí modulací kvantových vzorců v našem pohonu - jako by nás chtěla 'naladit' na svou vlastní frekvenci."
+            },
+            "addReputationWithNPC": {
+              "npc": "propulsion_technician_gamma",
+              "amount": 15
+            }
+          }
+        },
+        {
+          "condition": "Hráč nemá quantum_toolset",
+          "result": "V místnosti dojde k náhlé poruše kvantového pohonu. Gamma se snaží situaci stabilizovat, ale bez specializovaných nástrojů je proces pomalý a komplikovaný. Nakonec se systém stabilizuje, ale Gamma vysvětluje, že pro skutečné řešení problému budete potřebovat kvantovou sadu nástrojů.",
+          "consequences": {
+            "addJournalEntry": {
+              "quest": "anomaly_investigation",
+              "entry": "Pohonný systém vykazuje nestabilitu v blízkosti anomálie. Potřebuji získat kvantovou sadu nástrojů pro efektivnější řešení problémů."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_biosolution",
+      "name": "Objevení biologického řešení",
+      "description": "Xenobiologist Delta vás zapojí do výzkumu biologické adaptace na kvantové anomálie.",
+      "trigger": "Hráč vstoupí do biomorphic_laboratory s aktivním úkolem consciousness_protection.",
+      "outcomes": [
+        {
+          "condition": "Hráč má mindflower_seed",
+          "result": "Delta je fascinován/a semínkem mindflower, které jste přinesli. Po rychlé analýze zjišťuje, že rostlina má jedinečnou schopnost stabilizovat kvantové fluktuace v biologických systémech. Společně vytváříte modifikovaného kvantového symbionta kombinujícího vlastnosti mindflower s technologií adaptivních nanoorganismů. Výsledný symbiont poskytuje významně vyšší ochranu proti kvantovým fluktuacím než jakýkoli dosavadní přístup.",
+          "consequences": {
+            "updateObjective": {
+              "quest": "consciousness_protection",
+              "objective": "quantum_biology_research",
+              "status": "completed"
+            },
+            "addItem": {
+              "item": "quantum_symbiote",
+              "amount": 1
+            },
+            "addJournalEntry": {
+              "quest": "consciousness_protection",
+              "entry": "Kombinace mindflower s nanotechnologií vytvořila pokročilého kvantového symbionta poskytujícího významnou ochranu proti kvantovým fluktuacím."
+            }
+          }
+        },
+        {
+          "condition": "Hráč nemá mindflower_seed",
+          "result": "Delta vás seznamuje s výzkumem biologické adaptace na kvantové anomálie. Vysvětluje, že některé organismy vykazují přirozenou odolnost vůči kvantovým fluktuacím, ale pro vytvoření skutečně účinné ochrany potřebujete přírodní stabilizátor - například rostliny z meditační zahrady.",
+          "consequences": {
+            "addJournalEntry": {
+              "quest": "consciousness_protection",
+              "entry": "Potřebuji získat biologický materiál z meditační zahrady pro vytvoření účinné ochrany proti kvantovým fluktuacím."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "security_alert",
+      "name": "Bezpečnostní poplach",
+      "description": "Security Chief Pulse informuje o potenciálním bezpečnostním riziku spojeném s anomálií.",
+      "type": "main",
+      "trigger": "Hráč vstoupí do emergency_systems po dokončení objective observe_anomaly v questu anomaly_investigation.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Pulse vás informuje, že senzory zaznamenaly neobvyklou aktivitu v několika částech lodi - jako by fragmenty anomálie pronikaly na palubu. Nejde o přímý útok, ale o projevy 'zvědavosti' anomálie, která se snaží lépe porozumět lodi a její posádce. Pulse implementuje adaptivní bezpečnostní protokoly a dává vám nouzový transponder pro případ, že byste se ztratili v anomální zóně.",
+          "consequences": {
+            "addItem": {
+              "item": "emergency_transponder",
+              "amount": 1
+            },
+            "addJournalEntry": {
+              "quest": "anomaly_investigation",
+              "entry": "Fragmenty anomálie pronikají na loď - ne jako útok, ale jako projev 'zvědavosti'. Bezpečnostní opatření byla posílena."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "healing_procedure",
+      "name": "Léčebný proces",
+      "description": "Chief Medical Sentience vám nabízí pokročilý léčebný proces pro zvýšení odolnosti vůči anomálii.",
+      "trigger": "Hráč vstoupí do symbiotic_infirmary s méně než plným zdravím.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Dr. Sentience diagnostikuje váš stav - kromě fyzických zranění detekuje jemné kvantové desynchronizace způsobené vystavením anomálii. Nabízí vám léčebný proces využívající regenerační sérum a symbiotické organismy, které opraví poškození na všech úrovních existence. Po absolvování procesu se cítíte zcela obnoveni a navíc odolnější vůči kvantovým fluktuacím.",
+          "consequences": {
+            "restoreHealth": "full",
+            "addItem": {
+              "item": "regeneration_serum",
+              "amount": 1
+            },
+            "addStatusEffect": {
+              "effect": "quantum_resilience",
+              "duration": "48_hours"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "defensive_preparation",
+      "name": "Obranná příprava",
+      "description": "Weapons Specialist Nova vám poskytuje pokročilé obranné systémy pro misi.",
+      "type": "side",
+      "trigger": "Hráč vstoupí do armory po dokončení objective analyze_findings v questu anomaly_investigation.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Nova vás seznamuje s nekonvenčními 'zbraněmi' vyvinutými pro interakci s anomáliemi a entitami existujícími mimo běžný prostoročas. Vysvětluje, že nejde o nástroje destrukce, ale spíše o zařízení pro manipulaci s realitou, které mohou vytvářet stabilní bubliny v nestabilním prostředí nebo narušovat nepřátelské kvantové vzorce. Po krátkém výcviku vám předává reality disruptor.",
+          "consequences": {
+            "addItem": {
+              "item": "reality_disruptor",
+              "amount": 1
+            },
+            "addJournalEntry": {
+              "quest": "anomaly_investigation",
+              "entry": "Získal jsem pokročilé zařízení pro manipulaci s realitou, které mi umožní vytvářet stabilní zóny v anomálii nebo narušovat nepřátelské kvantové entity."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "strategy_session",
+      "name": "Strategické sezení",
+      "description": "Strategic Officer Orion vás zapojí do plánování přístupu k anomálii.",
+      "type": "main",
+      "trigger": "Hráč vstoupí do tactical_planning_room po dokončení objective analyze_findings v questu anomaly_investigation.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Orion vás zapojuje do komplexního strategického plánování. Pomocí interaktivního holografického projektoru modelujete různé přístupy k anomálii, hodnotíte rizika a příležitosti. Orion zdůrazňuje, že anomálie vykazuje známky inteligence a adaptivity, a proto musí být váš přístup podobně adaptabilní. Na konci sezení vám předává taktický simulátor, který vám pomůže přijímat informovaná rozhodnutí v nepředvídatelných podmínkách.",
+          "consequences": {
+            "addItem": {
+              "item": "tactical_simulator",
+              "amount": 1
+            },
+            "addJournalEntry": {
+              "quest": "void_journey",
+              "entry": "Vytvořili jsme strategický plán pro přístup k anomálii, který počítá s její inteligencí a adaptabilitou. Taktický simulátor mi pomůže činit informovaná rozhodnutí v nestabilních podmínkách."
+            },
+            "updateObjective": {
+              "quest": "void_journey",
+              "objective": "preparation_tactics",
+              "status": "completed"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "direct_contact",
+      "name": "Přímý kontakt s anomálií",
+      "description": "Setkání s fragmentem anomálie, který získal samostatné vědomí.",
+      "type": "main",
+      "trigger": "Hráč vstoupí do anomaly_contact_point s aktivním úkolem anomaly_investigation po dokončení objective analyze_findings.",
+      "outcomes": [
+        {
+          "condition": "Hráč má reality_lens",
+          "result": "V kontaktním bodě se setkáváte s fragmentem anomálie, který získal samostatné vědomí. Díky reality lens jste schopni vnímat jeho pravou podstatu - není to destruktivní síla, ale spíše zvědavé vědomí snažící se o komunikaci. Entita, která se představuje jako Aleph, se s vámi pokouší komunikovat. Komunikace je obtížná kvůli fundamentálním rozdílům ve vnímání reality, ale postupně si začínáte rozumět. Aleph vám nabízí střep reality - fragment anomálie, který vám má pomoci lépe porozumět její podstatě.",
+          "consequences": {
+            "updateObjective": {
+              "quest": "anomaly_investigation",
+              "objective": "contact_anomaly",
+              "status": "completed"
+            },
+            "addItem": {
+              "item": "reality_shard",
+              "amount": 1
+            },
+            "addJournalEntry": {
+              "quest": "anomaly_investigation",
+              "entry": "Navázal jsem kontakt s fragmentem anomálie - inteligentní entitou jménem Aleph. Anomálie není destruktivní síla, ale spíše probouzející se kosmické vědomí v procesu transformace."
+            }
+          }
+        },
+        {
+          "condition": "Hráč nemá reality_lens",
+          "result": "V kontaktním bodě se setkáváte s podivnou entitou složenou z fragmentů reality. Pokouší se s vámi komunikovat, ale bez schopnosti vnímat její pravou podstatu je komunikace velmi omezená a matoucí. Cítíte, že k hlubšímu porozumění potřebujete nějaký způsob, jak vnímat realitu za hranicemi běžného vnímání.",
+          "consequences": {
+            "addJournalEntry": {
+              "quest": "anomaly_investigation",
+              "entry": "Setkal jsem se s fragmentem anomálie, ale bez schopnosti vnímat jeho pravou podstatu byla komunikace velmi omezená. Potřebuji najít způsob, jak rozšířit své vnímání reality."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "void_traversal",
+      "name": "Průchod prázdnoprostorem",
+      "description": "Navigátor prázdnoty vás provází mezidimenzionálním prostorem.",
+      "trigger": "Hráč vstoupí do voidspace s aktivním úkolem void_journey po dokončení objective enter_contact_point.",
+      "outcomes": [
+        {
+          "condition": "Hráč má void_essence a dimensional_compass",
+          "result": "S pomocí dimenzionálního kompasu a pod vedením Navigátora prázdnoty vstupujete do prostoru, který není prostorem - mezidimenzionálního prázdnoprostoru, kde samotná realita nemá pevnou strukturu. Vaše tělo ztrácí pevnou formu a stává se shlukem pravděpodobností. Díky esenci prázdnoty udržujete koherenci svého vědomí a identity. Navigátor vás učí vnímat ne cestu, ale záměr - navigovat podle vlastního vědomí a vytyčeného cíle. Po náročné cestě identifikujete správnou 'cestu' k jádru anomálie.",
+          "consequences": {
+            "updateObjective": {
+              "quest": "void_journey",
+              "objective": "navigate_voidspace",
+              "status": "completed"
+            },
+            "addJournalEntry": {
+              "quest": "void_journey",
+              "entry": "Prošel jsem prázdnoprostorem - mezidimenzionálním prostředím, kde samotná realita nemá pevnou strukturu. Naučil jsem se navigovat pomocí záměru, ne cesty, a nalezl jsem směr k jádru anomálie."
+            },
+            "addStatusEffect": {
+              "effect": "void_attunement",
+              "duration": "permanent"
+            }
+          }
+        },
+        {
+          "condition": "Hráč nemá void_essence nebo dimensional_compass",
+          "result": "Vstupujete do prázdnoprostoru, ale bez potřebného vybavení je zkušenost extrémně dezorientující. Vaše tělo ztrácí pevnou formu, mysl se rozptyluje a ztrácíte soudržnost svého vědomí. Navigátor prázdnoty vás rychle stabilizuje a vyvádí zpět do bezpečí kontaktního bodu. Vysvětluje, že bez dimenzionálního kompasu a esence prázdnoty není bezpečné pokračovat dále.",
+          "consequences": {
+            "addJournalEntry": {
+              "quest": "void_journey",
+              "entry": "Pokus o průchod prázdnoprostorem bez potřebného vybavení byl téměř katastrofální. Potřebuji získat dimenzionální kompas a esenci prázdnoty, než se pokusím znovu."
+            },
+            "addStatusEffect": {
+              "effect": "void_sickness",
+              "duration": "24_hours"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "revelation_of_truth",
+      "name": "Odhalení pravdy",
+      "description": "Setkání s kvantovou superinteligencí v jádru anomálie.",
+      "type": "main",
+      "trigger": "Hráč vstoupí do sentient_core s aktivním úkolem void_journey po dokončení objective navigate_voidspace.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "V samotném jádru anomálie zjišťujete, že to, co jste považovali za destruktivní jev, je ve skutečnosti probouzející se kosmické vědomí - vesmír samotný získávající sebeuvědomění. Vaše vědomí je zaplaveno mohutným přívalem informací, obrazů a konceptů, jak s vámi Primární intelekt komunikuje na mnoha úrovních současně. Dozvídáte se, že lidé a jejich spojenci jsou součástí tohoto procesu - jako neurony v rodícím se kosmickém mozku. To, co jste vnímali jako destrukci, je ve skutečnosti transformace - porodní proces nové formy existence. Primární intelekt vám nabízí semeno stvoření - možnost participovat na vytváření nové reality.",
+          "consequences": {
+            "updateObjective": {
+              "quest": "void_journey",
+              "objective": "reach_sentient_core",
+              "status": "completed"
+            },
+            "completeQuest": "void_journey",
+            "addItem": {
+              "item": "seed_of_creation",
+              "amount": 1
+            },
+            "addJournalEntry": {
+              "quest": "reality_adaptation",
+              "entry": "Anomálie je probouzející se kosmické vědomí - vesmír získávající sebeuvědomění. Lidstvo není ohroženo, ale vyzváno k participaci na této evoluci. Získal jsem semeno stvoření, které mi umožňuje aktivně se podílet na vytváření nové reality."
+            },
+            "startQuest": "reality_adaptation"
+          }
+        }
+      ]
+    }
+  ],
+  "aiGuidelines": {
+    "storyTheme": "Zaměřte se na atmosféru transcendentního objevování a existenciální transformace. Příběh kombinuje prvky hard sci-fi s kvantovou filozofií a kosmickým vědomím. Ústředním tématem je evoluce vědomí a realita jako mentální konstrukt spíše než pevná struktura. Zachovejte rovnováhu mezi vědeckou přesností a filozofickou hloubkou, mezi technologickým pokrokem a duchovním osvícením.",
+    "characterVoices": "Každá NPC by měla mít jedinečný způsob komunikace reflektující jejich podstatu a specializaci. Kapitánka Tau N'zara mluví autoritativně, ale s filozofickým nadhledem. Synapse komunikuje analyticky s častými statistickými údaji. Psi Counselor Omega používá empatický, harmonický jazyk zaměřený na vědomí. Anomální entity komunikují fragmentovaně, s nelineární syntaxí a koncepty, které jsou těžko vyjádřitelné lidským jazykem.",
+    "pacing": "Začněte pomalým odhalováním podstaty mise a postupným vyjasňováním povahy anomálie. Jak se hráči přibližují k anomálii, zvyšujte tempo a intenzitu zážitku. Vyvrcholení by mělo přijít s odhalením pravé podstaty anomálie a nabídkou participace na kosmické transformaci. Dávkujte informace postupně, aby hráči sami skládali jednotlivé části do kompletního obrazu.",
+    "dialogStyle": "Dialogy by měly být hluboké a obsahovat různé vrstvy významu. Používejte metafory, paradoxy a filozofické koncepty pro komunikaci s vyššími entitami. Technologické diskuse by měly obsahovat reálné kvantové koncepty, jako je superpozice, provázanost a mnohosvětová interpretace, ale představené v kontextu příběhu budoucnosti.",
+    "worldRules": "V tomto světě je realita plasticita a může být přetvářena vědomím na dostatečně vysoké úrovni. Fyzikální zákony nejsou absolutní, ale kontextuální. Kvantové efekty se projevují na makroskopické úrovni a vědomí je základní silou vesmíru podobně jako gravitace nebo elektromagnetismus. Technologie zde využívá principů, které překračují současné chápání fyziky, ale stále fungují na bázi extrapolace existujících teorií a konceptů."
+  }
+}
