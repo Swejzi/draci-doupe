@@ -60,6 +60,32 @@ const getCharacterById = async (req, res) => {
   }
 };
 
+// Funkce pro náhodné generování atributů
+const generateRandomAttributes = () => {
+  // Metoda 4d6, odebrat nejnižší hodnotu
+  const rollAttribute = () => {
+    const rolls = [];
+    for (let i = 0; i < 4; i++) {
+      rolls.push(Math.floor(Math.random() * 6) + 1); // Hod 1d6
+    }
+    // Seřadit a odebrat nejnižší hodnotu
+    rolls.sort((a, b) => a - b);
+    rolls.shift(); // Odstranit nejnižší hodnotu
+    // Součet zbývajících tří hodnot
+    return rolls.reduce((sum, roll) => sum + roll, 0);
+  };
+
+  // Generování šesti atributů
+  return {
+    strength: rollAttribute(),
+    dexterity: rollAttribute(),
+    constitution: rollAttribute(),
+    intelligence: rollAttribute(),
+    wisdom: rollAttribute(),
+    charisma: rollAttribute()
+  };
+};
+
 // Vytvoření nové postavy
 const createCharacter = async (req, res) => {
   const userId = req.user.userId;
@@ -72,7 +98,8 @@ const createCharacter = async (req, res) => {
     constitution,
     intelligence,
     wisdom,
-    charisma
+    charisma,
+    generationMethod // 'manual' nebo 'random'
   } = req.body;
 
   // Základní validace
@@ -83,17 +110,34 @@ const createCharacter = async (req, res) => {
   // TODO: Přidat validaci ras a tříd dle příběhu/pravidel
 
   try {
-    // Zpracování atributů
-    const parseStat = (value, defaultValue = 10) => {
-      const num = parseInt(value, 10);
-      return isNaN(num) ? defaultValue : Math.max(3, Math.min(18, num));
-    };
-    const strValue = parseStat(strength);
-    const dexValue = parseStat(dexterity);
-    const conValue = parseStat(constitution);
-    const intValue = parseStat(intelligence);
-    const wisValue = parseStat(wisdom);
-    const chaValue = parseStat(charisma);
+    let attributes;
+
+    // Zpracování atributů podle zvolené metody
+    if (generationMethod === 'random') {
+      // Náhodné generování atributů
+      attributes = generateRandomAttributes();
+    } else {
+      // Ruční zadání atributů
+      const parseStat = (value, defaultValue = 10) => {
+        const num = parseInt(value, 10);
+        return isNaN(num) ? defaultValue : Math.max(3, Math.min(18, num));
+      };
+      attributes = {
+        strength: parseStat(strength),
+        dexterity: parseStat(dexterity),
+        constitution: parseStat(constitution),
+        intelligence: parseStat(intelligence),
+        wisdom: parseStat(wisdom),
+        charisma: parseStat(charisma)
+      };
+    }
+
+    const strValue = attributes.strength;
+    const dexValue = attributes.dexterity;
+    const conValue = attributes.constitution;
+    const intValue = attributes.intelligence;
+    const wisValue = attributes.wisdom;
+    const chaValue = attributes.charisma;
 
     // Výpočet počátečních životů a many podle třídy (zjednodušená pravidla)
     let maxHealthValue = 0;
@@ -155,10 +199,197 @@ const createCharacter = async (req, res) => {
   }
 };
 
-// TODO: Přidat funkce pro update a delete postavy
+// Aktualizace existující postavy
+const updateCharacter = async (req, res) => {
+  const userId = req.user.userId;
+  const characterId = req.params.id;
+  const {
+    name,
+    race,
+    class: characterClass,
+    strength,
+    dexterity,
+    constitution,
+    intelligence,
+    wisdom,
+    charisma
+  } = req.body;
+
+  // Základní validace
+  if (!name || !race || !characterClass) {
+    return res.status(400).json({ message: 'Chybí jméno, rasa nebo třída postavy.' });
+  }
+
+  try {
+    // Nejprve ověříme, že postava patří přihlášenému uživateli
+    const characterCheck = await db.query(
+      'SELECT * FROM characters WHERE id = $1 AND user_id = $2',
+      [characterId, userId]
+    );
+
+    if (characterCheck.rows.length === 0) {
+      return res.status(404).json({ message: 'Postava nenalezena nebo nepatří tomuto uživateli.' });
+    }
+
+    // Získáme aktuální data postavy
+    const currentCharacter = characterCheck.rows[0];
+
+    // Zpracování atributů
+    const parseStat = (value, currentValue) => {
+      const num = parseInt(value, 10);
+      return isNaN(num) ? currentValue : Math.max(3, Math.min(18, num));
+    };
+
+    const strValue = parseStat(strength, currentCharacter.strength);
+    const dexValue = parseStat(dexterity, currentCharacter.dexterity);
+    const conValue = parseStat(constitution, currentCharacter.constitution);
+    const intValue = parseStat(intelligence, currentCharacter.intelligence);
+    const wisValue = parseStat(wisdom, currentCharacter.wisdom);
+    const chaValue = parseStat(charisma, currentCharacter.charisma);
+
+    // Výpočet nových hodnot zdraví a many podle třídy a atributů
+    const conBonus = getAttributeBonus(conValue);
+    const intBonus = getAttributeBonus(intValue);
+
+    // Výpočet nových maximálních hodnot zdraví a many
+    let maxHealthValue = 0;
+    let maxManaValue = 0;
+
+    switch (characterClass) {
+    case 'Bojovník':
+      maxHealthValue = 10 + conBonus;
+      break;
+    case 'Kouzelník':
+      maxHealthValue = 4 + conBonus;
+      maxManaValue = 10 + intBonus * 2;
+      break;
+    case 'Hraničář':
+      maxHealthValue = 8 + conBonus;
+      break;
+    case 'Zloděj':
+      maxHealthValue = 6 + conBonus;
+      break;
+    case 'Alchymista':
+      maxHealthValue = 5 + conBonus;
+      maxManaValue = 8 + intBonus * 2;
+      break;
+    default:
+      maxHealthValue = 6 + conBonus;
+    }
+
+    // Zajistit minimálně 1 život
+    maxHealthValue = Math.max(1, maxHealthValue);
+
+    // Pokud je postava na vyšší úrovni, přidáme bonus za každou úroveň
+    if (currentCharacter.level > 1) {
+      // Přidáme bonus za každou úroveň nad 1
+      const levelBonus = (currentCharacter.level - 1) * (characterClass === 'Bojovník' ? 5 : 3);
+      maxHealthValue += levelBonus;
+
+      // Pro postavy s manou přidáme bonus za každou úroveň
+      if (maxManaValue > 0) {
+        const manaLevelBonus = (currentCharacter.level - 1) * 2;
+        maxManaValue += manaLevelBonus;
+      }
+    }
+
+    // Aktualizace postavy v databázi
+    const result = await db.query(
+      `UPDATE characters
+       SET name = $1, race = $2, class = $3,
+           strength = $4, dexterity = $5, constitution = $6,
+           intelligence = $7, wisdom = $8, charisma = $9,
+           max_health = $10, max_mana = $11,
+           updated_at = CURRENT_TIMESTAMP
+       WHERE id = $12 AND user_id = $13
+       RETURNING *`,
+      [
+        name, race, characterClass,
+        strValue, dexValue, conValue,
+        intValue, wisValue, chaValue,
+        maxHealthValue, maxManaValue,
+        characterId, userId
+      ]
+    );
+
+    // Aktualizace aktuálního zdraví a many, pokud nové maximum je menší než aktuální hodnota
+    if (result.rows[0].current_health > result.rows[0].max_health) {
+      await db.query(
+        'UPDATE characters SET current_health = max_health WHERE id = $1',
+        [characterId]
+      );
+    }
+
+    if (result.rows[0].current_mana > result.rows[0].max_mana) {
+      await db.query(
+        'UPDATE characters SET current_mana = max_mana WHERE id = $1',
+        [characterId]
+      );
+    }
+
+    // Získání aktualizované postavy
+    const updatedCharacter = await db.query(
+      'SELECT * FROM characters WHERE id = $1',
+      [characterId]
+    );
+
+    res.status(200).json({
+      message: 'Postava úspěšně aktualizována.',
+      character: updatedCharacter.rows[0],
+    });
+
+  } catch (error) {
+    console.error('Chyba při aktualizaci postavy:', error);
+    res.status(500).json({ message: 'Interní chyba serveru při aktualizaci postavy.' });
+  }
+};
+
+// Smazání postavy
+const deleteCharacter = async (req, res) => {
+  const userId = req.user.userId;
+  const characterId = req.params.id;
+
+  try {
+    // Nejprve ověříme, že postava patří přihlášenému uživateli
+    const characterCheck = await db.query(
+      'SELECT * FROM characters WHERE id = $1 AND user_id = $2',
+      [characterId, userId]
+    );
+
+    if (characterCheck.rows.length === 0) {
+      return res.status(404).json({ message: 'Postava nenalezena nebo nepatří tomuto uživateli.' });
+    }
+
+    // Kontrola, zda postava není v aktivním herním sezení
+    const sessionCheck = await db.query(
+      'SELECT * FROM game_sessions WHERE character_id = $1',
+      [characterId]
+    );
+
+    if (sessionCheck.rows.length > 0) {
+      return res.status(400).json({
+        message: 'Nelze smazat postavu, která je v aktivním herním sezení. Nejprve ukončete sezení.'
+      });
+    }
+
+    // Smazání postavy
+    await db.query(
+      'DELETE FROM characters WHERE id = $1 AND user_id = $2',
+      [characterId, userId]
+    );
+
+    res.status(200).json({ message: 'Postava úspěšně smazána.' });
+
+  } catch (error) {
+    console.error('Chyba při mazání postavy:', error);
+    res.status(500).json({ message: 'Interní chyba serveru při mazání postavy.' });
+  }
+};
 
 module.exports = {
   getCharacters,
   getCharacterById,
   createCharacter,
+  updateCharacter,
+  deleteCharacter
 };

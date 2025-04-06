@@ -9,6 +9,9 @@ const questRoutes = require('./quests'); // Načtení routeru pro úkoly
 const spellRoutes = require('./spellRoutes'); // Načtení routeru pro kouzla
 const skillRoutes = require('./skillRoutes'); // Načtení routeru pro dovednosti
 const reputationRoutes = require('./reputationRoutes'); // Načtení routeru pro reputaci
+const abilityRoutes = require('./abilityRoutes'); // Načtení routeru pro schopnosti
+const equipmentRoutes = require('./equipmentRoutes'); // Načtení routeru pro vybavení
+const inventoryRoutes = require('./inventoryRoutes'); // Načtení routeru pro inventář
 
 // Základní API endpoint (přesunuto sem z index.js)
 router.get('/', (req, res) => {
@@ -24,5 +27,8 @@ router.use('/quests', questRoutes); // Připojení routeru pro úkoly pod /api/q
 router.use('/spells', spellRoutes); // Připojení routeru pro kouzla pod /api/spells
 router.use('/skills', skillRoutes); // Připojení routeru pro dovednosti pod /api/skills
 router.use('/reputation', reputationRoutes); // Připojení routeru pro reputaci pod /api/reputation
+router.use('/abilities', abilityRoutes); // Připojení routeru pro schopnosti pod /api/abilities
+router.use('/equipment', equipmentRoutes); // Připojení routeru pro vybavení pod /api/equipment
+router.use('/inventory', inventoryRoutes); // Připojení routeru pro inventář pod /api/inventory
 
 module.exports = router;
