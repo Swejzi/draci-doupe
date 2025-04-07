@@ -6,8 +6,12 @@ import ProtectedRoute from './components/ProtectedRoute';
 // Import stránek
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import DashboardPage from './pages/DashboardPage'; 
-import GamePage from './pages/GamePage'; // Odkomentováno
+import DashboardPage from './pages/DashboardPage';
+import GamePage from './pages/GamePage';
+import StoryCharactersPage from './pages/StoryCharactersPage';
+
+// Import komponent
+import StoryCharacterForm from './components/StoryCharacterForm';
 // import NotFoundPage from './pages/NotFoundPage';
 
 // Komponenta pro obsah aplikace, která používá AuthContext
@@ -51,7 +55,7 @@ function AppContent() {
           <Routes>
             {/* Veřejné routy */}
             <Route path="/" element={<div>Vítejte v AI Dračím doupěti!</div>} />
-            
+
             {/* Routy pro nepřihlášené uživatele */}
             <Route path="/login" element={currentUser ? <Navigate to="/dashboard" replace /> : <LoginPage />}/>
             <Route path="/register" element={currentUser ? <Navigate to="/dashboard" replace /> : <RegisterPage />}/>
@@ -59,13 +63,15 @@ function AppContent() {
             {/* Chráněné routy */}
             <Route element={<ProtectedRoute />}>
               <Route path="/dashboard" element={<DashboardPage />}/>
-              <Route path="/game/:sessionId" element={<GamePage />}/> {/* Přidána routa pro GamePage */}
+              <Route path="/game/:sessionId" element={<GamePage />}/>
+              <Route path="/create-character/:storyId" element={<StoryCharacterForm />}/>
+              <Route path="/story/:storyId/characters" element={<StoryCharactersPage />}/> {/* Nová routa pro postavy příběhu */}
               {/* Další chráněné routy */}
             </Route>
 
             {/* Fallback pro nenalezené stránky */}
             {/* TODO: Vytvořit NotFoundPage */}
-            <Route path="*" element={<div>404 - Stránka nenalezena</div>}/> 
+            <Route path="*" element={<div>404 - Stránka nenalezena</div>}/>
           </Routes>
         </main>
 

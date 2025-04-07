@@ -99,7 +99,8 @@ const createCharacter = async (req, res) => {
     intelligence,
     wisdom,
     charisma,
-    generationMethod // 'manual' nebo 'random'
+    generationMethod, // 'manual' nebo 'random'
+    storyId // ID příběhu, pro který je postava vytvářena
   } = req.body;
 
   // Základní validace
@@ -173,18 +174,24 @@ const createCharacter = async (req, res) => {
     // Výchozí hodnota zlata pro novou postavu
     const defaultGold = 50; // Základní hodnota zlata, pokud není specifikována v příběhu
 
+    // Validace story_id
+    if (!storyId) {
+      return res.status(400).json({ message: 'Chybí ID příběhu pro vytvoření postavy.' });
+    }
+
     const result = await db.query(
       `INSERT INTO characters
-        (user_id, name, race, class, strength, dexterity, constitution, intelligence, wisdom, charisma, max_health, current_health, max_mana, current_mana, gold)
+        (user_id, name, race, class, strength, dexterity, constitution, intelligence, wisdom, charisma, max_health, current_health, max_mana, current_mana, gold, story_id)
        VALUES
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
        RETURNING *`,
       [
         userId, name, race, characterClass,
         strValue, dexValue, conValue, intValue, wisValue, chaValue,
         maxHealthValue, maxHealthValue, // current = max na startu
         maxManaValue, maxManaValue,     // current = max na startu
-        defaultGold                     // výchozí zlato
+        defaultGold,                    // výchozí zlato
+        storyId                         // ID příběhu
       ]
     );
 

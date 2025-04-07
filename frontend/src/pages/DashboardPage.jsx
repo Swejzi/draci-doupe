@@ -4,105 +4,47 @@ import characterService from '../services/characterService';
 import storyService from '../services/storyService';
 import gameService from '../services/gameService'; // Import gameService
 import { Link, useNavigate } from 'react-router-dom';
-import CreateCharacterForm from '../components/CreateCharacterForm'; // Import formuláře
+// Formulář pro vytvoření postavy je nyní v samostatné stránce
 
 function DashboardPage() {
   const { currentUser } = useAuth();
   const [characters, setCharacters] = useState([]);
   const [stories, setStories] = useState([]);
-  const [loadingChars, setLoadingChars] = useState(true);
+  const [loadingChars, setLoadingChars] = useState(false); // Nastaveno na false, protože postavy načítáme pouze pro zobrazení v kontextu příběhu
   const [loadingStories, setLoadingStories] = useState(true);
   const [error, setError] = useState('');
-  const [selectedCharacterId, setSelectedCharacterId] = useState(null); // Stav pro vybranou postavu
   const navigate = useNavigate();
 
-  // Načtení postav a příběhů při načtení komponenty
+  // Načtení příběhů při načtení komponenty
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoadingChars(true);
         setLoadingStories(true);
         setError('');
-        const chars = await characterService.getMyCharacters();
         const availableStories = await storyService.getAvailableStories();
-        setCharacters(chars);
         setStories(availableStories);
-        // Pokud má uživatel postavy a žádná není vybrána, předvybereme první
-        if (chars.length > 0 && !selectedCharacterId) {
-          setSelectedCharacterId(chars[0].id);
-        }
       } catch (err) {
         console.error('Chyba načítání dat pro dashboard:', err);
         setError(err.message || 'Nepodařilo se načíst data.');
       } finally {
-        setLoadingChars(false);
         setLoadingStories(false);
       }
     };
     fetchData();
-  // Závislost selectedCharacterId odstraněna, aby se nespouštělo znovu při výběru
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Funkce pro zahájení hry
-  const handleStartGame = async (characterId, storyId) => {
-    if (!characterId) {
-      setError('Nejprve musíte vybrat postavu.');
-      return;
-    }
-    setError(''); // Vyčistit předchozí chyby
-    console.log(`Zahajuji hru s postavou ${characterId} a příběhem ${storyId}`);
-    try {
-      const sessionData = await gameService.startGame(characterId, storyId);
-      navigate(`/game/${sessionData.session.id}`); // Přesměrování na herní stránku
-    } catch (err) {
-      console.error('Chyba při zahajování hry:', err);
-      setError(err.message || 'Nepodařilo se zahájit hru.');
-    }
-  };
+  // Funkce pro zahájení hry byla odstraněna, protože hra se nyní zahájí až po výběru postavy
+  // v kontextu konkrétního příběhu
 
-  // Callback funkce pro aktualizaci seznamu po vytvoření postavy
-  const handleCharacterCreated = (newCharacter) => {
-    // Přidáme novou postavu na začátek seznamu
-    setCharacters(prevChars => [newCharacter, ...prevChars]);
-    // Automaticky vybereme nově vytvořenou postavu
-    setSelectedCharacterId(newCharacter.id);
-  };
+  // Funkce pro přidání nově vytvořené postavy do seznamu byla odstraněna,
+  // protože vytváření postav je nyní v samostatné stránce
 
   return (
     <div>
       <h2>Vítej na nástěnce, {currentUser?.username}!</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      <section style={styles.section}>
-        <h3>Moje postavy</h3>
-        {loadingChars ? (
-          <p>Načítám postavy...</p>
-        ) : characters.length > 0 ? (
-          <ul style={styles.list}>
-            {characters.map((char) => (
-              // Přidán styl pro zvýraznění celé položky
-              <li
-                key={char.id}
-                style={{...styles.listItem, ...(selectedCharacterId === char.id ? styles.selectedListItem : {})}}
-                onClick={() => setSelectedCharacterId(char.id)} // Výběr kliknutím na celou položku
-              >
-                <span style={selectedCharacterId === char.id ? styles.selectedCharacterText : {}}>
-                  <strong>{char.name}</strong> ({char.race} {char.class}, Úroveň {char.level})
-                </span>
-                {/* Tlačítko je nyní spíše indikátor */}
-                <span style={selectedCharacterId === char.id ? styles.buttonSelected : styles.buttonSelect}>
-                  {selectedCharacterId === char.id ? '✓ Vybráno' : 'Vybrat'}
-                </span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>Zatím nemáte žádné postavy.</p>
-        )}
-        {/* Formulář pro vytvoření postavy */}
-        <CreateCharacterForm onCharacterCreated={handleCharacterCreated} />
-      </section>
+      {/* Sekce s postavami byla odstraněna, protože postavy jsou nyní vytvářeny až po výběru příběhu */}
 
       <section style={styles.section}>
         <h3>Dostupné příběhy</h3>
@@ -116,25 +58,14 @@ function DashboardPage() {
                   <strong>{story.title}</strong> (Autor: {story.author})
                   <p>{story.description}</p>
                 </div>
-                <button
-                  onClick={() => {
-                    // Kontrola, zda postava již má herní sezení
-                    const hasExistingSession = characters.find(c => c.id === selectedCharacterId)?.hasSession;
-                    if (hasExistingSession) {
-                      // Potvrzení od uživatele před smazáním existujícího sezení
-                      if (window.confirm(`Postava již má rozehraný jiný příběh. Pokud budete pokračovat, předchozí postup bude ztracen. Chcete pokračovat?`)) {
-                        handleStartGame(selectedCharacterId, story.id);
-                      }
-                    } else {
-                      handleStartGame(selectedCharacterId, story.id);
-                    }
-                  }}
-                  disabled={!selectedCharacterId} // Zakázat, pokud není vybrána postava
-                  style={selectedCharacterId ? styles.buttonPlay : styles.buttonDisabled}
-                  title={selectedCharacterId ? `Hrát s postavou ID: ${selectedCharacterId}` : 'Nejprve vyberte postavu'}
-                >
-                  Hrát tento příběh {selectedCharacterId ? 's vybranou postavou' : '(vyberte postavu)'}
-                </button>
+                <div style={styles.storyButtons}>
+                  <button
+                    onClick={() => navigate(`/story/${story.id}/characters`)}
+                    style={styles.buttonPlay}
+                  >
+                    Hrát tento příběh
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
@@ -194,6 +125,38 @@ const styles = {
     cursor: 'pointer',
     fontSize: '0.9rem',
     whiteSpace: 'nowrap', // Zabrání zalomení textu tlačítka
+  },
+
+  buttonCreate: {
+    padding: '0.5rem 1rem',
+    backgroundColor: '#2196F3',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    fontSize: '0.9rem',
+    whiteSpace: 'nowrap',
+  },
+
+  storyButtons: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+    alignItems: 'flex-start'
+  },
+
+  characterSelector: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+    width: '100%'
+  },
+
+  characterSelect: {
+    padding: '8px',
+    borderRadius: '4px',
+    border: '1px solid #ccc',
+    width: '100%'
   },
   buttonDisabled: {
     padding: '0.5rem 1rem',

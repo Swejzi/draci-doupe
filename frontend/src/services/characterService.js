@@ -21,6 +21,11 @@ const createCharacter = async (characterData) => {
   const dataToSend = { ...characterData, class: characterData.characterClass };
   delete dataToSend.characterClass;
 
+  // Kontrola, zda je zadáno storyId
+  if (!dataToSend.storyId) {
+    throw new Error('Chybí ID příběhu pro vytvoření postavy.');
+  }
+
   try {
     const response = await axios.post(CHARACTERS_URL, dataToSend, { headers: getAuthHeader() });
     return response.data; // Vrací { message, character }

@@ -28,7 +28,29 @@ const getStoryDetails = async (storyId) => {
   }
 };
 
+// Funkce pro získání dostupných ras a tříd pro příběh
+const getStoryCharacterOptions = async (storyId) => {
+  try {
+    const storyData = await getStoryDetails(storyId);
+
+    // Získání dostupných ras a tříd z initialSetup
+    const availableRaces = storyData.initialSetup?.availableRaces || [];
+    const availableClasses = storyData.initialSetup?.availableClasses || [];
+
+    return {
+      availableRaces,
+      availableClasses,
+      startingGold: storyData.initialSetup?.startingGold || 50,
+      startingItems: storyData.initialSetup?.startingItems || []
+    };
+  } catch (error) {
+    console.error(`Chyba při načítání možností postav pro příběh ${storyId}:`, error.response?.data || error.message);
+    throw error.response?.data || new Error('Chyba serveru při načítání možností postav.');
+  }
+};
+
 export default {
   getAvailableStories,
   getStoryDetails,
+  getStoryCharacterOptions,
 };
