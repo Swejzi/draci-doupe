@@ -560,7 +560,16 @@
         "topics": {
           "entanglement_issues": "Kvantové provázání, které pohání naši loď, je ovlivňováno anomálií. Není to nebezpečné... zatím. Ale sledujeme zvláštní vzorce, jako by anomálie aktivně 'komunikovala' s naším pohonným systémem na kvantové úrovni.",
           "core_stabilization": "Potřebujeme stabilizovat jádro, než se přiblížíme blíže k anomálii. Potřebuji vaši pomoc při rekalibraci entanglement matrice. Vezměte si entanglement klíč a postupujte podle mých instrukcí.",
-          "ship_defense": "Vyvinul/a jsem adaptivní naniteický štít, který by měl chránit loď před nejextrémnějšími efekty reality fluktace. Ale není to dokonalé řešení - potřebujeme pochopit podstatu anomálie, abychom se mohli skutečně bránit."
+          "ship_defense": "Vyvinul/a jsem adaptivní naniteický štít, který by měl chránit loď před nejextrémnějšími efekty reality fluktace. Ale není to dokonalé řešení - potřebujeme pochopit podstatu anomálie, abychom se mohli skutečně bránit.",
+          "engine_optimization": "Pokud máme bezpečně projít prázdnoprostorem, potřebujeme optimalizovat pohon. Mohl/a byste mi pomoci s několika úkoly? Odměna bude stát za to - vytvořím vám vylepšený entanglement klíč a kvantový stabilizátor, které vám výrazně pomohou při průchodu anomálií.",
+          "enhanced_equipment": "Vylepšený entanglement klíč a kvantový stabilizátor jsou pokročilé nástroje, které vám umožní mnohem bezpečnější průchod prázdnoprostorem. Klíč vám poskytne přesnější kontrolu nad kvantovým provázáním a stabilizátor vytvoří ochranné pole, které vás ochrání před nebezpečnými realitními fluktuacemi."
+        },
+        "questDialogue": {
+          "quantum_engine_optimization": {
+            "notStarted": "Naše kvantové jádro vykazuje nestabilitu kvůli blízkosti anomálie. Pokud máme bezpečně projít prázdnoprostorem, potřebujeme optimalizovat pohon. Mohl/a byste mi pomoci?",
+            "inProgress": "Jak pokračuje optimalizace pohonu? Potřebujeme dokončit všechny kroky, aby byla loď připravena na průchod anomálií.",
+            "completed": "Díky vaší pomoci je pohon nyní optimalizován pro průchod anomálií. Vylepšený entanglement klíč a kvantový stabilizátor, které jsem vám dal, vám výrazně pomohou při vaší misi."
+          }
         }
       }
     },
@@ -996,6 +1005,30 @@
       }
     },
     {
+      "id": "enhanced_entanglement_key",
+      "name": "Vylepšený klíč kvantového provázání",
+      "description": "Zdokonalená verze standardního entanglement klíče s integrovanými adaptivními algoritmy. Tento klíč umožňuje mnohem přesnější kontrolu nad kvantovým provázáním a dokáže automaticky kompenzovat realitní fluktuace v blízkosti anomálie.",
+      "type": "pokročilý_inženýrský_nástroj",
+      "effects": {
+        "entanglement_control": "přesnost 98%",
+        "quantum_stabilization": "efektivita 95%",
+        "anomaly_compensation": "automatická adaptace na 85% realitních fluktuací",
+        "void_navigation": "+40% k úspěšnosti navigace prázdnoprostorem"
+      }
+    },
+    {
+      "id": "quantum_stabilizer",
+      "name": "Kvantový stabilizátor",
+      "description": "Kompaktní zařízení, které vytváří lokalizované pole kvantové stability. Při aktivaci generuje sféru stabilní reality o průměru několika metrů, která výrazně snižuje účinky anomálních jevů a chrání uživatele před nebezpečnými realitními fluktuacemi.",
+      "type": "ochranné_zařízení",
+      "effects": {
+        "reality_stabilization": "vytvoření stabilní zóny 8m v průměru na 5 kol",
+        "quantum_shield": "absorpce 75% kvantového poškození",
+        "dimensional_anchor": "90% ochrana proti nechtěným dimenzionálním posunům",
+        "void_protection": "zvýšení šance na přežití v prázdnoprostoru o 60%"
+      }
+    },
+    {
       "id": "consciousness_anchor",
       "name": "Kotva vědomí",
       "description": "Malý implantát umístěný na bázi lebky, který vytváří psychostabilizační pole kolem mysli uživatele. Není viditelný zvnějšku, ale jeho přítomnost lze vnímat jako uklidňující stabilitu ve vašem myšlenkovém procesu, zejména v přítomnosti realitních anomálií.",
@@ -1008,6 +1041,48 @@
     }
   ],
   "quests": [
+    {
+      "id": "quantum_engine_optimization",
+      "title": "Optimalizace kvantového pohonu",
+      "description": "Vylepšete kvantový pohon lodi, aby lépe odolával vlivům anomálie a umožnil bezpečnější průchod prázdnoprostorem.",
+      "type": "side",
+      "giver": "chief_engineer_neutrino",
+      "startLocation": "entanglement_core",
+      "objectives": [
+        {
+          "id": "collect_exotic_particles",
+          "description": "Shromážděte exotické částice z transdimenzionální observatoře pro kalibraci pohonu.",
+          "location": "transdimensional_observatory",
+          "completionCondition": "Hráč získá vzorky exotických částic z blízkosti anomálie."
+        },
+        {
+          "id": "recalibrate_core",
+          "description": "Rekalibrujte jádro kvantového provázání pomocí entanglement klíče.",
+          "location": "entanglement_core",
+          "completionCondition": "Hráč úspěšně provede rekalibraci jádra s pomocí chief_engineer_neutrino."
+        },
+        {
+          "id": "test_engine_modifications",
+          "description": "Otestujte modifikace pohonu v kontrolní místnosti.",
+          "location": "engine_control",
+          "completionCondition": "Hráč provede testovací sekvenci s propulsion_technician_gamma."
+        },
+        {
+          "id": "implement_safety_protocols",
+          "description": "Implementujte nové bezpečnostní protokoly pro průchod anomálií.",
+          "location": "emergency_systems",
+          "completionCondition": "Hráč nastaví nové bezpečnostní protokoly s pomocí security_chief_pulse."
+        }
+      ],
+      "rewards": {
+        "experience": 250,
+        "items": ["enhanced_entanglement_key", "quantum_stabilizer"],
+        "reputation": {
+          "engineering_team": 20,
+          "security_team": 15
+        }
+      }
+    },
     {
       "id": "anomaly_investigation",
       "title": "Výzkum kvantové anomálie",
@@ -1187,6 +1262,152 @@
     }
   ],
   "events": [
+    {
+      "id": "engine_optimization_request",
+      "name": "Optimalizace pohonu",
+      "description": "Chief Engineer Neutrino vás žádá o pomoc s optimalizací kvantového pohonu pro lepší průchod anomálií.",
+      "trigger": "Hráč vstoupí do entanglement_core a má aktivní úkol anomaly_investigation nebo void_journey.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Chief Engineer Neutrino vás oslovuje: 'Právě včas! Naše kvantové jádro vykazuje nestabilitu kvůli blízkosti anomálie. Pokud máme bezpečně projít prázdnoprostorem, potřebujeme optimalizovat pohon. Mohl/a byste mi pomoci s několika úkoly? Odměna bude stát za to - vytvořím vám vylepšený entanglement klíč a kvantový stabilizátor, které vám výrazně pomohou při průchodu anomálií.'",
+          "consequences": {
+            "startQuest": "quantum_engine_optimization"
+          }
+        }
+      ]
+    },
+    {
+      "id": "collect_exotic_particles_event",
+      "name": "Sběr exotických částic",
+      "description": "Observer Nebula vám pomáhá shromáždit exotické částice z blízkosti anomálie.",
+      "trigger": "Hráč vstoupí do transdimensional_observatory s aktivním úkolem quantum_engine_optimization.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Observer Nebula se k vám otočí, galaxie uvnitř jeho těla se přeskupují: 'Ah, přicházíte pro exotické částice pro optimalizaci pohonu. Moudrou volbu jste učinili. Skrz průhledy můžeme zachytit částice z okraje anomálie, které existují současně ve více realitách. Tyto částice mohou pomoci vašemu pohonu adaptovat se na měnící se fyzikální zákony.' Po několika minutach práce s průhledy se vám podaří shromáždit dostatečné množství exotických částic.",
+          "consequences": {
+            "updateObjective": {
+              "quest": "quantum_engine_optimization",
+              "objective": "collect_exotic_particles",
+              "status": "completed"
+            },
+            "addJournalEntry": {
+              "quest": "quantum_engine_optimization",
+              "entry": "Získal/a jsem exotické částice z blízkosti anomálie, které pomohou adaptovat pohon na měnící se fyzikální zákony."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "recalibrate_core_event",
+      "name": "Rekalibrace jádra",
+      "description": "Chief Engineer Neutrino vás vede procesem rekalibrace jádra kvantového provázání.",
+      "trigger": "Hráč vstoupí do entanglement_core s aktivním úkolem quantum_engine_optimization a dokončeným cílem collect_exotic_particles.",
+      "outcomes": [
+        {
+          "condition": "Hráč má entanglement_key",
+          "result": "Chief Engineer Neutrino analyzuje exotické částice, které jste přinesli. 'Úvěřitelné! Tyto částice jsou v dokonale koherentním stavu napříč několika dimenzemi. Nyní potřebujeme rekalibrovat jádro. Použijte svůj entanglement klíč a sledujte mé instrukce.' Následuje komplexní proces, během kterého manipulujete s kvantovými stavy jádra. Po dokončení Neutrino spokojeně pokyvuje. 'Výborně! Jádro nyní dokáže mnohem lépe kompenzovat realitní fluktuace. Pokračujte do kontrolní místnosti pohonu pro testování modifikací.'",
+          "consequences": {
+            "updateObjective": {
+              "quest": "quantum_engine_optimization",
+              "objective": "recalibrate_core",
+              "status": "completed"
+            },
+            "addJournalEntry": {
+              "quest": "quantum_engine_optimization",
+              "entry": "Úspěšně jsem rekalibroval/a jádro kvantového provázání, které nyní lépe kompenzuje realitní fluktuace."
+            }
+          }
+        },
+        {
+          "condition": "Hráč nemá entanglement_key",
+          "result": "Chief Engineer Neutrino analyzuje exotické částice, které jste přinesli, ale pak se zarazí. 'Nemáte entanglement klíč? Bez něj nemůžeme pokračovat v rekalibraci. Měl by být k dispozici někde na lodi - možná v engine_control nebo v quantum_analysis_chamber.'",
+          "consequences": {
+            "addJournalEntry": {
+              "quest": "quantum_engine_optimization",
+              "entry": "Pro rekalibraci jádra potřebuji získat entanglement klíč."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "test_engine_modifications_event",
+      "name": "Testování modifikací pohonu",
+      "description": "Propulsion Technician Gamma vás vede testovací sekvencí modifikovaného pohonu.",
+      "trigger": "Hráč vstoupí do engine_control s aktivním úkolem quantum_engine_optimization a dokončeným cílem recalibrate_core.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Propulsion Technician Gamma vás vítá s očima svítícími diagnostickou modrou. 'Rekalibrace jádra byla úspěšná, nyní musíme otestovat modifikace v reálných podmínkách. Pomůžete mi s testovací sekvencí.' Společně spouštíte sérii testů, které simulují různé úrovně realitních fluktuací. Holografické displeje ukazují výrazné zlepšení výkonu pohonu. 'Efektivita zvýšena o 42.8%. To je výrazně lepší, než jsem očekával/a. Nyní potřebujeme implementovat nové bezpečnostní protokoly v emergency_systems.'",
+          "consequences": {
+            "updateObjective": {
+              "quest": "quantum_engine_optimization",
+              "objective": "test_engine_modifications",
+              "status": "completed"
+            },
+            "addJournalEntry": {
+              "quest": "quantum_engine_optimization",
+              "entry": "Testování modifikací pohonu bylo úspěšné, efektivita pohonu byla zvýšena o více než 40%."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "implement_safety_protocols_event",
+      "name": "Implementace bezpečnostních protokolů",
+      "description": "Security Chief Pulse vás vede implementací nových bezpečnostních protokolů.",
+      "trigger": "Hráč vstoupí do emergency_systems s aktivním úkolem quantum_engine_optimization a dokončeným cílem test_engine_modifications.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Security Chief Pulse vás skenuje taktickým pohledem. 'Modifikace pohonu jsou úspěšné, ale bez odpovídajících bezpečnostních protokolů by byly nebezpečné. Potřebujeme implementovat nové postupy pro případ kritického selhání reality.' Společně pracujete na implementaci komplexních bezpečnostních protokolů, které zahrnují automatické odpojení pohonu při detekci nebezpečných realitních fluktuací a záložní systémy pro návrat do stabilní reality. 'Výborně. Nyní je loď připravena na bezpečnější průchod prázdnoprostorem. Vraťte se k Chief Engineer Neutrino pro vaši odměnu.'",
+          "consequences": {
+            "updateObjective": {
+              "quest": "quantum_engine_optimization",
+              "objective": "implement_safety_protocols",
+              "status": "completed"
+            },
+            "addJournalEntry": {
+              "quest": "quantum_engine_optimization",
+              "entry": "Implementoval/a jsem nové bezpečnostní protokoly, které zajistí bezpečnější průchod prázdnoprostorem."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "engine_optimization_completion",
+      "name": "Dokončení optimalizace pohonu",
+      "description": "Chief Engineer Neutrino vám předává odměnu za úspěšnou optimalizaci pohonu.",
+      "trigger": "Hráč vstoupí do entanglement_core s aktivním úkolem quantum_engine_optimization a všemi dokončenými cíli.",
+      "outcomes": [
+        {
+          "condition": "true",
+          "result": "Chief Engineer Neutrino vás vítá s nadšením. 'Úspěšně jste dokončili všechny úkoly! Pohon je nyní optimalizován pro průchod anomálií a bezpečnostní protokoly jsou na místě. Jak jsem sliboval, zde je vaše odměna.' Neutrino vám předává vylepšený entanglement klíč a kvantový stabilizátor. 'Tyto nástroje vám výrazně pomohou při průchodu prázdnoprostorem a kontaktu s anomálií. Vylepšený klíč vám umožní přesnější navigaci a stabilizátor vytvoří ochranné pole kolem vás. Jsem rád, že jsme spolupracovali na tomto projektu.'",
+          "consequences": {
+            "completeQuest": "quantum_engine_optimization",
+            "addItem": [
+              {
+                "item": "enhanced_entanglement_key",
+                "amount": 1
+              },
+              {
+                "item": "quantum_stabilizer",
+                "amount": 1
+              }
+            ],
+            "addJournalEntry": {
+              "quest": "quantum_engine_optimization",
+              "entry": "Dokončil/a jsem optimalizaci kvantového pohonu a získal/a jsem vylepšený entanglement klíč a kvantový stabilizátor, které mi pomohou při průchodu prázdnoprostorem."
+            }
+          }
+        }
+      ]
+    },
     {
       "id": "mission_briefing",
       "name": "Briefing mise",
