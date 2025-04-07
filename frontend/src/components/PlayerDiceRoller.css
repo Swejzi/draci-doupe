@@ -1,0 +1,144 @@
+.player-dice-roller {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.dice-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 80px;
+}
+
+.control-group label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.control-group input,
+.control-group select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.control-group input {
+  width: 60px;
+}
+
+.modifier-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.auto-modifier {
+  font-size: 12px;
+  color: #4a6da7;
+  margin-top: 4px;
+  font-weight: bold;
+}
+
+.dice-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.roll-button {
+  background-color: #4a6da7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.roll-button:hover {
+  background-color: #3a5d97;
+}
+
+.dice-options {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.option-button {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.option-button:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+.option-button.active {
+  background-color: #4a6da7;
+  color: white;
+  border-color: #3a5d97;
+}
+
+.settings-icon, .design-icon {
+  font-size: 18px;
+}
+
+.dice-result-container {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.close-result-button {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.close-result-button:hover {
+  background-color: #e0e0e0;
+}
+
+@media (max-width: 600px) {
+  .dice-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .roll-button {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}

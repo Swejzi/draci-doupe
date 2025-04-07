@@ -1,10 +1,20 @@
 /**
  * Systém kouzel pro Dračí doupě
- * 
+ *
  * Tento modul obsahuje funkce pro práci s kouzly, jejich sesílání a efekty.
  */
 
-const { rollDice, getAttributeBonus } = require('./gameMechanics');
+// Importujeme funkce přímo, abychom předešli cirkulárním závislostem
+const gameMechanics = require('./gameMechanics');
+
+// Pomocné funkce pro přístup k funkcím z gameMechanics
+function rollDice(diceString) {
+  return gameMechanics.rollDice(diceString);
+}
+
+function getAttributeBonus(attributeValue) {
+  return gameMechanics.getAttributeBonus(attributeValue);
+}
 
 /**
  * Školy magie
@@ -130,18 +140,18 @@ function getSpellcastingAttribute(characterClass) {
 function calculateSpellAttackBonus(character, spell) {
   // Získat hlavní atribut pro kouzlení
   const spellcastingAttribute = getSpellcastingAttribute(character.class);
-  
+
   // Základní bonus z atributu
   let bonus = getAttributeBonus(character[spellcastingAttribute]);
-  
+
   // Bonus z úrovně
   bonus += Math.floor(character.level / 2);
-  
+
   // Bonus ze specializace (pokud existuje)
   if (character.specialization && character.specialization.school === spell.school) {
     bonus += 2;
   }
-  
+
   return bonus;
 }
 
@@ -161,10 +171,10 @@ function castSpell(character, spell, target) {
       reason: !hasEnoughMana(character, spell) ? 'not_enough_mana' : 'requirements_not_met'
     };
   }
-  
+
   // Odečtení many
   character.current_mana -= spell.manaCost;
-  
+
   // Výsledek seslání kouzla
   const result = {
     success: true,
@@ -174,7 +184,7 @@ function castSpell(character, spell, target) {
     remainingMana: character.current_mana,
     effects: []
   };
-  
+
   // Zpracování podle typu kouzla
   switch (spell.type) {
     case SPELL_TYPES.ATTACK:
@@ -195,7 +205,7 @@ function castSpell(character, spell, target) {
     default:
       result.message = `Sesláno kouzlo ${spell.name}.`;
   }
-  
+
   return result;
 }
 
@@ -210,15 +220,15 @@ function processAttackSpell(character, spell, target, result) {
   // Hod na útok kouzlem (pokud je potřeba)
   let hit = true;
   let attackRoll = 0;
-  
+
   if (spell.requiresAttackRoll) {
     attackRoll = rollDice('1d20');
     const attackBonus = calculateSpellAttackBonus(character, spell);
     const totalAttack = attackRoll + attackBonus;
-    
+
     // Kontrola, zda útok zasáhl
     hit = totalAttack >= target.armorClass;
-    
+
     result.attackRoll = {
       roll: attackRoll,
       bonus: attackBonus,
@@ -226,35 +236,35 @@ function processAttackSpell(character, spell, target, result) {
       hit: hit
     };
   }
-  
+
   // Pokud útok zasáhl nebo kouzlo nevyžaduje hod na útok
   if (hit) {
     // Výpočet zranění
     let damage = 0;
-    
+
     if (spell.damage) {
       // Základní zranění z kouzla
       damage = rollDice(spell.damage);
-      
+
       // Kritický zásah (hod 20)
       if (attackRoll === 20) {
         damage += rollDice(spell.damage);
         result.critical = true;
       }
-      
+
       // Bonus ze specializace
       if (character.specialization && character.specialization.school === spell.school) {
         damage += Math.floor(character.level / 2);
       }
     }
-    
+
     // Aplikace zranění na cíl
     if (damage > 0) {
       // Kontrola odolností
       if (target.resistances && target.resistances[spell.damageType]) {
         const resistancePercent = target.resistances[spell.damageType];
         const reducedDamage = Math.floor(damage * (1 - resistancePercent / 100));
-        
+
         result.effects.push({
           type: 'damage',
           value: reducedDamage,
@@ -263,7 +273,7 @@ function processAttackSpell(character, spell, target, result) {
           damageType: spell.damageType,
           resistance: resistancePercent
         });
-        
+
         damage = reducedDamage;
       } else {
         result.effects.push({
@@ -272,31 +282,31 @@ function processAttackSpell(character, spell, target, result) {
           damageType: spell.damageType
         });
       }
-      
+
       // Aplikace zranění
       if (target.current_health) {
         target.current_health = Math.max(0, target.current_health - damage);
-        
+
         if (target.current_health === 0) {
           result.defeated = true;
         }
       }
     }
-    
+
     // Aplikace dodatečných efektů
     if (spell.effects) {
       spell.effects.forEach(effect => {
         // Kontrola, zda efekt má být aplikován (hod na záchranu)
         let effectApplied = true;
-        
+
         if (effect.savingThrow) {
           const dc = calculateSpellDC(character, spell);
           const saveRoll = rollDice('1d20');
           const saveBonus = getAttributeBonus(target[effect.savingThrow.attribute]);
           const totalSave = saveRoll + saveBonus;
-          
+
           effectApplied = totalSave < dc;
-          
+
           result.savingThrow = {
             attribute: effect.savingThrow.attribute,
             dc: dc,
@@ -306,7 +316,7 @@ function processAttackSpell(character, spell, target, result) {
             success: !effectApplied
           };
         }
-        
+
         if (effectApplied) {
           // Aplikace efektu
           result.effects.push({
@@ -314,12 +324,12 @@ function processAttackSpell(character, spell, target, result) {
             duration: effect.duration,
             value: effect.value
           });
-          
+
           // Přidání efektu do seznamu aktivních efektů cíle
           if (!target.activeEffects) {
             target.activeEffects = [];
           }
-          
+
           target.activeEffects.push({
             id: `${spell.id}_${effect.type}_${Date.now()}`,
             name: effect.name || spell.name,
@@ -332,7 +342,7 @@ function processAttackSpell(character, spell, target, result) {
         }
       });
     }
-    
+
     result.message = `${character.name} seslal ${spell.name} na ${target.name} a způsobil ${damage} bodů ${spell.damageType} zranění.`;
     if (result.defeated) {
       result.message += ` ${target.name} byl poražen!`;
@@ -352,33 +362,33 @@ function processAttackSpell(character, spell, target, result) {
 function processHealingSpell(character, spell, target, result) {
   // Výpočet léčení
   let healing = 0;
-  
+
   if (spell.healing) {
     // Základní léčení z kouzla
     healing = rollDice(spell.healing);
-    
+
     // Bonus z moudrosti (pro léčivá kouzla)
     healing += getAttributeBonus(character.wisdom);
-    
+
     // Bonus ze specializace
     if (character.specialization && character.specialization.school === spell.school) {
       healing += Math.floor(character.level / 2);
     }
   }
-  
+
   // Aplikace léčení na cíl
   if (healing > 0) {
     result.effects.push({
       type: 'healing',
       value: healing
     });
-    
+
     // Aplikace léčení
     if (target.current_health && target.max_health) {
       target.current_health = Math.min(target.max_health, target.current_health + healing);
     }
   }
-  
+
   result.message = `${character.name} seslal ${spell.name} na ${target.name} a vyléčil ${healing} bodů zdraví.`;
 }
 
@@ -398,12 +408,12 @@ function processBuffSpell(character, spell, target, result) {
         duration: effect.duration,
         value: effect.value
       });
-      
+
       // Přidání efektu do seznamu aktivních efektů cíle
       if (!target.activeEffects) {
         target.activeEffects = [];
       }
-      
+
       target.activeEffects.push({
         id: `${spell.id}_${effect.type}_${Date.now()}`,
         name: effect.name || spell.name,
@@ -415,7 +425,7 @@ function processBuffSpell(character, spell, target, result) {
       });
     });
   }
-  
+
   result.message = `${character.name} seslal ${spell.name} na ${target.name}.`;
 }
 
@@ -429,15 +439,15 @@ function processBuffSpell(character, spell, target, result) {
 function processDebuffSpell(character, spell, target, result) {
   // Kontrola, zda efekty mají být aplikovány (hod na záchranu)
   let effectsApplied = true;
-  
+
   if (spell.savingThrow) {
     const dc = calculateSpellDC(character, spell);
     const saveRoll = rollDice('1d20');
     const saveBonus = getAttributeBonus(target[spell.savingThrow.attribute]);
     const totalSave = saveRoll + saveBonus;
-    
+
     effectsApplied = totalSave < dc;
-    
+
     result.savingThrow = {
       attribute: spell.savingThrow.attribute,
       dc: dc,
@@ -447,7 +457,7 @@ function processDebuffSpell(character, spell, target, result) {
       success: !effectsApplied
     };
   }
-  
+
   if (effectsApplied) {
     // Aplikace efektů
     if (spell.effects) {
@@ -457,12 +467,12 @@ function processDebuffSpell(character, spell, target, result) {
           duration: effect.duration,
           value: effect.value
         });
-        
+
         // Přidání efektu do seznamu aktivních efektů cíle
         if (!target.activeEffects) {
           target.activeEffects = [];
         }
-        
+
         target.activeEffects.push({
           id: `${spell.id}_${effect.type}_${Date.now()}`,
           name: effect.name || spell.name,
@@ -474,7 +484,7 @@ function processDebuffSpell(character, spell, target, result) {
         });
       });
     }
-    
+
     result.message = `${character.name} seslal ${spell.name} na ${target.name}.`;
   } else {
     result.message = `${character.name} seslal ${spell.name} na ${target.name}, ale ${target.name} odolal efektu.`;
@@ -499,7 +509,7 @@ function processUtilitySpell(character, spell, target, result) {
       });
     });
   }
-  
+
   result.message = `${character.name} seslal ${spell.name}.`;
 }
 
@@ -512,28 +522,28 @@ function updateActiveEffects(character) {
   if (!character.activeEffects || character.activeEffects.length === 0) {
     return { updated: false };
   }
-  
+
   const result = {
     updated: true,
     expiredEffects: [],
     remainingEffects: []
   };
-  
+
   // Projít všechny aktivní efekty
   character.activeEffects = character.activeEffects.filter(effect => {
     // Snížit zbývající dobu trvání
     effect.remainingDuration--;
-    
+
     // Kontrola, zda efekt vypršel
     if (effect.remainingDuration <= 0) {
       result.expiredEffects.push(effect);
       return false;
     }
-    
+
     result.remainingEffects.push(effect);
     return true;
   });
-  
+
   return result;
 }
 
@@ -546,7 +556,7 @@ function updateActiveEffects(character) {
 function getAvailableSpells(characterClass, level) {
   // Zde by byla logika pro načtení kouzel z databáze nebo JSON souboru
   // Pro jednoduchost vrátíme několik základních kouzel
-  
+
   const basicSpells = [
     {
       id: 'magic_missile',
@@ -659,7 +669,7 @@ function getAvailableSpells(characterClass, level) {
       minLevel: 5
     }
   ];
-  
+
   // Filtrovat kouzla podle povolání a úrovně
   return basicSpells.filter(spell => {
     return spell.allowedClasses.includes(characterClass.toLowerCase()) && spell.minLevel <= level;
@@ -674,7 +684,7 @@ function getAvailableSpells(characterClass, level) {
 function getSpellDetails(spellId) {
   // Zde by byla logika pro načtení kouzla z databáze nebo JSON souboru
   // Pro jednoduchost vrátíme několik základních kouzel
-  
+
   const basicSpells = [
     {
       id: 'magic_missile',
@@ -787,7 +797,7 @@ function getSpellDetails(spellId) {
       minLevel: 5
     }
   ];
-  
+
   // Najít kouzlo podle ID
   return basicSpells.find(spell => spell.id === spellId) || null;
 }

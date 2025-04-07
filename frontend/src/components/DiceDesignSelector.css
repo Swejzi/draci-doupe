@@ -1,0 +1,124 @@
+.dice-design-selector {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dice-design-selector h4 {
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+}
+
+.design-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.design-option {
+  display: flex;
+  align-items: center;
+  width: calc(50% - 10px);
+  background-color: white;
+  border-radius: 6px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.design-option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.design-option.selected {
+  border-color: #4a6da7;
+  background-color: rgba(74, 109, 167, 0.05);
+}
+
+.design-preview {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-dice {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Styly pro různé designy kostek */
+.classic .preview-dice {
+  background-color: white;
+  color: black;
+  border: 1px solid #ddd;
+}
+
+.metal .preview-dice {
+  background: linear-gradient(135deg, #c0c0c0, #f5f5f5, #c0c0c0);
+  color: #333;
+  border: 1px solid #999;
+}
+
+.wooden .preview-dice {
+  background: linear-gradient(135deg, #8B4513, #A0522D);
+  color: #fff;
+  border: 1px solid #5D2906;
+}
+
+.crystal .preview-dice {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(173, 216, 230, 0.5));
+  color: #4682B4;
+  border: 1px solid rgba(173, 216, 230, 0.8);
+  box-shadow: 0 0 10px rgba(173, 216, 230, 0.5);
+}
+
+.ancient .preview-dice {
+  background-color: #D2B48C;
+  color: #8B4513;
+  border: 1px solid #8B4513;
+}
+
+.magical .preview-dice {
+  background: linear-gradient(135deg, #9400D3, #4B0082);
+  color: #fff;
+  border: 1px solid #4B0082;
+  box-shadow: 0 0 10px rgba(148, 0, 211, 0.5);
+}
+
+.design-info {
+  flex: 1;
+}
+
+.design-name {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.design-description {
+  font-size: 12px;
+  color: #666;
+}
+
+@media (max-width: 600px) {
+  .design-option {
+    width: 100%;
+  }
+}

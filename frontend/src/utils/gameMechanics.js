@@ -18,12 +18,19 @@ export function getAttributeBonus(attributeValue) {
   return Math.floor((value - 10) / 2);
 }
 
+// Globální historie hodů kostkou
+let diceRollHistory = [];
+
 /**
  * Funkce pro hod kostkou (např. "1d6", "2d8+2")
  * @param {string} diceString - Řetězec popisující hod kostkou (např. "1d6", "2d8+2")
+ * @param {Object} options - Další možnosti hodu
+ * @param {string} options.type - Typ hodu (např. "útok", "dovednost")
+ * @param {boolean} options.addToHistory - Zda přidat hod do historie
+ * @param {boolean} options.playSound - Zda přehrát zvuk při hodu
  * @returns {number} - Výsledek hodu
  */
-export function rollDice(diceString) {
+export function rollDice(diceString, options = {}) {
   if (!diceString) return 0;
   const match = diceString.match(/(\d+)?d(\d+)(?:([+-])(\d+))?/i);
   if (!match) return 0;
@@ -32,6 +39,16 @@ export function rollDice(diceString) {
   const diceValue = parseInt(match[2], 10);
   const modifierSign = match[3];
   const modifierValue = match[4] ? parseInt(match[4], 10) : 0;
+
+  // Přehrání zvuku při hodu
+  if (options.playSound) {
+    try {
+      const audio = new Audio('/sounds/dice-roll.mp3');
+      audio.play().catch(e => console.log('Zvuk nemohl být přehrán:', e));
+    } catch (error) {
+      console.log('Chyba při přehrávání zvuku:', error);
+    }
+  }
 
   let result = 0;
   for (let i = 0; i < numDice; i++) {
@@ -46,8 +63,49 @@ export function rollDice(diceString) {
     result -= modifierValue;
   }
 
+  // Přidání hodu do historie
+  if (options.addToHistory) {
+    addToRollHistory({
+      dice: diceString,
+      result,
+      type: options.type,
+      timestamp: new Date().toISOString(),
+      success: options.success
+    });
+  }
+
   return result;
 }
+
+/**
+ * Přidání hodu do historie
+ * @param {Object} roll - Informace o hodu
+ */
+function addToRollHistory(roll) {
+  // Omezení velikosti historie
+  if (diceRollHistory.length >= 20) {
+    diceRollHistory.shift();
+  }
+
+  diceRollHistory.push(roll);
+}
+
+/**
+ * Získání historie hodů kostkou
+ * @returns {Array} - Historie hodů
+ */
+export function getDiceRollHistory() {
+  return [...diceRollHistory];
+}
+
+/**
+ * Vymazání historie hodů kostkou
+ */
+export function clearDiceRollHistory() {
+  diceRollHistory = [];
+}
+
+// Funkce getAttributeBonus je již definována výše
 
 /**
  * Funkce pro kontrolu úspěchu hodu proti obtížnosti (DC)

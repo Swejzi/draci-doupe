@@ -1,0 +1,165 @@
+.share-dice-result {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.share-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.share-header h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.close-button:hover {
+  color: #666;
+}
+
+.roll-preview {
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.roll-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.roll-formula {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.roll-result {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.roll-type {
+  font-size: 12px;
+  color: #777;
+  font-style: italic;
+  margin-top: 5px;
+}
+
+.roll-status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.success-badge,
+.fail-badge,
+.critical-success-badge,
+.critical-fail-badge {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.success-badge {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.fail-badge {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.critical-success-badge {
+  background-color: #28a745;
+  color: white;
+  animation: pulse 1s infinite;
+}
+
+.critical-fail-badge {
+  background-color: #dc3545;
+  color: white;
+  animation: pulse 1s infinite;
+}
+
+.share-message {
+  margin-bottom: 15px;
+}
+
+.share-message textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.share-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancel-button,
+.share-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+}
+
+.cancel-button {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  color: #333;
+}
+
+.share-button {
+  background-color: #4a6da7;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #e9ecef;
+}
+
+.share-button:hover {
+  background-color: #3a5d97;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}

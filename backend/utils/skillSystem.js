@@ -1,10 +1,20 @@
 /**
  * Systém dovedností pro Dračí doupě
- * 
+ *
  * Tento modul obsahuje funkce pro práci s dovednostmi, jejich testy a efekty.
  */
 
-const { rollDice, getAttributeBonus } = require('./gameMechanics');
+// Importujeme funkce přímo, abychom předešli cirkulárním závislostem
+const gameMechanics = require('./gameMechanics');
+
+// Pomocné funkce pro přístup k funkcím z gameMechanics
+function rollDice(diceString) {
+  return gameMechanics.rollDice(diceString);
+}
+
+function getAttributeBonus(attributeValue) {
+  return gameMechanics.getAttributeBonus(attributeValue);
+}
 
 /**
  * Kategorie dovedností
@@ -56,7 +66,7 @@ const BASE_SKILLS = [
     trainable: true,
     defaultTrained: false
   },
-  
+
   // Sociální dovednosti
   {
     id: 'persuasion',
@@ -85,7 +95,7 @@ const BASE_SKILLS = [
     trainable: true,
     defaultTrained: false
   },
-  
+
   // Mentální dovednosti
   {
     id: 'arcana',
@@ -114,7 +124,7 @@ const BASE_SKILLS = [
     trainable: true,
     defaultTrained: false
   },
-  
+
   // Dovednosti plížení a skrývání
   {
     id: 'stealth',
@@ -134,7 +144,7 @@ const BASE_SKILLS = [
     trainable: true,
     defaultTrained: false
   },
-  
+
   // Dovednosti vnímání
   {
     id: 'perception',
@@ -154,7 +164,7 @@ const BASE_SKILLS = [
     trainable: true,
     defaultTrained: false
   },
-  
+
   // Řemeslné dovednosti
   {
     id: 'lockpicking',
@@ -183,7 +193,7 @@ const BASE_SKILLS = [
     trainable: true,
     defaultTrained: false
   },
-  
+
   // Dovednosti přežití
   {
     id: 'survival',
@@ -212,7 +222,7 @@ const BASE_SKILLS = [
     trainable: true,
     defaultTrained: false
   },
-  
+
   // Magické dovednosti
   {
     id: 'spellcraft',
@@ -292,14 +302,14 @@ function getDefaultSkillsForClass(characterClass) {
 function initializeCharacterSkills(character) {
   // Získání výchozích dovedností pro povolání
   const defaultSkillIds = CLASS_DEFAULT_SKILLS[character.class.toLowerCase()] || [];
-  
+
   // Inicializace všech dovedností
   const skills = {};
-  
+
   BASE_SKILLS.forEach(skill => {
     // Výchozí hodnota je 0, pokud není dovednost trénovaná
     let value = 0;
-    
+
     // Pokud je dovednost ve výchozích dovednostech povolání, nastavit hodnotu na 2
     if (defaultSkillIds.includes(skill.id)) {
       value = 2;
@@ -308,16 +318,16 @@ function initializeCharacterSkills(character) {
     else if (skill.defaultTrained) {
       value = 1;
     }
-    
+
     skills[skill.id] = {
       value: value,
       attribute: skill.attribute
     };
   });
-  
+
   // Přidání dovedností do postavy
   character.skills = skills;
-  
+
   return character;
 }
 
@@ -333,16 +343,16 @@ function calculateSkillBonus(character, skillId) {
   if (!skill) {
     return 0;
   }
-  
+
   // Získání hodnoty dovednosti z postavy
   const characterSkill = character.skills && character.skills[skillId];
   if (!characterSkill) {
     return 0;
   }
-  
+
   // Získání bonusu z atributu
   const attributeBonus = getAttributeBonus(character[skill.attribute]);
-  
+
   // Celkový bonus = bonus z atributu + hodnota dovednosti
   return attributeBonus + characterSkill.value;
 }
@@ -368,26 +378,26 @@ function performSkillCheck(character, skillId, dc, options = {}) {
       dc: dc
     };
   }
-  
+
   // Výpočet bonusu dovednosti
   const skillBonus = calculateSkillBonus(character, skillId);
-  
+
   // Hod kostkou (1d20)
   const roll = rollDice('1d20');
-  
+
   // Přidání situačního bonusu/postihu
   const situationalBonus = options.situationalBonus || 0;
-  
+
   // Celkový výsledek
   const total = roll + skillBonus + situationalBonus;
-  
+
   // Kontrola, zda je test úspěšný
   const success = total >= dc;
-  
+
   // Kontrola kritického úspěchu/neúspěchu
   const criticalSuccess = roll === 20;
   const criticalFailure = roll === 1;
-  
+
   // Vytvoření výsledku
   const result = {
     success: criticalFailure ? false : (criticalSuccess ? true : success),
@@ -405,7 +415,7 @@ function performSkillCheck(character, skillId, dc, options = {}) {
       attribute: skill.attribute
     }
   };
-  
+
   // Přidání zprávy
   if (criticalSuccess) {
     result.message = `Kritický úspěch! ${character.name} exceluje v ${skill.name}.`;
@@ -416,7 +426,7 @@ function performSkillCheck(character, skillId, dc, options = {}) {
   } else {
     result.message = `Neúspěch! ${character.name} neuspěl v testu ${skill.name}.`;
   }
-  
+
   return result;
 }
 
@@ -436,12 +446,12 @@ function improveSkill(character, skillId, amount = 1) {
       message: `Dovednost s ID ${skillId} neexistuje.`
     };
   }
-  
+
   // Kontrola, zda má postava inicializované dovednosti
   if (!character.skills) {
     character.skills = {};
   }
-  
+
   // Kontrola, zda má postava danou dovednost
   if (!character.skills[skillId]) {
     character.skills[skillId] = {
@@ -449,19 +459,19 @@ function improveSkill(character, skillId, amount = 1) {
       attribute: skill.attribute
     };
   }
-  
+
   // Maximální hodnota dovednosti je 10
   const maxSkillValue = 10;
-  
+
   // Aktuální hodnota dovednosti
   const currentValue = character.skills[skillId].value;
-  
+
   // Nová hodnota dovednosti (omezená maximem)
   const newValue = Math.min(currentValue + amount, maxSkillValue);
-  
+
   // Aktualizace hodnoty dovednosti
   character.skills[skillId].value = newValue;
-  
+
   // Vytvoření výsledku
   const result = {
     success: true,
@@ -474,13 +484,13 @@ function improveSkill(character, skillId, amount = 1) {
       newValue: newValue
     }
   };
-  
+
   // Pokud se hodnota nezměnila (již na maximu)
   if (currentValue === newValue) {
     result.message = `Dovednost ${skill.name} je již na maximální hodnotě (${maxSkillValue}).`;
     result.success = false;
   }
-  
+
   return result;
 }
 
@@ -501,14 +511,14 @@ function getDifficultyByName(difficultyName) {
 function getDifficultyByDC(dc) {
   // Seřazení obtížností podle DC
   const difficulties = Object.values(DIFFICULTY_LEVELS).sort((a, b) => a.dc - b.dc);
-  
+
   // Nalezení nejvyšší obtížnosti, která je menší nebo rovna zadanému DC
   for (let i = difficulties.length - 1; i >= 0; i--) {
     if (dc >= difficulties[i].dc) {
       return difficulties[i];
     }
   }
-  
+
   // Pokud není nalezena žádná obtížnost, vrátit nejnižší
   return difficulties[0];
 }

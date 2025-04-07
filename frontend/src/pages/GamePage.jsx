@@ -6,6 +6,12 @@ import storyService from '../services/storyService';
 import { useAuth } from '../context/AuthContext';
 import CombatControls from '../components/CombatControls';
 import QuestLog from '../components/QuestLog';
+import PlayerDiceRoller from '../components/PlayerDiceRoller';
+import DiceRollHistory from '../components/DiceRollHistory';
+import QuickDiceActions from '../components/QuickDiceActions';
+import CriticalRollEffect from '../components/CriticalRollEffect';
+import ShareDiceResult from '../components/ShareDiceResult';
+import { rollDice, getDiceRollHistory, clearDiceRollHistory } from '../utils/gameMechanics';
 
 function GamePage() {
   const { sessionId } = useParams();
@@ -21,6 +27,12 @@ function GamePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showTargetButtons, setShowTargetButtons] = useState(false); // Stav pro zobrazení tlačítek cílů
   const [selectedTarget, setSelectedTarget] = useState(null); // Stav pro vybraný cíl
+  const [showDiceRoller, setShowDiceRoller] = useState(false); // Stav pro zobrazení házení kostkou
+  const [showDiceHistory, setShowDiceHistory] = useState(false); // Stav pro zobrazení historie hodů
+  const [showQuickDice, setShowQuickDice] = useState(false); // Stav pro zobrazení rychlých hodů
+  const [diceRollHistory, setDiceRollHistory] = useState([]); // Stav pro historii hodů
+  const [criticalRoll, setCriticalRoll] = useState({ isCritical: false, isCriticalFail: false }); // Stav pro kritický hod
+  const [shareRoll, setShareRoll] = useState(null); // Stav pro sdílení výsledku hodu
 
   // Stav pro souboj
   const [combatActive, setCombatActive] = useState(false);
@@ -148,7 +160,87 @@ function GamePage() {
     setSelectedTarget(npcName);
     // Můžeme rovnou odeslat, nebo počkat na submit formuláře
     // Pro jednoduchost rovnou odešleme
-    submitAction(playerInput, npcName);
+  };
+
+  // Funkce pro zpracování hodu kostkou
+  const handleDiceRoll = (roll) => {
+    // Přidání hodu do historie
+    const updatedHistory = getDiceRollHistory();
+    setDiceRollHistory(updatedHistory);
+
+    // Zobrazení výsledku hodu v herním logu
+    const rollMessage = `Hod kostkou: ${roll.dice} = ${roll.result}`;
+    console.log(rollMessage);
+
+    // Kontrola kritického hodu
+    if (roll.critical || roll.criticalFail) {
+      setCriticalRoll({
+        isCritical: roll.critical,
+        isCriticalFail: roll.criticalFail
+      });
+
+      // Resetování stavu po 1 sekundě
+      setTimeout(() => {
+        setCriticalRoll({ isCritical: false, isCriticalFail: false });
+      }, 1000);
+    }
+  };
+
+  // Funkce pro vymazání historie hodů
+  const handleClearDiceHistory = () => {
+    clearDiceRollHistory();
+    setDiceRollHistory([]);
+  };
+
+  // Aktualizace historie hodů při načtení stránky
+  useEffect(() => {
+    setDiceRollHistory(getDiceRollHistory());
+  }, []);
+
+  // Přepnutí zobrazení házení kostkou
+  const toggleDiceRoller = () => {
+    setShowDiceRoller(!showDiceRoller);
+  };
+
+  // Přepnutí zobrazení historie hodů
+  const toggleDiceHistory = () => {
+    setShowDiceHistory(!showDiceHistory);
+    // Aktualizace historie při zobrazení
+    if (!showDiceHistory) {
+      setDiceRollHistory(getDiceRollHistory());
+    }
+  };
+
+  // Přepnutí zobrazení rychlých hodů
+  const toggleQuickDice = () => {
+    setShowQuickDice(!showQuickDice);
+  };
+
+  // Funkce pro zobrazení dialogu sdílení výsledku hodu
+  const handleShowShareDialog = (roll) => {
+    setShareRoll(roll);
+  };
+
+  // Funkce pro sdílení výsledku hodu v chatu
+  const handleShareRoll = (shareText) => {
+    // Použijeme funkci pro odeslání akce, ale s předvyplněným textem
+    submitAction(shareText);
+    setShareRoll(null);
+  };
+
+  // Funkce pro zavření dialogu sdílení
+  const handleCloseShareDialog = () => {
+    setShareRoll(null);
+  };
+
+  // Funkce pro zpracování výběru akce z rychlých hodů
+  const handleQuickActionSelect = (actionText) => {
+    setPlayerInput(actionText);
+    // Pokud akce obsahuje útočné slovo, zobrazit cíle
+    if (/\b(\u00fatok|za\u00fato\u010d|ude\u0159|st\u0159el|bojuj)\b/i.test(actionText)) {
+      setShowTargetButtons(true);
+      setSelectedTarget(null);
+    }
   };
 
   // Funkce pro zpracování soubojových akcí
@@ -314,6 +406,72 @@ function GamePage() {
           />
         )}
 
+        {/* Tlačítka pro házení kostkou a historii hodů */}
+        <div style={styles.diceControls}>
+          <button
+            onClick={toggleDiceRoller}
+            style={showDiceRoller ? styles.activeButton : styles.button}
+          >
+            {showDiceRoller ? 'Skrýt kostky' : 'Házet kostkou'}
+          </button>
+          <button
+            onClick={toggleQuickDice}
+            style={showQuickDice ? styles.activeButton : styles.button}
+          >
+            {showQuickDice ? 'Skrýt akce' : 'Rychlé akce'}
+          </button>
+          <button
+            onClick={toggleDiceHistory}
+            style={showDiceHistory ? styles.activeButton : styles.button}
+          >
+            {showDiceHistory ? 'Skrýt historii' : 'Historie hodů'}
+          </button>
+        </div>
+
+        {/* Komponenta pro házení kostkou */}
+        {showDiceRoller && (
+          <PlayerDiceRoller
+            onRoll={handleDiceRoll}
+            character={character}
+          />
+        )}
+
+        {/* Komponenta pro rychlé akce */}
+        {showQuickDice && character && (
+          <QuickDiceActions
+            character={character}
+            onRoll={handleDiceRoll}
+            onActionSelect={handleQuickActionSelect}
+          />
+        )}
+
+        {/* Komponenta pro historii hodů */}
+        {showDiceHistory && (
+          <DiceRollHistory
+            history={diceRollHistory}
+            onClear={handleClearDiceHistory}
+            onShare={handleShowShareDialog}
+          />
+        )}
+
+        {/* Efekt kritického hodu */}
+        <CriticalRollEffect
+          isCritical={criticalRoll.isCritical}
+          isCriticalFail={criticalRoll.isCriticalFail}
+          duration={1000} /* Zkrácení doby trvání na 1 sekundu */
+        />
+
+        {/* Dialog pro sdílení výsledku hodu */}
+        {shareRoll && (
+          <div style={styles.shareDialogOverlay}>
+            <ShareDiceResult
+              roll={shareRoll}
+              onShare={handleShareRoll}
+              onClose={handleCloseShareDialog}
+            />
+          </div>
+        )}
+
         {/* Formulář pro zadání akce */}
         <form onSubmit={handleFormSubmit} style={styles.inputForm}>
           <input
@@ -415,6 +573,9 @@ const styles = {
   inputForm: { display: 'flex', gap: '0.5rem', marginTop: 'auto' },
   input: { flexGrow: 1, padding: '0.8rem', border: '1px solid #ccc', borderRadius: '4px' },
   button: { padding: '0.8rem 1.2rem', backgroundColor: '#282c34', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' },
+  activeButton: { padding: '0.8rem 1.2rem', backgroundColor: '#4a6da7', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' },
+  diceControls: { display: 'flex', gap: '0.5rem', marginBottom: '1rem' },
+  shareDialogOverlay: { position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0, 0, 0, 0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 },
   optionsButtons: { display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' },
   optionButton: { padding: '0.5rem 0.8rem', backgroundColor: '#f0f0f0', border: '1px solid #ccc', borderRadius: '4px', cursor: 'pointer', textAlign: 'left' },
   header: {
