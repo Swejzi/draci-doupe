@@ -36,8 +36,8 @@ describe('Character Controller', () => {
     test('should return characters for user', async () => {
       // Arrange
       const mockCharacters = [
-        { id: 1, name: 'Character 1', race: 'Elf', class: 'Kouzelník', level: 1 },
-        { id: 2, name: 'Character 2', race: 'Trpaslík', class: 'Bojovník', level: 2 }
+        { id: 1, name: 'Character 1', race: 'Elf', class: 'Kouzelník', level: 1, story_id: 'story1' },
+        { id: 2, name: 'Character 2', race: 'Trpaslík', class: 'Bojovník', level: 2, story_id: 'story2' }
       ];
 
       const mockSessions = [
@@ -55,8 +55,8 @@ describe('Character Controller', () => {
       expect(db.query).toHaveBeenCalledTimes(2);
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith([
-        { ...mockCharacters[0], hasSession: true, storyId: 'story1' },
-        { ...mockCharacters[1], hasSession: false, storyId: null }
+        { ...mockCharacters[0], story_id: 'story1', hasSession: true, storyId: 'story1' },
+        { ...mockCharacters[1], story_id: 'story2', hasSession: false, storyId: null }
       ]);
     });
 
@@ -130,7 +130,8 @@ describe('Character Controller', () => {
         intelligence: 10,
         wisdom: 8,
         charisma: 13,
-        generationMethod: 'manual'
+        generationMethod: 'manual',
+        storyId: 'test-story-id'
       };
 
       getAttributeBonus.mockReturnValueOnce(3); // conBonus
@@ -170,7 +171,8 @@ describe('Character Controller', () => {
           13, // currentHealth
           0, // maxManaValue
           0, // currentMana
-          50 // defaultGold
+          50, // defaultGold
+          'test-story-id' // storyId
         ])
       );
       expect(res.status).toHaveBeenCalledWith(201);
@@ -185,7 +187,8 @@ describe('Character Controller', () => {
         name: 'Random Character',
         race: 'Elf',
         class: 'Kouzelník',
-        generationMethod: 'random'
+        generationMethod: 'random',
+        storyId: 'test-story-id'
       };
 
       // Mock pro náhodné generování atributů
@@ -235,12 +238,13 @@ describe('Character Controller', () => {
       global.Math.random.mockRestore();
     });
 
-    test('should return 400 if required fields are missing', async () => {
+    test('should return 400 if race and class are missing', async () => {
       // Arrange
       req.body = {
         name: 'Incomplete Character',
-        // Chybí race a class
+        storyId: 'test-story-id'
       };
+      // Chybí race a class
 
       // Act
       await characterController.createCharacter(req, res);
@@ -249,6 +253,26 @@ describe('Character Controller', () => {
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
         message: expect.stringContaining('Chybí jméno, rasa nebo třída postavy')
+      }));
+    });
+
+    test('should return 400 if storyId is missing', async () => {
+      // Arrange
+      req.body = {
+        name: 'Character Without Story',
+        race: 'Elf',
+        class: 'Kouzelník',
+        generationMethod: 'manual'
+      };
+      // Chybí storyId
+
+      // Act
+      await characterController.createCharacter(req, res);
+
+      // Assert
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+        message: expect.stringContaining('Chybí ID příběhu')
       }));
     });
   });
