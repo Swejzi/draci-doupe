@@ -1,5 +1,6 @@
 const db = require('../config/db');
 const storyService = require('../services/storyService');
+const memoryService = require('../services/memoryService');
 const gemini = require('../config/gemini'); // Přejmenováno pro přehlednost
 const {
   updateCharacterStats,
@@ -262,7 +263,9 @@ const startGame = async (req, res) => {
       npcStates: {},
       eventHistory: [],
       lastPlayerAction: null,
-      lastAIResponse: parseAIResponse(storyData.initialSetup.introduction)
+      lastAIResponse: parseAIResponse(storyData.initialSetup.introduction),
+      memory_summary: null,
+      last_summarized_history_length: 0
     };
 
     const initialAIHistory = [
@@ -897,13 +900,31 @@ const handlePlayerAction = async (req, res) => {
     }
 
 
-    // 7. Uložit aktualizované sezení do DB
+    // 7. Zkontrolovat, zda je vhodné aktualizovat shrnutí paměti
+    const shouldUpdateMemorySummary = memoryService.shouldUpdateMemory(gameState, finalAIHistory);
+
+    // Pokud je vhodné aktualizovat shrnutí paměti, spustíme aktualizaci asynchronně
+    // Nebudeme čekat na dokončení, aby se nebrzdila odpověď uživateli
+    if (shouldUpdateMemorySummary) {
+      console.log(`Spouštím aktualizaci shrnutí paměti pro sezení ${sessionId}`);
+      // Použijeme Promise.resolve().then() pro asynchronní zpracování bez čekání
+      Promise.resolve().then(async () => {
+        try {
+          await memoryService.updateMemorySummary(sessionId);
+          console.log(`Shrnutí paměti pro sezení ${sessionId} bylo aktualizováno na pozadí`);
+        } catch (memoryError) {
+          console.error(`Chyba při aktualizaci shrnutí paměti pro sezení ${sessionId}:`, memoryError);
+        }
+      });
+    }
+
+    // 8. Uložit aktualizované sezení do DB
     const updatedSessionResult = await db.query(
       'UPDATE game_sessions SET game_state = $1, ai_history = $2, updated_at = NOW() WHERE id = $3 RETURNING *',
       [JSON.stringify(gameState), JSON.stringify(finalAIHistory), sessionId]
     );
 
-    // 8. Odeslat odpověď klientovi
+    // 9. Odeslat odpověď klientovi
     res.status(200).json({
       message: 'Akce zpracována.',
       session: updatedSessionResult.rows[0]

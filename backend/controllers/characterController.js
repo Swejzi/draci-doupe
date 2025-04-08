@@ -8,9 +8,11 @@ const getCharacters = async (req, res) => {
   try {
     // Získání základních informací o postavách
     const charactersResult = await db.query(
-      'SELECT id, name, race, class, level FROM characters WHERE user_id = $1 ORDER BY created_at DESC',
+      'SELECT id, name, race, class, level, story_id, strength, dexterity, constitution, intelligence, wisdom, charisma, max_health, current_health, max_mana, current_mana, gold FROM characters WHERE user_id = $1 ORDER BY created_at DESC',
       [userId]
     );
+
+    console.log('Načtené postavy z databáze:', charactersResult.rows);
 
     // Získání informací o herních sezeních
     const sessionsResult = await db.query(
@@ -25,12 +27,19 @@ const getCharacters = async (req, res) => {
     });
 
     // Přidání informace o herním sezení ke každé postavě
-    const characters = charactersResult.rows.map(character => ({
-      ...character,
-      hasSession: !!characterSessions[character.id],
-      storyId: characterSessions[character.id] || null
-    }));
+    const characters = charactersResult.rows.map(character => {
+      // Zajistíme, že story_id je vždy string pro konzistenci
+      const storyId = character.story_id ? String(character.story_id) : null;
 
+      return {
+        ...character,
+        story_id: storyId, // Převedeno na string
+        hasSession: !!characterSessions[character.id],
+        storyId: characterSessions[character.id] || null
+      };
+    });
+
+    console.log('Upravené postavy pro frontend:', characters);
     res.status(200).json(characters);
   } catch (error) {
     console.error('Chyba při získávání postav:', error);
@@ -179,6 +188,10 @@ const createCharacter = async (req, res) => {
       return res.status(400).json({ message: 'Chybí ID příběhu pro vytvoření postavy.' });
     }
 
+    // Zajistíme, že story_id je uloženo jako string
+    const storyIdString = String(storyId);
+    console.log('Vytvářím postavu pro příběh ID:', storyIdString);
+
     const result = await db.query(
       `INSERT INTO characters
         (user_id, name, race, class, strength, dexterity, constitution, intelligence, wisdom, charisma, max_health, current_health, max_mana, current_mana, gold, story_id)
@@ -191,7 +204,7 @@ const createCharacter = async (req, res) => {
         maxHealthValue, maxHealthValue, // current = max na startu
         maxManaValue, maxManaValue,     // current = max na startu
         defaultGold,                    // výchozí zlato
-        storyId                         // ID příběhu
+        storyIdString                    // ID příběhu jako string
       ]
     );
 

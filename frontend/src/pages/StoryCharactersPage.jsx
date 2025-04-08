@@ -7,7 +7,7 @@ import gameService from '../services/gameService';
 function StoryCharactersPage() {
   const { storyId } = useParams();
   const navigate = useNavigate();
-  
+
   const [story, setStory] = useState(null);
   const [characters, setCharacters] = useState([]);
   const [selectedCharacterId, setSelectedCharacterId] = useState(null);
@@ -20,18 +20,22 @@ function StoryCharactersPage() {
       try {
         setLoading(true);
         setError('');
-        
+
         // Načtení detailů příběhu
         const storyData = await storyService.getStoryDetails(storyId);
         setStory(storyData);
-        
+
         // Načtení postav uživatele
         const allCharacters = await characterService.getMyCharacters();
-        
+
         // Filtrování postav pro tento příběh
-        const storyCharacters = allCharacters.filter(char => char.story_id === storyId);
+        // Konvertujeme storyId na string pro jistotu, protože může být různých typů
+        const storyCharacters = allCharacters.filter(char => String(char.story_id) === String(storyId));
+        console.log('Všechny postavy:', allCharacters);
+        console.log('Postavy pro příběh:', storyCharacters);
+        console.log('Porovnávám story_id:', storyId);
         setCharacters(storyCharacters);
-        
+
         // Automaticky vybrat první postavu, pokud existuje
         if (storyCharacters.length > 0) {
           setSelectedCharacterId(storyCharacters[0].id);
@@ -43,7 +47,7 @@ function StoryCharactersPage() {
         setLoading(false);
       }
     };
-    
+
     fetchData();
   }, [storyId]);
 
@@ -53,7 +57,7 @@ function StoryCharactersPage() {
       setError('Nejprve musíte vybrat postavu.');
       return;
     }
-    
+
     setError(''); // Vyčistit předchozí chyby
     try {
       // Kontrola, zda postava již má herní sezení
@@ -64,7 +68,7 @@ function StoryCharactersPage() {
           return;
         }
       }
-      
+
       const sessionData = await gameService.startGame(selectedCharacterId, storyId);
       navigate(`/game/${sessionData.session.id}`); // Přesměrování na herní stránku
     } catch (err) {
@@ -85,35 +89,35 @@ function StoryCharactersPage() {
     <div style={styles.container}>
       <h2>{story.metadata?.title || story.title}</h2>
       <p>{story.metadata?.description || story.description}</p>
-      
+
       {error && <p style={styles.error}>{error}</p>}
-      
+
       <div style={styles.actionsContainer}>
-        <button 
+        <button
           onClick={() => navigate('/dashboard')}
           style={styles.backButton}
         >
           Zpět na nástěnku
         </button>
-        
-        <button 
+
+        <button
           onClick={() => navigate(`/create-character/${storyId}`)}
           style={styles.createButton}
         >
           Vytvořit novou postavu
         </button>
       </div>
-      
+
       <h3>Moje postavy pro tento příběh</h3>
-      
+
       {characters.length === 0 ? (
         <p>Zatím nemáte žádné postavy pro tento příběh. Vytvořte si novou postavu.</p>
       ) : (
         <div>
           <div style={styles.characterList}>
             {characters.map(char => (
-              <div 
-                key={char.id} 
+              <div
+                key={char.id}
                 style={{
                   ...styles.characterCard,
                   ...(selectedCharacterId === char.id ? styles.selectedCharacter : {})
@@ -125,15 +129,15 @@ function StoryCharactersPage() {
                 <p>Zdraví: {char.current_health}/{char.max_health}</p>
                 {char.max_mana > 0 && <p>Mana: {char.current_mana}/{char.max_mana}</p>}
                 <p>Zlato: {char.gold}</p>
-                
+
                 {selectedCharacterId === char.id && (
                   <div style={styles.selectedIndicator}>✓</div>
                 )}
               </div>
             ))}
           </div>
-          
-          <button 
+
+          <button
             onClick={handleStartGame}
             style={styles.playButton}
             disabled={!selectedCharacterId}

@@ -7,7 +7,7 @@ import storyService from '../services/storyService';
 function StoryCharacterForm() {
   const { storyId } = useParams();
   const navigate = useNavigate();
-  
+
   const [name, setName] = useState('');
   const [race, setRace] = useState('');
   const [characterClass, setCharacterClass] = useState('');
@@ -23,7 +23,7 @@ function StoryCharacterForm() {
   const [attributeMode, setAttributeMode] = useState('manual'); // 'manual' nebo 'random'
   const [pointsRemaining, setPointsRemaining] = useState(27); // Pro point-buy systém
   const DEFAULT_ATTRIBUTE_VALUE = 8; // Výchozí hodnota atributů pro point-buy
-  
+
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [storyLoading, setStoryLoading] = useState(true);
@@ -196,11 +196,12 @@ function StoryCharacterForm() {
     };
 
     try {
+      console.log('Odesílám data postavy:', characterData);
       const result = await characterService.createCharacter(characterData);
       console.log('Postava vytvořena:', result.character);
-      
-      // Přesměrování na dashboard
-      navigate('/dashboard');
+
+      // Přesměrování na stránku s postavami pro tento příběh
+      navigate(`/story/${storyId}/characters`);
     } catch (err) {
       console.error('Chyba při vytváření postavy:', err);
       setError(err.message || 'Nepodařilo se vytvořit postavu.');
@@ -221,9 +222,9 @@ function StoryCharacterForm() {
     <div style={styles.container}>
       <h2>Vytvoření postavy pro příběh: {storyData.metadata?.title || storyData.title}</h2>
       <p>{storyData.metadata?.description || storyData.description}</p>
-      
+
       {error && <p style={styles.error}>{error}</p>}
-      
+
       <form onSubmit={handleSubmit} style={styles.form}>
         <div style={styles.inputGroup}>
           <label htmlFor="charName" style={styles.label}>Jméno:</label>
