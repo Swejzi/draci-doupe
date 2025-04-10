@@ -12,9 +12,9 @@
     "test:coverage": "jest --coverage"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "author": "Swejzi",
+  "license": "BSD-3-Clause",
+  "description": "Backend pro AI Dračí doupě - RPG hru s AI Dungeon Masterem",
   "dependencies": {
     "@google/generative-ai": "^0.24.0",
     "bcrypt": "^5.1.1",
@@ -22,7 +22,8 @@
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "pg": "^8.14.1"
+    "pg": "^8.14.1",
+    "ws": "^8.18.1"
   },
   "devDependencies": {
     "eslint": "^9.24.0",

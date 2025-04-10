@@ -213,3 +213,9 @@ Následující herní mechaniky ještě nejsou implementovány nebo jsou impleme
 - Vylepšení uživatelského rozhraní
 - Přidání více příběhů a obsahu
 - Optimalizace výkonu a UX
+
+## Licence
+
+Tento projekt je licencován pod BSD 3-Clause licencí - viz soubor [LICENSE](LICENSE) pro detaily.
+
+Copyright (c) 2024, Swejzi

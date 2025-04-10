@@ -2,6 +2,9 @@
   "name": "frontend",
   "private": true,
   "version": "0.0.0",
+  "author": "Swejzi",
+  "license": "BSD-3-Clause",
+  "description": "Frontend pro AI Dračí doupě - RPG hru s AI Dungeon Masterem",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -17,7 +20,8 @@
     "axios": "^1.8.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.5.0"
+    "react-router-dom": "^7.5.0",
+    "ws": "^8.18.1"
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",
