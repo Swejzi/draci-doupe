@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Přidání hostu do Nginx Proxy Manager
-add-nginx-host -h dracak.swejzi.cz -c draci-doupe-frontend -p 8080
+add-nginx-host -h dracak.swejzi.cz -c draci-doupe-frontend -p 8082
 
 # Vytvoření konfiguračního souboru
 if [ ! -f ".env" ]; then
