@@ -214,6 +214,44 @@ Následující herní mechaniky ještě nejsou implementovány nebo jsou impleme
 - Přidání více příběhů a obsahu
 - Optimalizace výkonu a UX
 
+## Nasazení na server
+
+Projekt je připraven pro nasazení na server pomocí Docker a Nginx Proxy Manager.
+
+### Požadavky pro nasazení
+
+- Docker a Docker Compose
+- Přístup k síti `pilarj-proxy_proxyNet`
+- Doména `dracak.swejzi.cz` nasměrovaná na IP adresu serveru: `94.241.90.251`
+
+### Postup nasazení
+
+1. Přidejte uživatele `pilarj-server` jako spolupracovníka do repozitáře na GitHubu:
+   - Přejděte do nastavení vašeho repozitáře na GitHubu (Settings > Collaborators)
+   - Přidejte uživatele `pilarj-server` jako spolupracovníka (Add people > pilarj-server)
+
+2. Nasměrujte doménu `dracak.swejzi.cz` na IP adresu serveru: `94.241.90.251`
+
+3. Při prvním nasazení se automaticky spustí skript `install.sh`, který:
+   - Přidá host do Nginx Proxy Manager
+   - Vytvoří konfigurační soubor `.env` (pokud neexistuje)
+   - Spustí Docker kontejnery
+
+4. Při aktualizaci se automaticky spustí skript `update.sh`, který:
+   - Stáhne nejnovější obrazy
+   - Restartuje kontejnery
+
+### Konfigurační soubory
+
+- `.env.example` - Šablona pro konfigurační soubor
+- `.env` - Skutečný konfigurační soubor (není v repozitáři, vytvoří se při instalaci)
+
+### Docker kontejnery
+
+- `draci-doupe-frontend` - Frontend aplikace (port 8080)
+- `draci-doupe-backend` - Backend API (port 3000)
+- `draci-doupe-postgres` - PostgreSQL databáze (port 5432)
+
 ## Licence
 
 Tento projekt je licencován pod BSD 3-Clause licencí - viz soubor [LICENSE](LICENSE) pro detaily.

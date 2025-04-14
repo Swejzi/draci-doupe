@@ -1,18 +1,58 @@
 version: '3.8'
 
 services:
-  postgres_db:
-    image: postgres:15 # Používáme konkrétní verzi PostgreSQL
-    container_name: draci_doupe_postgres
-    environment:
-      POSTGRES_DB: draci_doupe_db # Název databáze z .env
-      POSTGRES_USER: postgres # Uživatel z .env
-      POSTGRES_PASSWORD: postgres # Heslo z .env
+  backend:
+    build: ./backend
+    container_name: draci-doupe-backend
     ports:
-      - "5432:5432" # Mapování portu z kontejneru na hostitele
-    volumes:
-      - postgres_data:/var/lib/postgresql/data # Perzistentní úložiště pro data
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=postgres_db
+      - DB_PORT=5432
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - JWT_SECRET=${JWT_SECRET}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    depends_on:
+      - postgres_db
     restart: unless-stopped
+    networks:
+      - app_network
+      - pilarj-proxy_proxyNet
+
+  frontend:
+    build: ./frontend
+    container_name: draci-doupe-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - app_network
+      - pilarj-proxy_proxyNet
+
+  postgres_db:
+    image: postgres:15
+    container_name: draci-doupe-postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - app_network
 
 volumes:
-  postgres_data: # Definice pojmenovaného volume
+  postgres_data:
+
+networks:
+  app_network:
+  pilarj-proxy_proxyNet:
+    external: true
