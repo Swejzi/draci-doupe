@@ -20,5 +20,7 @@ module.exports = {
   // Nastavení pro ukončení testů
   forceExit: true,
   // Timeout pro testy
-  testTimeout: 10000
+  testTimeout: 10000,
+  // Setup file to run before tests
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js']
 };

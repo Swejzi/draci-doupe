@@ -56,3 +56,5 @@ networks:
   app_network:
   pilarj-proxy_proxyNet:
     external: true
+    name: pilarj-proxy_proxyNet
+    driver: bridge
