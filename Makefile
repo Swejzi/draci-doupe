@@ -10,24 +10,35 @@ YELLOW = \033[0;33m
 RED = \033[0;31m
 NC = \033[0m # No Color
 
-.PHONY: help install start stop dev test lint clean db-start db-stop build
+.PHONY: help install start stop dev test lint clean db-start db-stop build docker-start docker-start-dev docker-stop docker-logs
 
 # Výchozí cíl - zobrazí nápovědu
 help:
 	@echo "${YELLOW}Dračí doupě - Makefile příkazy:${NC}"
 	@echo ""
+	@echo "${YELLOW}Lokální vývoj:${NC}"
 	@echo "${GREEN}make install${NC}      - Nainstaluje všechny závislosti (backend i frontend)"
 	@echo "${GREEN}make start${NC}        - Spustí backend i frontend v produkčním režimu"
 	@echo "${GREEN}make dev${NC}          - Spustí backend i frontend ve vývojovém režimu"
 	@echo "${GREEN}make stop${NC}         - Zastaví běžící procesy"
+	@echo ""
+	@echo "${YELLOW}Docker:${NC}"
+	@echo "${GREEN}make docker-start${NC}     - Spustí celou aplikaci v Dockeru (produkční režim)"
+	@echo "${GREEN}make docker-start-dev${NC} - Spustí celou aplikaci v Dockeru (vývojový režim)"
+	@echo "${GREEN}make docker-stop${NC}      - Zastaví Docker kontejnery"
+	@echo "${GREEN}make docker-logs${NC}      - Zobrazí logy z Docker kontejnerů"
+	@echo "${GREEN}make db-start${NC}         - Spustí pouze PostgreSQL databázi v Docker kontejneru"
+	@echo "${GREEN}make db-stop${NC}          - Zastaví PostgreSQL databázi v Docker kontejneru"
+	@echo ""
+	@echo "${YELLOW}Testování a kontrola kódu:${NC}"
 	@echo "${GREEN}make test${NC}         - Spustí testy pro backend i frontend"
 	@echo "${GREEN}make test-backend${NC} - Spustí testy pouze pro backend"
 	@echo "${GREEN}make test-frontend${NC}- Spustí testy pouze pro frontend"
 	@echo "${GREEN}make lint${NC}         - Spustí kontrolu kódu pro backend i frontend"
 	@echo "${GREEN}make lint-fix${NC}     - Opraví problémy s kódem pro backend i frontend"
+	@echo ""
+	@echo "${YELLOW}Ostatní:${NC}"
 	@echo "${GREEN}make clean${NC}        - Vyčistí node_modules a build adresáře"
-	@echo "${GREEN}make db-start${NC}     - Spustí PostgreSQL databázi v Docker kontejneru"
-	@echo "${GREEN}make db-stop${NC}      - Zastaví PostgreSQL databázi v Docker kontejneru"
 	@echo "${GREEN}make build${NC}        - Sestaví frontend pro produkci"
 
 # Instalace závislostí
@@ -111,3 +122,38 @@ build:
 	@echo "${YELLOW}Sestavování frontendu pro produkci...${NC}"
 	cd $(FRONTEND_DIR) && npm run build
 	@echo "${GREEN}Frontend sestaven!${NC}"
+
+# Spuštění aplikace v Dockeru (produkční režim)
+docker-start:
+	@echo "${YELLOW}Spuštění aplikace v Dockeru (produkční režim)...${NC}"
+	@if [ ! -f .env ]; then \
+		echo "${RED}Soubor .env neexistuje. Vytvářím z .env.example...${NC}"; \
+		cp .env.example .env; \
+	fi
+	docker-compose up -d
+	@echo "${GREEN}Aplikace spuštěna v Dockeru!${NC}"
+	@echo "${GREEN}Frontend: http://localhost:8082${NC}"
+	@echo "${GREEN}Backend API: http://localhost:3000${NC}"
+
+# Spuštění aplikace v Dockeru (vývojový režim)
+docker-start-dev:
+	@echo "${YELLOW}Spuštění aplikace v Dockeru (vývojový režim)...${NC}"
+	@if [ ! -f .env ]; then \
+		echo "${RED}Soubor .env neexistuje. Vytvářím z .env.example...${NC}"; \
+		cp .env.example .env; \
+	fi
+	docker-compose -f docker-compose.dev.yml up -d
+	@echo "${GREEN}Aplikace spuštěna v Dockeru (vývojový režim)!${NC}"
+	@echo "${GREEN}Frontend: http://localhost:8082${NC}"
+	@echo "${GREEN}Backend API: http://localhost:3000${NC}"
+
+# Zastavení Docker kontejnerů
+docker-stop:
+	@echo "${YELLOW}Zastavování Docker kontejnerů...${NC}"
+	docker-compose down || docker-compose -f docker-compose.dev.yml down
+	@echo "${GREEN}Docker kontejnery zastaveny!${NC}"
+
+# Zobrazení logů z Docker kontejnerů
+docker-logs:
+	@echo "${YELLOW}Zobrazení logů z Docker kontejnerů...${NC}"
+	docker-compose logs -f || docker-compose -f docker-compose.dev.yml logs -f
