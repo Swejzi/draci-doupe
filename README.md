@@ -34,10 +34,16 @@ Webová aplikace pro hraní RPG hry "Dračí doupě" s Pánem jeskyně řízený
 
 ## Požadavky
 
+### Pro lokální spuštění
 -   Node.js (verze 18+)
 -   npm nebo yarn
 -   PostgreSQL databáze (běžící lokálně nebo vzdáleně)
 -   API klíč pro Google Gemini (nastavit v `backend/.env`)
+
+### Pro spuštění v Dockeru
+-   Docker (verze 20+)
+-   Docker Compose (verze 2+)
+-   API klíč pro Google Gemini (nastavit v `.env`)
 
 ## Nastavení
 
@@ -63,9 +69,12 @@ Webová aplikace pro hraní RPG hry "Dračí doupě" s Pánem jeskyně řízený
 
 ## Spuštění (Vývoj)
 
+### Metoda 1: Lokální spuštění
+
 1.  **Backend:**
     ```bash
     cd backend
+    npm install
     npm run dev
     # Server poběží na http://localhost:3001
     ```
@@ -73,9 +82,44 @@ Webová aplikace pro hraní RPG hry "Dračí doupě" s Pánem jeskyně řízený
 2.  **Frontend:**
     ```bash
     cd ../frontend
+    npm install
     npm run dev
     # Aplikace poběží na http://localhost:5173 (nebo jiném portu dle Vite)
     ```
+
+### Metoda 2: Spuštění pomocí Dockeru
+
+1. **Příprava:**
+   Ujistěte se, že máte nainstalovaný Docker a Docker Compose.
+
+2. **Vytvoření .env souboru:**
+   ```bash
+   cp .env.example .env
+   # Upravte hodnoty v .env souboru podle potřeby
+   ```
+
+3. **Spuštění aplikace:**
+   ```bash
+   # Pro vývojové prostředí
+   docker-compose -f docker-compose.dev.yml up -d
+
+   # Pro produkční prostředí
+   docker-compose up -d
+   ```
+
+4. **Přístup k aplikaci:**
+   - Frontend: http://localhost:8082
+   - Backend API: http://localhost:3000
+   - PostgreSQL databáze: localhost:5433
+
+5. **Zastavení aplikace:**
+   ```bash
+   # Pro vývojové prostředí
+   docker-compose -f docker-compose.dev.yml down
+
+   # Pro produkční prostředí
+   docker-compose down
+   ```
 
 ## Testování
 
