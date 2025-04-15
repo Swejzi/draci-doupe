@@ -133,7 +133,7 @@ docker-start:
 	docker-compose up -d
 	@echo "${GREEN}Aplikace spuštěna v Dockeru!${NC}"
 	@echo "${GREEN}Frontend: http://localhost:8082${NC}"
-	@echo "${GREEN}Backend API: http://localhost:3000${NC}"
+	@echo "${GREEN}Backend API: http://localhost:3010${NC}"
 
 # Spuštění aplikace v Dockeru (vývojový režim)
 docker-start-dev:
@@ -145,7 +145,7 @@ docker-start-dev:
 	docker-compose -f docker-compose.dev.yml up -d
 	@echo "${GREEN}Aplikace spuštěna v Dockeru (vývojový režim)!${NC}"
 	@echo "${GREEN}Frontend: http://localhost:8082${NC}"
-	@echo "${GREEN}Backend API: http://localhost:3000${NC}"
+	@echo "${GREEN}Backend API: http://localhost:3010${NC}"
 
 # Zastavení Docker kontejnerů
 docker-stop:
